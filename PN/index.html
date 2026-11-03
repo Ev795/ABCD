@@ -623,44 +623,7 @@
     <div id="sync-notice"></div>
   </div>
 
-  <!-- Color Palette Tool (Có nút Thu Gọn / Mở Rộng) -->
-  <div id="palette-panel">
-    <h2>
-      <span>🎨 Bảng Màu Da</span>
-      <button class="btn-toggle-palette" id="btn-toggle-palette">Thu gọn ▲</button>
-    </h2>
-    <div id="palette-body">
-      <div class="color-row">
-        <span>Da Chính (Skin)</span>
-        <input type="color" id="pick-skin" class="color-picker-input" value="#e5b894">
-      </div>
-      <div class="color-row">
-        <span>Đế & Lòng Bàn Chân</span>
-        <input type="color" id="pick-sole" class="color-picker-input" value="#d49e7b">
-      </div>
-      <div class="color-row">
-        <span>Gót & Cơ Đậm</span>
-        <input type="color" id="pick-heel" class="color-picker-input" value="#d99f7d">
-      </div>
-      <div class="color-row">
-        <span>Cổ Chân & Mắt Cá</span>
-        <input type="color" id="pick-ankle" class="color-picker-input" value="#dfa886">
-      </div>
-      <div class="color-row">
-        <span>Móng Chân</span>
-        <input type="color" id="pick-nail" class="color-picker-input" value="#f8e7df">
-      </div>
-      <div class="color-row">
-        <span>Tóc (Hair)</span>
-        <input type="color" id="pick-hair" class="color-picker-input" value="#2b1d14">
-      </div>
-      <div class="color-row" style="flex-direction:column; align-items:stretch;">
-        <div style="display:flex; justify-content:space-between;">
-          <span>Độ dài tóc</span><b id="hair-len-val">0%</b>
-        </div>
-        <input type="range" id="hair-length" min="0" max="1" step="0.05" value="0" style="width:100%;">
-      </div>
-    </div>
+  
   </div>
 
   
@@ -4612,29 +4575,9 @@
       });
     }
 
-    document.getElementById('pick-skin').addEventListener('input', (e) => updatePaletteColor('skin', e.target.value));
-    document.getElementById('pick-sole').addEventListener('input', (e) => updatePaletteColor('sole', e.target.value));
-    document.getElementById('pick-heel').addEventListener('input', (e) => updatePaletteColor('heel', e.target.value));
-    document.getElementById('pick-ankle').addEventListener('input', (e) => updatePaletteColor('ankle', e.target.value));
-    document.getElementById('pick-nail').addEventListener('input', (e) => updatePaletteColor('nail', e.target.value));
-    document.getElementById('pick-hair').addEventListener('input', (e) => updatePaletteColor('hair', e.target.value));
-    document.getElementById('hair-length').addEventListener('input', (e) => {
-      const t = parseFloat(e.target.value);
-      document.getElementById('hair-len-val').innerText = Math.round(t * 100) + '%';
-      setHairLength(t);
-    });
+    
 
-    // Nút Thu gọn / Mở rộng Bảng Màu Da
-    const palettePanel = document.getElementById('palette-panel');
-    const btnTogglePalette = document.getElementById('btn-toggle-palette');
-    btnTogglePalette.addEventListener('click', () => {
-      palettePanel.classList.toggle('collapsed');
-      if (palettePanel.classList.contains('collapsed')) {
-        btnTogglePalette.innerText = 'Mở rộng ▼';
-      } else {
-        btnTogglePalette.innerText = 'Thu gọn ▲';
-      }
-    });
+    
 
     document.getElementById('btn-sync-file').addEventListener('click', async () => {
       const keys = Object.keys(localDB).filter(k => localDB[k].status !== 'ok');
