@@ -1,0 +1,4695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Boxer - Model: PN (Full Body, Robe & Head)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+    }
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* UI Panel Left */
+    #ui-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+      width: 330px;
+      z-index: 10;
+    }
+    h1 {
+      margin: 0 0 6px 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 0.7rem;
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    p.desc {
+      margin: 0 0 10px 0;
+      font-size: 0.8rem;
+      color: #6b7280;
+      line-height: 1.45;
+    }
+
+    /* Mode Banner & Indicators */
+    .mode-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: #f3f4f6;
+      color: #4b5563;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+    }
+    .mode-indicator.active-multi {
+      background: #fff1f2;
+      color: #e11d48;
+      border-color: #fda4af;
+      box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.15);
+    }
+    .key-tag {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      color: #111827;
+    }
+
+    .axis-legend {
+      display: flex;
+      gap: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 0;
+      border-top: 1px dashed #e5e7eb;
+      margin-top: 6px;
+    }
+    .axis-tag {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+    .dot-x { background: #ef4444; }
+    .dot-z { background: #3b82f6; }
+    .dot-y { background: #10b981; }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #374151;
+    }
+
+    /* Modal / Inspector for Single & Group Mark */
+    #inspect-card {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.14);
+      border: 1px solid #e5e7eb;
+      width: 360px;
+      padding: 20px;
+      display: none;
+      z-index: 20;
+      animation: slideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideIn {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #inspect-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1rem;
+      color: #1f2937;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tag-id {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: #4f46e5;
+      background: #eef2ff;
+      padding: 3px 7px;
+      border-radius: 6px;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .field {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #4b5563;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    textarea {
+      width: 100%;
+      height: 75px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.85rem;
+      resize: none;
+      font-family: inherit;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+    .status-select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 0.85rem;
+      background: #fff;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    button {
+      flex: 1;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+    .btn-save {
+      background: #2563eb;
+      color: white;
+    }
+    .btn-save:hover { background: #1d4ed8; }
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+    .btn-secondary:hover { background: #e5e7eb; }
+    .btn-danger {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+    }
+    .btn-danger:hover { background: #fecaca; }
+
+    /* Color Palette Picker Panel (Collapsible) */
+    #palette-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+      width: 240px;
+      z-index: 15;
+      transition: all 0.2s ease;
+    }
+    #palette-panel.collapsed #palette-body {
+      display: none;
+    }
+    #palette-panel.collapsed h2 {
+      margin-bottom: 0;
+    }
+    .btn-toggle-palette {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .btn-toggle-palette:hover {
+      background: #e5e7eb;
+    }
+    #palette-panel h2, #anim-panel h2 {
+      margin: 0 0 10px 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1f2937;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .color-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+      font-size: 0.78rem;
+      color: #374151;
+    }
+    .color-picker-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 24px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .color-picker-input::-webkit-color-swatch {
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+    }
+
+    /* Animation Studio Panel */
+    #anim-panel {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      padding: 14px 18px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+      width: 250px;
+      z-index: 15;
+    }
+    .anim-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .anim-btn {
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      color: #374151;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+    .anim-btn:hover {
+      background: #f3f4f6;
+    }
+    .anim-btn.active {
+      background: #eef2ff;
+      color: #4f46e5;
+      border-color: #a5b4fc;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    }
+    .speed-slider {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* Camera Navigation & Quick Focus Panel (WASD & Focus Presets) */
+    #camera-nav-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 10px 16px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      user-select: none;
+    }
+    .cam-nav-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: #1f2937;
+      flex-wrap: wrap;
+    }
+    .cam-focus-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .cam-focus-btn {
+      padding: 5px 11px;
+      border-radius: 20px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .cam-focus-btn:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+      transform: translateY(-1px);
+    }
+    .cam-focus-btn.head-btn {
+      background: #eff6ff;
+      color: #2563eb;
+      border-color: #93c5fd;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.15);
+    }
+    .cam-focus-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    .cam-keys-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.74rem;
+      color: #6b7280;
+      flex-wrap: wrap;
+    }
+    .cam-keys-hint b {
+      color: #1f2937;
+      background: #f3f4f6;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid #e5e7eb;
+      font-family: monospace;
+    }
+  </style>
+    <script src="assets/eye_data.js"></script>
+  <script src="assets/sandal_data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <!-- Ẩn cục Project Boxer theo yêu cầu cho thoáng màn hình (vẫn giữ DOM ID để không lỗi JS) -->
+  <div id="ui-panel" style="display: none;">
+    <span id="mode-badge"><span id="mode-text"></span></span>
+    <span id="sync-status-indicator"></span>
+    <b id="stat-total">0</b>
+    <b id="stat-selected">0</b>
+    <b id="stat-marked">0</b>
+    <button id="btn-sync-file"></button>
+    <button id="btn-export-json"></button>
+    <button id="btn-view-data"></button>
+    <div id="sync-notice"></div>
+  </div>
+
+  <!-- Color Palette Tool (Có nút Thu Gọn / Mở Rộng) -->
+  <div id="palette-panel">
+    <h2>
+      <span>🎨 Bảng Màu Da</span>
+      <button class="btn-toggle-palette" id="btn-toggle-palette">Thu gọn ▲</button>
+    </h2>
+    <div id="palette-body">
+      <div class="color-row">
+        <span>Da Chính (Skin)</span>
+        <input type="color" id="pick-skin" class="color-picker-input" value="#e5b894">
+      </div>
+      <div class="color-row">
+        <span>Đế & Lòng Bàn Chân</span>
+        <input type="color" id="pick-sole" class="color-picker-input" value="#d49e7b">
+      </div>
+      <div class="color-row">
+        <span>Gót & Cơ Đậm</span>
+        <input type="color" id="pick-heel" class="color-picker-input" value="#d99f7d">
+      </div>
+      <div class="color-row">
+        <span>Cổ Chân & Mắt Cá</span>
+        <input type="color" id="pick-ankle" class="color-picker-input" value="#dfa886">
+      </div>
+      <div class="color-row">
+        <span>Móng Chân</span>
+        <input type="color" id="pick-nail" class="color-picker-input" value="#f8e7df">
+      </div>
+      <div class="color-row">
+        <span>Tóc (Hair)</span>
+        <input type="color" id="pick-hair" class="color-picker-input" value="#2b1d14">
+      </div>
+      <div class="color-row" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; justify-content:space-between;">
+          <span>Độ dài tóc</span><b id="hair-len-val">0%</b>
+        </div>
+        <input type="range" id="hair-length" min="0" max="1" step="0.05" value="0" style="width:100%;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Animation Control Panel -->
+  <div id="anim-panel">
+    <h2>🎬 Animation Studio</h2>
+    <div class="anim-btn-group">
+      <button class="anim-btn active" id="btn-anim-none">⏸️ Đứng yên (T-Pose / Edit)</button>
+      <button class="anim-btn" id="btn-anim-swing">🚶 Đưa 2 chân qua lại (Swing)</button>
+      <button class="anim-btn" id="btn-anim-march">🦵 Nhấc chân lên xuống (March)</button>
+      <button class="anim-btn" id="btn-anim-bounce">🥊 Nhún chân Boxer (Shuffle)</button>
+    </div>
+    <div style="margin-top: 10px; font-size: 0.75rem; color: #4b5563;">
+      <div style="display:flex; justify-content:space-between;">
+        <span>Tốc độ:</span>
+        <b id="speed-val">1.0x</b>
+      </div>
+      <input type="range" id="anim-speed" class="speed-slider" min="0.2" max="3.0" step="0.1" value="1.0">
+    </div>
+  </div>
+
+  <!-- Bảng Điều Khiển Camera WASD & Quick Focus Góc Nhìn Chi Tiết -->
+  <div id="camera-nav-panel">
+    <div class="cam-nav-header">
+      <span>🎮 <b>Góc nhìn:</b></span>
+      <div class="cam-focus-pills">
+        <button class="cam-focus-btn head-btn" id="btn-focus-head">🎯 Xem Đầu (Cận cảnh)</button>
+        <button class="cam-focus-btn" id="btn-focus-torso">🥋 Thân</button>
+        <button class="cam-focus-btn" id="btn-focus-legs">🦵 Chân</button>
+        <button class="cam-focus-btn" id="btn-focus-feet">🦶 Bàn Chân</button>
+        <button class="cam-focus-btn" id="btn-focus-all">🧍 Toàn Thân</button>
+      </div>
+    </div>
+    <div class="cam-keys-hint">
+      <span>🕹️ Phím <b>W</b>/<b>S</b>: Tiến / Lùi</span>
+      <span>•</span>
+      <span><b>A</b>/<b>D</b>: Trái / Phải</span>
+      <span>•</span>
+      <span><b>Q</b>/<b>E</b>: Xuống / Lên</span>
+      <span>•</span>
+      <span><b>M</b>: Chọn nhóm</span>
+      <span>•</span>
+      <span>🖱️ Chuột trái: Xoay</span>
+    </div>
+  </div>
+
+  <!-- Inspector Card for Single or Group of Blocks -->
+  <div id="inspect-card">
+    <h3>
+      <span id="card-part-name">Chi tiết khối</span>
+      <span class="tag-id" id="card-block-id">#ID</span>
+    </h3>
+
+    <div id="group-selected-container" style="display: none; margin-bottom: 10px;">
+      <label>Danh sách các khối đang chọn (<span id="group-count">0</span>):</label>
+      <div id="group-chips"></div>
+    </div>
+
+    <div class="field" id="dim-field">
+      <label>Kích thước (Dài x Cao x Rộng)</label>
+      <div id="card-dimensions" style="font-size: 0.8rem; font-family: monospace; color: #4b5563;">0 x 0 x 0</div>
+    </div>
+
+    <div class="field">
+      <label>Trạng thái (Status)</label>
+      <select id="card-status" class="status-select">
+        <option value="ok">✅ Bình thường (OK / Reset về gốc)</option>
+        <option value="needs_fix">⚠️ Cần chỉnh sửa (Needs Fix)</option>
+        <option value="wrong_size">📏 Sai tỉ lệ / kích thước (Wrong Scale)</option>
+        <option value="reposition">📐 Cần dời vị trí (Reposition)</option>
+        <option value="delete">❌ Khối dư thừa / Cần xoá</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Ghi chú lỗi / Yêu cầu ("Mark" Note)</label>
+      <textarea id="card-note" placeholder="Nhập ghi chú cho khối này hoặc toàn bộ nhóm khối vừa chọn..."></textarea>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-save" id="btn-save-mark">💾 Lưu thay đổi</button>
+      <button class="btn-secondary" id="btn-close-card">Đóng</button>
+    </div>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <script>
+    // ==========================================
+    // 1. REAL-TIME LOCAL DATABASE SYNC
+    // Tự động đồng bộ với Backend Local Server (marks_db.json)
+    // ==========================================
+    const SERVER_URL = window.location.origin;
+    let localDB = {};
+
+    // Đồng bộ tức thì lên Server ổ đĩa
+    async function syncToServer(dataToSave) {
+      try {
+        await fetch(`${SERVER_URL}/api/marks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataToSave)
+        });
+        console.log('✅ Đã đồng bộ tức thì vào file marks_db.json trên ổ đĩa!');
+        const syncStatusEl = document.getElementById('sync-status-indicator');
+        if (syncStatusEl) {
+          syncStatusEl.innerHTML = '🟢 <b>Đã đồng bộ ổ đĩa (Auto-Synced)</b>';
+        }
+      } catch (err) {
+        // Fallback lưu LocalStorage nếu server chưa bật
+        console.warn('Server chưa phản hồi, lưu tạm LocalStorage:', err);
+        localStorage.setItem('PROJECT_BOXER_DATA', JSON.stringify(localDB));
+      }
+    }
+
+    // Nạp dữ liệu lúc mở trang: Ưu tiên Server file
+    async function initDB() {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/marks`);
+        if (res.ok) {
+          const serverData = await res.json();
+          localDB = serverData;
+        }
+      } catch (e) {
+        console.log('Chưa kết nối server, đọc LocalStorage...');
+        localDB = JSON.parse(localStorage.getItem('PROJECT_BOXER_DATA') || '{}');
+      }
+
+      // Cập nhật giao diện 3D theo DB
+      applyDBToMeshes();
+      updateStats();
+    }
+
+    // ==========================================
+    // 2. THREE.JS SCENE SETUP
+    // ==========================================
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf4f4f7);
+    scene.fog = new THREE.Fog(0xf4f4f7, 12, 45);
+
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(4.6, 3.8, 6.8);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.maxPolarAngle = Math.PI / 2 - 0.01; // Không lật camera xuống đáy đất
+    controls.minDistance = 0.6;
+    controls.maxDistance = 32;
+    controls.target.set(0, 2.30, 0.0);
+
+    // Ánh sáng tạo bóng khối sắc cạnh phong cách Voxel
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
+    dirLight.position.set(6, 14, 6);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.bias = -0.0003;
+    const d = 6;
+    dirLight.shadow.camera.left = -d;
+    dirLight.shadow.camera.right = d;
+    dirLight.shadow.camera.top = d;
+    dirLight.shadow.camera.bottom = -d;
+    scene.add(dirLight);
+
+    const rimLight = new THREE.DirectionalLight(0xdbeafe, 0.3);
+    rimLight.position.set(-6, 8, -6);
+    scene.add(rimLight);
+
+    // ==========================================
+    // 3. THẢM SÀN, LƯỚI & HỆ TRỤC TỌA ĐỘ THAM CHIẾU (X, Y, Z)
+    // Mở rộng sâu theo trục Z và thêm nhãn / đầu mũi tên trực quan
+    // ==========================================
+    const floorGeo = new THREE.PlaneGeometry(80, 80);
+    const floorMat = new THREE.ShadowMaterial({ opacity: 0.12 });
+    const floor = new THREE.Mesh(floorGeo, floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // Lưới grid phụ mở rộng
+    const grid = new THREE.GridHelper(24, 48, 0xd1d5db, 0xe5e7eb);
+    grid.position.y = 0.001;
+    scene.add(grid);
+
+    // --- HỆ TRỤC THAM CHIẾU TRỰC QUAN TRÊN SÀN (CÓ MŨI TÊN & PHÂN BIỆT TRƯỚC - SAU - TRÁI - PHẢI) ---
+    const axisGroup = new THREE.Group();
+
+    // Hàm tạo thân vạch trục dẹt
+    function createFloorAxis(color, length, thickness, isX = true, offsetPos = 0) {
+      const geo = isX 
+        ? new THREE.BoxGeometry(length, 0.002, thickness)
+        : new THREE.BoxGeometry(thickness, 0.002, length);
+      const mat = new THREE.MeshBasicMaterial({ color: color });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.y = 0.002;
+      if (isX) mesh.position.x = offsetPos;
+      else mesh.position.z = offsetPos;
+      return mesh;
+    }
+
+    // Hàm tạo đầu mũi tên 3D vuông góc (Arrow Head Voxel)
+    function createVoxelArrowHead(color, pos, rotY = 0) {
+      const arrowGroup = new THREE.Group();
+      // Bậc mũi tên nhọn dần
+      const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.003, 0.04), new THREE.MeshBasicMaterial({ color }));
+      const b2 = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.003, 0.04), new THREE.MeshBasicMaterial({ color }));
+      const b3 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.003, 0.04), new THREE.MeshBasicMaterial({ color }));
+      const b4 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.003, 0.04), new THREE.MeshBasicMaterial({ color }));
+
+      b1.position.z = -0.06;
+      b2.position.z = -0.02;
+      b3.position.z = 0.02;
+      b4.position.z = 0.06;
+
+      arrowGroup.add(b1, b2, b3, b4);
+      arrowGroup.position.set(pos[0], 0.003, pos[1]);
+      arrowGroup.rotation.y = rotY;
+      return arrowGroup;
+    }
+
+    // 1. Trục X (Màu đỏ - Chiều Ngang: Trái / Phải) - Dài 6m
+    const axisXMesh = createFloorAxis(0xef4444, 6.0, 0.016, true);
+    axisGroup.add(axisXMesh);
+    // Mũi tên đầu Phải (+X) & Trái (-X)
+    axisGroup.add(createVoxelArrowHead(0xef4444, [3.05, 0], -Math.PI / 2));
+    axisGroup.add(createVoxelArrowHead(0xef4444, [-3.05, 0], Math.PI / 2));
+
+    // 2. Trục Z (Màu xanh dương - Chiều Dọc: Trước / Sau) - MỞ RỘNG DÀI 8M
+    const axisZMesh = createFloorAxis(0x3b82f6, 8.0, 0.016, false);
+    axisGroup.add(axisZMesh);
+    // Mũi tên đầu TRƯỚC (+Z hướng nhìn của nhân vật) & đầu SAU (-Z)
+    axisGroup.add(createVoxelArrowHead(0x3b82f6, [0, 4.05], 0)); // Chỉ hướng TỚI TRƯỚC
+    axisGroup.add(createVoxelArrowHead(0x3b82f6, [0, -4.05], Math.PI)); // Chỉ hướng LÙI SAU
+
+    // 3. Trục Y (Màu xanh lá - Cột thẳng đứng độ cao tại gốc) - Nâng cao lên 4.6m
+    const axisYGeo = new THREE.BoxGeometry(0.016, 4.6, 0.016);
+    const axisYMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+    const axisYMesh = new THREE.Mesh(axisYGeo, axisYMat);
+    axisYMesh.position.set(0, 2.30, 0);
+    axisGroup.add(axisYMesh);
+
+    // Mũi tên đỉnh trục Y
+    const arrowY = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.12, 4), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
+    arrowY.position.set(0, 4.66, 0);
+    axisGroup.add(arrowY);
+
+    // Vạch chia độ (tick marks) mỗi 0.5m trên sàn
+    for (let i = -7; i <= 7; i++) {
+      if (i === 0) continue;
+      const coord = i * 0.5;
+      // Vạch trên trục X (đến +-3m)
+      if (Math.abs(coord) <= 3.0) {
+        const tickX = new THREE.Mesh(
+          new THREE.BoxGeometry(0.008, 0.002, 0.10),
+          new THREE.MeshBasicMaterial({ color: 0xef4444 })
+        );
+        tickX.position.set(coord, 0.0025, 0);
+        axisGroup.add(tickX);
+      }
+
+      // Vạch trên trục Z (đến +-4m)
+      if (Math.abs(coord) <= 4.0) {
+        const tickZ = new THREE.Mesh(
+          new THREE.BoxGeometry(0.10, 0.002, 0.008),
+          new THREE.MeshBasicMaterial({ color: 0x3b82f6 })
+        );
+        tickZ.position.set(0, 0.0025, coord);
+        axisGroup.add(tickZ);
+      }
+    }
+
+    scene.add(axisGroup);
+
+    // ==========================================
+    // 4. MODEL: 2 BÀN CHÂN VOXEL THUẦN VUÔNG GÓC
+    // ==========================================
+    const clickableMeshes = [];
+    const hairExtMeshes = [];
+    const modelGroup = new THREE.Group();
+    scene.add(modelGroup);
+
+    // Bảng màu tone da tự nhiên (Skin Tone Palette)
+    const COLOR_PALETTE = {
+      skin: 0xe5b894,
+      pale_skin: 0xf5d9c6,    // Da nhạt tự nhiên cho môi và viền mí        // Da chính (mặt, cổ, ngón tay)
+      sole: 0xff0006,        // Lòng bàn chân & đế dẹp
+      heel: 0xfddbac,        // Xương gót & gân gót
+      ankle: 0xdfa886,       // Khớp cổ chân & mắt cá
+      nail: 0xf9e8df,        // Móng tay hồng ngà tự nhiên
+      hair: 0x0c0c10,        // Tóc đen tuyền huyền ảo siêu nhám (Matte Jet Black)
+      cool_black: 0x1b2028,  // Đen Lạnh Tiên Hiệp trên body (Cool Slate Black)
+      cool_black_light: 0x272e38, // Đen Sáng Lạnh múi bụng & eo
+      cool_black_dark: 0x141820,  // Đen Lạnh Đậm hơn cho bắp tay & khuỷu (Light Cool Charcoal)
+      eye_white: 0xc4c7cc,   // Lòng trắng mắt pha sắc đen xám khói ma mị
+      pupil: 0x111827,       // Con ngươi đen sâu vô hồn
+      marked_flag: 0xef4444, // Màu Đỏ khi bị "Mark" lỗi
+      highlight_select: 0xf59e0b, // Màu Vàng khi đang trong Selection
+      robe_black: 0x121216,       // Hắc Bào đen tuyền tiên hiệp (Jet Black Daoist Robe)
+      robe_warm_black: 0x221a18,  // Vải đen tông ấm (Warm Black Charcoal Fabric Layer)
+      sage_ash_green: 0x5a6d63,   // Xanh lá xám tro tiên hiệp (Sage Ash Green Fabric)
+      robe_inner: 0xf3f4f8,       // Áo lót trong màu trắng tinh khôi (White Inner Robe)
+      robe_trim: 0x22222e,        // Nẹp viền cổ áo than chì (Charcoal Trim)
+      sash_belt: 0x181822,        // Đai thắt lưng to bản (Wide Waist Sash)
+      sash_pattern: 0x2c2c3e,     // Vân hoa văn đai lưng (Sash Pattern Accent)
+      sash_knot: 0x1f1f2c,        // Nút thắt lụa đai lưng (Center Sash Knot)
+      pants: 0x15151a,            // Quần vải đen cổ trang bên trong
+      boots: 0x0c0c10,            // Ủng đen cổ trang (Black Cultivator Boots)
+      boot_sole: 0xd2d6de,        // Viền đế ủng trắng ngà
+      cream_socks: 0xf2ece4       // Vớ màu trắng kem cổ trang (Cream White Cultivator Socks)
+    };
+
+    /**
+     * Dựng 1 bàn chân hoàn toàn bằng các Box vuông góc
+     * side: 1 = Chân Phải, -1 = Chân Trái
+     */
+    function createDetailedFoot(side = 1) {
+      const footGroup = new THREE.Group();
+      const sideName = side === 1 ? 'Chân Phải' : 'Chân Trái';
+      const sidePrefix = side === 1 ? 'R' : 'L';
+      const offsetX = side * 0.28; // Thu hẹp khoảng cách giữa 2 chân (từ 0.38m -> 0.28m) chuẩn bị ráp hông
+
+      const blockSpecs = [
+        // 1. ĐẾ DÉP ĐEN CỔ TRANG PHÁ CÁCH & QUAI DÉP IN TEXTURE
+        {
+          id: `${sidePrefix}_sole_heel`,
+          category: 'boots',
+          name: `${sideName} - Đế dép gót đen (Black Sandal Heel Sole)`,
+          size: [0.26, 0.05, 0.24],
+          pos: [offsetX, 0.025, -0.16],
+          color: COLOR_PALETTE.boots
+        },
+        {
+          id: `${sidePrefix}_sole_arch`,
+          category: 'boots',
+          name: `${sideName} - Đế dép vòm đen (Black Sandal Arch Sole)`,
+          size: [0.24, 0.05, 0.26],
+          pos: [offsetX + side * 0.01, 0.025, 0.07],
+          color: COLOR_PALETTE.boots
+        },
+        {
+          id: `${sidePrefix}_sole_ball`,
+          category: 'boots',
+          name: `${sideName} - Đế dép mũi đen (Black Sandal Ball Sole)`,
+          size: [0.30, 0.05, 0.30],
+          pos: [offsetX, 0.025, 0.33],
+          color: COLOR_PALETTE.boots
+        },
+        // QUAI DÉP PHÁ CÁCH IN TEXTURE THẦN THÁI (TEXTURED SANDAL STRAPS)
+        // Chốt quai kẹp xỏ ngón (luồn giữa ngón cái và ngón trỏ)
+        {
+          id: `${sidePrefix}_sandal_thong`,
+          category: 'sandal_strap',
+          name: `${sideName} - Chốt quai kẹp xỏ ngón (Sandal Toe Thong)`,
+          size: [0.024, 0.10, 0.035],
+          pos: [offsetX - (side * 0.072), 0.115, 0.43],
+          texture: typeof SANDAL_STRAP_TEXTURE !== 'undefined' ? SANDAL_STRAP_TEXTURE : 'assets/texure_dep_quai.jpg',
+          color: 0xffffff
+        },
+        // Quai vắt mu trong (Cao lên 10%)
+        {
+          id: `${sidePrefix}_sandal_strap_inner`,
+          category: 'sandal_strap',
+          name: `${sideName} - Quai dép vắt mu trong (Inner Instep Strap)`,
+          size: [0.035, 0.036, 0.23],
+          pos: [offsetX - (side * 0.088), 0.150, 0.32],
+          rot: [-0.25, 0, side * 0.40],
+          texture: typeof SANDAL_STRAP_TEXTURE !== 'undefined' ? SANDAL_STRAP_TEXTURE : 'assets/texure_dep_quai.jpg',
+          color: 0xffffff
+        },
+        // Quai vắt mu ngoài (Cao lên 10%)
+        {
+          id: `${sidePrefix}_sandal_strap_outer`,
+          category: 'sandal_strap',
+          name: `${sideName} - Quai dép vắt mu ngoài (Outer Instep Strap)`,
+          size: [0.035, 0.036, 0.25],
+          pos: [offsetX + (side * 0.058), 0.150, 0.31],
+          rot: [-0.25, 0, -side * 0.40],
+          texture: typeof SANDAL_STRAP_TEXTURE !== 'undefined' ? SANDAL_STRAP_TEXTURE : 'assets/texure_dep_quai.jpg',
+          color: 0xffffff
+        },
+        // Quai ngang mu bàn chân ôm vòm (Kéo về phía ngón chân dài ra 30%)
+        {
+          id: `${sidePrefix}_sandal_strap_instep`,
+          category: 'sandal_strap',
+          name: `${sideName} - Quai ngang mu bàn chân (Sandal Instep Band)`,
+          size: [0.26, 0.032, 0.11],
+          pos: [offsetX - (side * 0.01), 0.165, 0.265],
+          rot: [-0.20, 0, 0],
+          texture: typeof SANDAL_STRAP_TEXTURE !== 'undefined' ? SANDAL_STRAP_TEXTURE : 'assets/texure_dep_quai.jpg',
+          color: 0xffffff
+        },
+
+        // 2. XƯƠNG GÓT (TÁCH THÀNH 2 KHỐI DỌC TRƯỚC - SAU ĐẠI SỐ) & GÂN GÓT ACHILLES
+        // Tổng chiều dài dọc Z trước đây là 0.22 -> Tách thành 2 khối 0.11
+        {
+          id: `${sidePrefix}_heel_core_back`,
+          category: 'socks',
+          name: `${sideName} - Xương gót sau (Heel Core Back)`,
+          size: [0.24, 0.18, 0.11],
+          pos: [offsetX, 0.14, -0.215],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_heel_core_front`,
+          category: 'socks',
+          name: `${sideName} - Xương gót trước (Heel Core Front)`,
+          size: [0.24, 0.18, 0.11],
+          pos: [offsetX, 0.14, -0.105],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_achilles_ridge`,
+          category: 'pants',
+          name: `${sideName} - Gân gót sau (Achilles base)`,
+          size: [0.14, 0.22, 0.07],
+          pos: [offsetX, 0.22, -0.21],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // 3. MU BÀN CHÂN (2 TẦNG TRÊN - DƯỚI)
+        {
+          id: `${sidePrefix}_midfoot_lower`,
+          category: 'socks',
+          name: `${sideName} - Mu bàn chân dưới (Midfoot Lower)`,
+          size: [0.26, 0.10, 0.32],
+          pos: [offsetX, 0.10, 0.08],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_midfoot_upper`,
+          category: 'socks',
+          name: `${sideName} - Mu bàn chân trên (Midfoot Upper)`,
+          size: [0.22, 0.10, 0.28],
+          pos: [offsetX, 0.20, 0.06],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_midfoot_slope`,
+          category: 'sandal_strap',
+          name: `${sideName} - Khối dốc mu chân gắn quai dép (Instep Slope Strap Texture)`,
+          size: [0.28, 0.12, 0.22],
+          pos: [offsetX, 0.11, 0.30],
+          texture: typeof SANDAL_STRAP_TEXTURE !== 'undefined' ? SANDAL_STRAP_TEXTURE : 'assets/texure_dep_quai.jpg',
+          color: 0xffffff
+        },
+
+        // 4. CỔ CHÂN & KHỚP CỔ CHÂN CHI TIẾT (ANKLE COMPLEX)
+        // Tâm khớp sên (Talus core)
+        {
+          id: `${sidePrefix}_ankle_core`,
+          category: 'pants',
+          name: `${sideName} - Xương sên cổ chân (Talus Core)`,
+          size: [0.20, 0.16, 0.20],
+          pos: [offsetX, 0.31, -0.10],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Mắt cá ngoài & trong - Tăng kích thước bề thế đặc trưng phong cách Boxer
+        {
+          id: `${sidePrefix}_malleolus_outer`,
+          category: 'pants',
+          name: `${sideName} - Mắt cá ngoài (Lateral Malleolus)`,
+          size: [0.055, 0.14, 0.16],           // Tăng độ dày và chiều cao nổi bật
+          pos: [offsetX + (side * 0.125), 0.31, -0.12],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_malleolus_inner`,
+          category: 'pants',
+          name: `${sideName} - Mắt cá trong (Medial Malleolus)`,
+          size: [0.055, 0.14, 0.16],           // Tăng độ dày và chiều cao nổi bật
+          pos: [offsetX - (side * 0.125), 0.33, -0.11],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Dây chằng / vòm trước cổ chân (Anterior Tendon Strap) - chuyển tiếp mượt mà từ mu chân lên
+        {
+          id: `${sidePrefix}_ankle_front_tendon`,
+          category: 'pants',
+          name: `${sideName} - Gân trước cổ chân (Extensor Retinaculum)`,
+          size: [0.17, 0.14, 0.08],
+          pos: [offsetX, 0.32, 0.02],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Thân gân gót Achilles giữa (Achilles Mid Stem) - ôm dọc phía sau cổ chân
+        {
+          id: `${sidePrefix}_achilles_mid`,
+          category: 'pants',
+          name: `${sideName} - Gân gót giữa (Mid Achilles)`,
+          size: [0.12, 0.20, 0.06],
+          pos: [offsetX, 0.39, -0.20],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // CỔ CHÂN TRÊN & ĐOẠN EO THẮNG (LOWER CRUS / SUPRAMALLEOLAR WAIST) - Bự ra 20%
+        {
+          id: `${sidePrefix}_ankle_waist_core`,
+          category: 'pants',
+          name: `${sideName} - Thân eo cổ chân (Ankle Waist Core)`,
+          size: [0.204, 0.18, 0.204],
+          pos: [offsetX, 0.47, -0.09],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_tibia_lower_crest`,
+          category: 'pants',
+          name: `${sideName} - Gờ xương chày dưới (Lower Tibial Crest)`,
+          size: [0.156, 0.18, 0.060],
+          pos: [offsetX, 0.47, 0.015],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // 5. CẲNG CHÂN & BẮP CHÂN (SHIN & CALF COMPLEX) - KÉO DÀI ĐẠT TỈ LỆ VÀNG (GẤP ĐÔI BÀN CHÂN)
+        // Đoạn cẳng chân dưới (Lower Shin Shaft)
+        {
+          id: `${sidePrefix}_lower_leg_stem`,
+          category: 'pants',
+          name: `${sideName} - Thân cẳng chân dưới (Low Shin Shaft)`,
+          size: [0.18, 0.26, 0.18],
+          pos: [offsetX, 0.69, -0.09],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_shin_crest_lower`,
+          category: 'pants',
+          name: `${sideName} - Ống đồng trước dưới (Lower Shin Ridge)`,
+          size: [0.14, 0.26, 0.05],
+          pos: [offsetX, 0.69, 0.02],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // KHỐI NỐI CHUYỂN TIẾP BẮP CHÂN XUỐNG CẲNG CHÂN DƯỚI (CALF-TO-SHIN BRIDGES - CÙNG MÀU QUẦN)
+        {
+          id: `${sidePrefix}_calf_lower_bridge`,
+          category: 'pants',
+          name: `${sideName} - Khối nối bắp chân xuống cẳng chân (Calf-to-Shin Lower Bridge)`,
+          size: [0.19, 0.20, 0.12],
+          pos: [offsetX, 0.83, -0.19],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_calf_tendon_taper_bridge`,
+          category: 'pants',
+          name: `${sideName} - Khối nêm gân gót bắp chân chuyển tiếp (Calf Tendon Taper Bridge)`,
+          size: [0.17, 0.22, 0.09],
+          pos: [offsetX, 0.79, -0.235],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Khối nối phía sau bắp chân nối xuống cổ chân
+        {
+          id: `${sidePrefix}_calf_back_lower_connector`,
+          category: 'pants',
+          name: `${sideName} - Khối nối phía sau bắp chân (Calf Posterior Lower Connector)`,
+          size: [0.17, 0.22, 0.10],
+          pos: [offsetX, 0.60, -0.19],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // CẲNG CHÂN GIỮA - THÂN XƯƠNG & BẮP CHUỐI NỞ RỘ
+        {
+          id: `${sidePrefix}_mid_shin_core`,
+          category: 'pants',
+          name: `${sideName} - Thân cẳng chân giữa (Mid Shin Core)`,
+          size: [0.19, 0.32, 0.19],
+          pos: [offsetX, 0.98, -0.09],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_shin_blade`,
+          category: 'pants',
+          name: `${sideName} - Gờ sống ống đồng (Shin Blade Front)`,
+          size: [0.14, 0.32, 0.06],
+          pos: [offsetX, 0.98, 0.025],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Bắp chuối sau nở rộ (Gastrocnemius) - CHIA THÀNH 2 KHỐI DỌC TRỤC XANH DƯƠNG (Z) TỰ NHIÊN
+        // Khối bắp trước (sát trục xương)
+        {
+          id: `${sidePrefix}_calf_back_inner_layer`,
+          category: 'pants',
+          name: `${sideName} - Cơ bắp chân tầng trong (Soleus/Deep Calf)`,
+          size: [0.22, 0.34, 0.08],
+          pos: [offsetX, 1.00, -0.19],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Khối múi bắp ngoài (phồng cong ra sau theo trục Z tạo đường cong mềm mại)
+        {
+          id: `${sidePrefix}_calf_back_outer_layer`,
+          category: 'pants',
+          name: `${sideName} - Bụng bắp chân sau ngoài (Calf Belly Peak)`,
+          size: [0.20, 0.30, 0.07],
+          pos: [offsetX, 1.02, -0.265],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_calf_lateral`,
+          category: 'pants',
+          name: `${sideName} - Bắp chân ngoài (Calf Outer Flare)`,
+          size: [0.06, 0.30, 0.16],
+          pos: [offsetX + (side * 0.12), 1.00, -0.15],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_calf_medial`,
+          category: 'pants',
+          name: `${sideName} - Bắp chân trong (Calf Inner Flare)`,
+          size: [0.06, 0.30, 0.16],
+          pos: [offsetX - (side * 0.12), 1.00, -0.15],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // CẲNG CHÂN TRÊN - NỐI DÀI VƯƠN LÊN CẬN GỐI (INFRA-GENICULAR SHAFT)
+        {
+          id: `${sidePrefix}_upper_shin_core`,
+          category: 'pants',
+          name: `${sideName} - Cẳng chân trên (Upper Shin Shaft)`,
+          size: [0.20, 0.28, 0.20],
+          pos: [offsetX, 1.28, -0.09],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_shin_upper_crest`,
+          category: 'pants',
+          name: `${sideName} - Ống đồng trước trên (Upper Shin Ridge)`,
+          size: [0.15, 0.28, 0.05],
+          pos: [offsetX, 1.28, 0.025],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Khối lồi củ xương chày sát đáy gối (Tibial Tuberosity) - NỞ TO RA BỀ THẾ THEO PHONG CÁCH
+        {
+          id: `${sidePrefix}_tibial_tuberosity`,
+          category: 'pants',
+          name: `${sideName} - Lồi củ trước gối (Tibial Tuberosity)`,
+          size: [0.20, 0.20, 0.09],            // Phóng to ngang từ 0.16 -> 0.20, dày 0.065 -> 0.09
+          pos: [offsetX, 1.38, 0.045],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Vòm gân sau gối (Popliteal Tendon Upper) - Lồi ra sau hơn theo yêu cầu
+        {
+          id: `${sidePrefix}_popliteal_back`,
+          category: 'pants',
+          name: `${sideName} - Vòm cơ khoeo sau gối (Upper Calf Taper)`,
+          size: [0.20, 0.26, 0.13],
+          pos: [offsetX, 1.30, -0.23],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // ==========================================
+        // 6. KHỚP ĐẦU GỐI (KNEE COMPLEX: PATELLA & CONDYLES)
+        // ==========================================
+        // Khối tâm khớp gối
+        {
+          id: `${sidePrefix}_knee_core_joint`,
+          category: 'pants',
+          name: `${sideName} - Tâm khớp gối (Femoral Condyles Base)`,
+          size: [0.22, 0.16, 0.22],
+          pos: [offsetX, 1.50, -0.09],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Xương bánh chè trước gối (Patella) - nhô ra mặt trước gối
+        {
+          id: `${sidePrefix}_patella_kneecap`,
+          category: 'pants',
+          name: `${sideName} - Xương bánh chè gối (Patella Kneecap)`,
+          size: [0.15, 0.14, 0.06],
+          pos: [offsetX, 1.50, 0.045],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Hõm khoeo chân sau gối (Popliteal Fossa)
+        {
+          id: `${sidePrefix}_knee_back_fossa`,
+          category: 'pants',
+          name: `${sideName} - Hõm khoeo sau gối (Popliteal Fossa)`,
+          size: [0.16, 0.15, 0.06],
+          pos: [offsetX, 1.50, -0.21],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // ==========================================
+        // 7. TOÀN BỘ PHẦN ĐÙI SĂN CHẮC ĐỒNG ĐỀU (UNIFORM LEAN THIGH COMPLEX)
+        // Khối trụ đùi to đều liền mạch từ háng xuống gối, các múi cơ ôm sát mượt mà
+        // ==========================================
+        // --- A. ĐÙI DƯỚI (LOWER THIGH - SUPRA-PATELLA) ---
+        {
+          id: `${sidePrefix}_thigh_lower_core`,
+          category: 'pants',
+          name: `${sideName} - Thân đùi dưới (Lower Femur Core)`,
+          size: [0.25, 0.25, 0.24],
+          pos: [offsetX, 1.70, -0.08],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_quad_tendon_front`,
+          category: 'pants',
+          name: `${sideName} - Cơ gân trước đùi dưới (Supra-patellar Ridge)`,
+          size: [0.19, 0.24, 0.05],
+          pos: [offsetX, 1.70, 0.055],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        {
+          id: `${sidePrefix}_hamstring_lower`,
+          category: 'pants',
+          name: `${sideName} - Cơ đùi sau dưới (Lower Hamstring)`,
+          size: [0.21, 0.24, 0.075],
+          pos: [offsetX, 1.70, -0.22],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // --- B. ĐÙI GIỮA (MID THIGH - TRỤ ĐÙI ĐỀU ĐẶN LIỀN KHỐI) ---
+        {
+          id: `${sidePrefix}_thigh_mid_core`,
+          category: 'pants',
+          name: `${sideName} - Thân đùi giữa (Mid Femur Core)`,
+          size: [0.29, 0.32, 0.27],
+          pos: [offsetX, 1.98, -0.08],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Cơ đùi trước chính (Rectus Femoris) - màu xanh lá xám tro tiên hiệp
+        {
+          id: `${sidePrefix}_quad_front_belly`,
+          category: 'pants',
+          name: `${sideName} - Cơ đùi trước chính (Rectus Femoris)`,
+          size: [0.22, 0.32, 0.075],
+          pos: [offsetX, 1.98, 0.08],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Múi cơ đùi ngoài (Vastus Lateralis) - chạy dọc đều từ đùi trên xuống đùi giữa (chuyển sang màu quần đen)
+        {
+          id: `${sidePrefix}_vastus_lateralis`,
+          category: 'pants',
+          name: `${sideName} - Múi cơ đùi ngoài (Vastus Lateralis)`,
+          size: [0.040, 0.46, 0.23],
+          pos: [offsetX + (side * 0.14), 2.06, -0.075],
+          color: COLOR_PALETTE.pants
+        },
+        // Múi cơ giọt nước đùi trong (Vastus Medialis) - ôm liền mạch mặt trong đùi
+        {
+          id: `${sidePrefix}_vastus_medialis`,
+          category: 'pants',
+          name: `${sideName} - Cơ giọt nước đùi trong (Vastus Medialis)`,
+          size: [0.045, 0.32, 0.22],
+          pos: [offsetX - (side * 0.15), 1.92, -0.075],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Cơ đùi sau lớn (Hamstrings)
+        {
+          id: `${sidePrefix}_hamstring_mid_bulk`,
+          category: 'pants',
+          name: `${sideName} - Bụng cơ đùi sau (Hamstring Muscle Bulk)`,
+          size: [0.24, 0.32, 0.095],
+          pos: [offsetX, 1.98, -0.245],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+
+        // --- C. ĐÙI TRÊN & GỐC KHỚP HÁNG (UPPER THIGH & GROIN ROOT) - Quần vải đen cổ trang bên trong ---
+        {
+          id: `${sidePrefix}_thigh_upper_root`,
+          category: 'pants',
+          name: `${sideName} - Gốc đùi trên (Upper Thigh Root)`,
+          size: [0.28, 0.30, 0.28],
+          pos: [offsetX, 2.29, -0.075],
+          color: COLOR_PALETTE.pants
+        },
+        // Cơ gập hông trước trên (Upper Quad Sweep)
+        {
+          id: `${sidePrefix}_upper_hip_flexor`,
+          category: 'pants',
+          name: `${sideName} - Cơ mặt trước đùi trên (Upper Hip Flexor)`,
+          size: [0.25, 0.30, 0.08],
+          pos: [offsetX + (side * 0.005), 2.29, 0.09],
+          color: COLOR_PALETTE.pants
+        },
+        // Cơ khép đùi trong (Adductor Groin) - liền khối với đùi trên và cơ giọt nước
+        {
+          id: `${sidePrefix}_adductor_inner`,
+          category: 'pants',
+          name: `${sideName} - Cơ khép đùi trong (Adductor Groin)`,
+          size: [0.045, 0.32, 0.23],
+          pos: [offsetX - (side * 0.15), 2.25, -0.075],
+          color: COLOR_PALETTE.sage_ash_green
+        },
+        // Đáy cơ mông dưới ôm mặt sau đùi (Infra-Gluteal Fold Base)
+        {
+          id: `${sidePrefix}_gluteal_fold_base`,
+          category: 'pants',
+          name: `${sideName} - Đáy cơ mông dưới (Gluteal Under-fold)`,
+          size: [0.26, 0.26, 0.105],
+          pos: [offsetX + (side * 0.01), 2.27, -0.25],
+          color: COLOR_PALETTE.pants
+        },
+
+        // 8. ĐẦY ĐỦ 5 NGÓN CHÂN (5 INDIVIDUAL TOES: T1 -> T5)
+        // Ngón 1: Ngón cái (Hallux - To nhất, phía trong)
+        {
+          id: `${sidePrefix}_toe_1_hallux`,
+          category: 'socks',
+          name: `${sideName} - Ngón chân 1: Ngón cái (Hallux)`,
+          size: [0.068, 0.10, 0.16],
+          pos: [offsetX - (side * 0.105), 0.10, 0.46],
+          color: COLOR_PALETTE.cream_socks
+        },
+        // Ngón 2: Ngón trỏ chân (Index Toe)
+        {
+          id: `${sidePrefix}_toe_2_index`,
+          category: 'socks',
+          name: `${sideName} - Ngón chân 2: Ngón trỏ (Second Toe)`,
+          size: [0.052, 0.095, 0.155],
+          pos: [offsetX - (side * 0.042), 0.096, 0.455],
+          color: COLOR_PALETTE.cream_socks
+        },
+        // Ngón 3: Ngón giữa chân (Middle Toe)
+        {
+          id: `${sidePrefix}_toe_3_middle`,
+          category: 'socks',
+          name: `${sideName} - Ngón chân 3: Ngón giữa (Middle Toe)`,
+          size: [0.050, 0.09, 0.148],
+          pos: [offsetX + (side * 0.012), 0.093, 0.45],
+          color: COLOR_PALETTE.cream_socks
+        },
+        // Ngón 4: Ngón áp út chân (Fourth Toe)
+        {
+          id: `${sidePrefix}_toe_4_ring`,
+          category: 'socks',
+          name: `${sideName} - Ngón chân 4: Ngón áp út (Fourth Toe)`,
+          size: [0.048, 0.085, 0.138],
+          pos: [offsetX + (side * 0.064), 0.09, 0.44],
+          color: COLOR_PALETTE.cream_socks
+        },
+        // Ngón 5: Ngón út chân (Little Toe)
+        {
+          id: `${sidePrefix}_toe_5_pinky`,
+          category: 'socks',
+          name: `${sideName} - Ngón chân 5: Ngón út (Pinky Toe)`,
+          size: [0.046, 0.08, 0.125],
+          pos: [offsetX + (side * 0.114), 0.085, 0.428],
+          color: COLOR_PALETTE.cream_socks
+        },
+
+        // 9. ĐẦY ĐỦ 5 MÓNG CHÂN (5 INDIVIDUAL TOENAILS)
+        {
+          id: `${sidePrefix}_nail_1_hallux`,
+          category: 'socks',
+          name: `${sideName} - Móng ngón chân 1 (Móng cái)`,
+          size: [0.052, 0.015, 0.06],
+          pos: [offsetX - (side * 0.105), 0.152, 0.50],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_nail_2_index`,
+          category: 'socks',
+          name: `${sideName} - Móng ngón chân 2 (Móng trỏ)`,
+          size: [0.038, 0.014, 0.05],
+          pos: [offsetX - (side * 0.042), 0.145, 0.495],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_nail_3_middle`,
+          category: 'socks',
+          name: `${sideName} - Móng ngón chân 3 (Móng giữa)`,
+          size: [0.036, 0.014, 0.048],
+          pos: [offsetX + (side * 0.012), 0.14, 0.49],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_nail_4_ring`,
+          category: 'socks',
+          name: `${sideName} - Móng ngón chân 4 (Móng áp út)`,
+          size: [0.034, 0.014, 0.044],
+          pos: [offsetX + (side * 0.064), 0.135, 0.48],
+          color: COLOR_PALETTE.cream_socks
+        },
+        {
+          id: `${sidePrefix}_nail_5_pinky`,
+          category: 'socks',
+          name: `${sideName} - Móng ngón chân 5 (Móng út)`,
+          size: [0.032, 0.013, 0.04],
+          pos: [offsetX + (side * 0.114), 0.128, 0.465],
+          color: COLOR_PALETTE.cream_socks
+        }
+      ];
+
+      blockSpecs.forEach(spec => {
+        const geometry = new THREE.BoxGeometry(spec.size[0], spec.size[1], spec.size[2]);
+        
+        // Kiểm tra xem trong DB khối này có lưu đánh dấu lỗi không
+        const isMarked = localDB[spec.id] && localDB[spec.id].status !== 'ok';
+        const displayColor = isMarked ? COLOR_PALETTE.marked_flag : spec.color;
+
+        const material = new THREE.MeshStandardMaterial({
+          color: displayColor || 0xffffff,
+          roughness: spec.roughness !== undefined ? spec.roughness : 0.35,
+          metalness: spec.metalness !== undefined ? spec.metalness : 0.05
+        });
+
+        if (spec.texture) {
+          const tex = new THREE.TextureLoader().load(spec.texture);
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.RepeatWrapping;
+          material.map = tex;
+          material.roughness = 0.45;
+          material.metalness = 0.1;
+        }
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+        if (spec.rot) {
+          mesh.rotation.set(spec.rot[0], spec.rot[1], spec.rot[2]);
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+          id: spec.id,
+          category: spec.category,
+          name: spec.name,
+          dimensions: spec.size,
+          defaultColor: spec.color,
+          side: sidePrefix
+        };
+
+        // Viền Edges sắc sảo phong cách Voxel
+        const edges = new THREE.EdgesGeometry(geometry);
+        const line = new THREE.LineSegments(
+          edges, 
+          new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.22, transparent: true })
+        );
+        mesh.add(line);
+
+        // Khung viền vi tính nổi bật dành riêng khi được chọn (Highlight Selection)
+        const selectBoxGeo = new THREE.BoxGeometry(spec.size[0] * 1.05, spec.size[1] * 1.05, spec.size[2] * 1.05);
+        const selectBoxEdges = new THREE.EdgesGeometry(selectBoxGeo);
+        const selectBoxLine = new THREE.LineSegments(
+          selectBoxEdges,
+          new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })
+        );
+        selectBoxLine.name = 'selection_highlight';
+        selectBoxLine.visible = false;
+        mesh.add(selectBoxLine);
+
+        footGroup.add(mesh);
+        clickableMeshes.push(mesh);
+      });
+
+      return footGroup;
+    }
+
+    /**
+     * Dựng KHUNG CHẬU, HÔNG & MÔNG (PELVIS, HIPS & GLUTES COMPLEX)
+     * 100% hình hộp vuông góc nối tiếp từ đỉnh đùi (Y = 2.42m) lên tới thắt lưng (Y = 2.86m)
+     */
+    function createPelvisAndHips() {
+      const pelvisGroup = new THREE.Group();
+
+      const pelvisSpecs = [
+        // 1. ĐÁY CHẬU & KHỚP NỐI HÁNG TRUNG TÂM (PERINEUM & PUBIC SYMPHYSIS) - NỞ ĐẦY ĐẶN HƠN
+        {
+          id: 'P_pelvic_floor_bridge',
+          category: 'pants',
+          name: 'Hông - Đáy khung chậu giữa (Pelvic Floor Bridge)',
+          size: [0.34, 0.16, 0.28],
+          pos: [0, 2.38, -0.07],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'P_pubic_front_shield',
+          category: 'pants',
+          name: 'Hông - Vùng xương mu trước (Pubic Front Shield)',
+          size: [0.30, 0.22, 0.09],
+          pos: [0, 2.41, 0.09],
+          color: COLOR_PALETTE.pants
+        },
+        // Khối nếp bẹn nối hông-đùi (Inguinal Groin-to-Thigh Bridge) - lấp kín hoàn toàn khe hở giữa háng và chân
+        {
+          id: 'R_groin_hip_socket_bridge',
+          category: 'pants',
+          name: 'Hông Phải - Khối nếp bẹn nối háng-đùi (Right Inguinal Groin Bridge)',
+          size: [0.18, 0.16, 0.095],
+          pos: [0.21, 2.44, 0.088],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_groin_hip_socket_bridge',
+          category: 'pants',
+          name: 'Hông Trái - Khối nếp bẹn nối háng-đùi (Left Inguinal Groin Bridge)',
+          size: [0.18, 0.16, 0.095],
+          pos: [-0.21, 2.44, 0.088],
+          color: COLOR_PALETTE.pants
+        },
+
+        // 2. KHỐI TRỤC XƯƠNG CHẬU CHÍNH & BỤNG DƯỚI (PELVIC CORE & HYPOGASTRIUM) - TĂNG BỀ THẾ
+        {
+          id: 'P_pelvis_core_center',
+          category: 'pants',
+          name: 'Hông - Khối trung tâm khung chậu (Pelvis Core)',
+          size: [0.64, 0.30, 0.30],            // Tăng ngang: 0.58 -> 0.64, cao: 0.26 -> 0.30, dày: 0.26 -> 0.30
+          pos: [0, 2.59, -0.06],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'P_lower_abs_plate',
+          category: 'pants',
+          name: 'Hông - Cơ bụng dưới phẳng (Lower Abdominals Base)',
+          size: [0.42, 0.26, 0.08],
+          pos: [0, 2.61, 0.099],
+          color: COLOR_PALETTE.pants
+        },
+
+        // 3. CÁNH CHẬU & CƠ CĂNG MẠC ĐÙI 2 BÊN (ILIAC CREST & LATERAL HIPS)
+        // Thu gọn mào chậu hợp lý và thêm khối cầu nối bậc thang (Hip-to-Waist Bridge) xóa góc vuông gắt
+        // Bên Phải (+X)
+        {
+          id: 'R_iliac_wing',
+          category: 'pants',
+          name: 'Hông Phải - Mào chậu ngoài (Right Iliac Crest)',
+          size: [0.075, 0.24, 0.26],
+          pos: [0.335, 2.58, -0.06],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'R_hip_waist_bridge',
+          category: 'pants',
+          name: 'Hông Phải - Khối nối chuyển tiếp eo-hông (Right Hip-Waist Bridge)',
+          size: [0.065, 0.14, 0.24],
+          pos: [0.305, 2.75, -0.06],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'R_hip_oblique_taper',
+          category: 'pants',
+          name: 'Hông Phải - Cơ chéo hông chữ V (Right Adonis Belt)',
+          size: [0.15, 0.20, 0.08],
+          pos: [0.24, 2.59, 0.10],
+          color: COLOR_PALETTE.pants
+        },
+        // Bên Trái (-X)
+        {
+          id: 'L_iliac_wing',
+          category: 'pants',
+          name: 'Hông Trái - Mào chậu ngoài (Left Iliac Crest)',
+          size: [0.075, 0.24, 0.26],
+          pos: [-0.335, 2.58, -0.06],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_hip_waist_bridge',
+          category: 'pants',
+          name: 'Hông Trái - Khối nối chuyển tiếp eo-hông (Left Hip-Waist Bridge)',
+          size: [0.065, 0.14, 0.24],
+          pos: [-0.305, 2.75, -0.06],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_hip_oblique_taper',
+          category: 'pants',
+          name: 'Hông Trái - Cơ chéo hông chữ V (Left Adonis Belt)',
+          size: [0.15, 0.20, 0.08],
+          pos: [-0.24, 2.59, 0.10],
+          color: COLOR_PALETTE.pants
+        },
+
+        // 4. CƠ MÔNG LỚN & XƯƠNG CÙNG PHÍA SAU (GLUTEUS MAXIMUS & SACRUM) + CẦU NỐI LƯNG DƯỚI
+        {
+          id: 'P_sacrum_back_center',
+          category: 'pants',
+          name: 'Hông - Xương cùng cột sống dưới (Sacrum Center)',
+          size: [0.18, 0.28, 0.10],
+          pos: [0, 2.64, -0.22],
+          color: COLOR_PALETTE.pants
+        },
+        // Khối cầu nối chuyển tiếp giữa Xương Cùng / Đỉnh Mông và Lưng Dưới (Lumbosacral Transition Bridge)
+        {
+          id: 'P_glute_lumbar_bridge_center',
+          category: 'pants',
+          name: 'Eo Sau - Khối đệm nối xương cùng lên thắt lưng (Lumbosacral Bridge)',
+          size: [0.48, 0.18, 0.11],
+          pos: [0, 2.77, -0.245],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'R_glute_upper_shelf_bridge',
+          category: 'pants',
+          name: 'Hông Phải - Cơ mông nhỡ nối lên eo sau (Right Gluteus Medius Bridge)',
+          size: [0.23, 0.16, 0.11],
+          pos: [0.19, 2.74, -0.255],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_glute_upper_shelf_bridge',
+          category: 'pants',
+          name: 'Hông Trái - Cơ mông nhỡ nối lên eo sau (Left Gluteus Medius Bridge)',
+          size: [0.23, 0.16, 0.11],
+          pos: [-0.19, 2.74, -0.255],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'R_glute_max_base',
+          category: 'pants',
+          name: 'Hông Phải - Cơ mông lớn nền (Right Gluteus Base)',
+          size: [0.29, 0.32, 0.12],
+          pos: [0.22, 2.56, -0.24],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'R_glute_max_peak',
+          category: 'pants',
+          name: 'Hông Phải - Đỉnh cơ mông sau (Right Gluteus Peak)',
+          size: [0.26, 0.27, 0.09],
+          pos: [0.22, 2.55, -0.32],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_glute_max_base',
+          category: 'pants',
+          name: 'Hông Trái - Cơ mông lớn nền (Left Gluteus Base)',
+          size: [0.29, 0.32, 0.12],
+          pos: [-0.22, 2.56, -0.24],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'L_glute_max_peak',
+          category: 'pants',
+          name: 'Hông Trái - Đỉnh cơ mông sau (Left Gluteus Peak)',
+          size: [0.26, 0.27, 0.09],
+          pos: [-0.22, 2.55, -0.32],
+          color: COLOR_PALETTE.pants
+        },
+
+        // 5. ĐAI EO DƯỚI & TẤM NỐI BỤNG DƯỚI (LOWER WAIST & ABDOMINAL BRIDGE)
+        {
+          id: 'P_waist_lower_core',
+          category: 'pants',
+          name: 'Eo - Thắt lưng dưới nối bụng (Lower Waist Core)',
+          size: [0.56, 0.16, 0.30],
+          pos: [0, 2.80, -0.075],
+          color: COLOR_PALETTE.pants
+        },
+        {
+          id: 'P_lower_abs_bridge',
+          category: 'pants',
+          name: 'Eo Trước - Khối nối cơ bụng dưới (Lower Abs Transition Bridge)',
+          size: [0.36, 0.12, 0.06],
+          pos: [0, 2.78, 0.095],
+          color: COLOR_PALETTE.pants
+        },
+
+        // ==========================================
+        // 6. THẮT LƯNG, CƠ LIÊN SƯỜN & BỤNG 6 MÚI LEAN (LEAN ABS & MIDSECTION)
+        // Lưng sau được đắp dày dặn, không còn bị phẳng hay lõm
+        // ==========================================
+        {
+          id: 'T_waist_mid_core',
+          category: 'cool_black_light',
+          name: 'Bụng - Thân eo giữa thon gọn (Lean Mid Waist Core)',
+          size: [0.54, 0.22, 0.29],
+          pos: [0, 2.98, -0.08],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'T_abdomen_upper_core',
+          category: 'cool_black',
+          name: 'Bụng - Thân bụng trên mở nhẹ lên sườn (Upper Abdomen Core)',
+          size: [0.58, 0.22, 0.31],
+          pos: [0, 3.19, -0.085],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- B. CƠ BỤNG 6 MÚI MỎNG RÕ NÉT ---
+        {
+          id: 'R_abs_pack_low',
+          category: 'cool_black_light',
+          name: 'Bụng Phải - Múi bụng dưới (Right Lower Ab)',
+          size: [0.13, 0.11, 0.04],
+          pos: [0.075, 2.89, 0.08],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'L_abs_pack_low',
+          category: 'cool_black_light',
+          name: 'Bụng Trái - Múi bụng dưới (Left Lower Ab)',
+          size: [0.13, 0.11, 0.04],
+          pos: [-0.075, 2.89, 0.08],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'R_abs_pack_mid',
+          category: 'cool_black_light',
+          name: 'Bụng Phải - Múi bụng giữa (Right Mid Ab)',
+          size: [0.14, 0.12, 0.04],
+          pos: [0.08, 3.03, 0.082],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'L_abs_pack_mid',
+          category: 'cool_black_light',
+          name: 'Bụng Trái - Múi bụng giữa (Left Mid Ab)',
+          size: [0.14, 0.12, 0.04],
+          pos: [-0.08, 3.03, 0.082],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'R_abs_pack_high',
+          category: 'cool_black_light',
+          name: 'Bụng Phải - Múi bụng trên (Right Upper Ab)',
+          size: [0.15, 0.12, 0.04],
+          pos: [0.085, 3.18, 0.085],
+          color: COLOR_PALETTE.cool_black_light
+        },
+        {
+          id: 'L_abs_pack_high',
+          category: 'cool_black_light',
+          name: 'Bụng Trái - Múi bụng trên (Left Upper Ab)',
+          size: [0.15, 0.12, 0.04],
+          pos: [-0.085, 3.18, 0.085],
+          color: COLOR_PALETTE.cool_black_light
+        },
+
+        // --- C. CƠ CHÉO BỤNG & CƠ RĂNG CƯA MẠN SƯỜN ---
+        {
+          id: 'R_flank_oblique',
+          category: 'cool_black',
+          name: 'Eo Phải - Cơ liên sườn / chéo bụng (Right External Oblique)',
+          size: [0.055, 0.38, 0.25],
+          pos: [0.28, 3.05, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_flank_oblique',
+          category: 'cool_black',
+          name: 'Eo Trái - Cơ liên sườn / chéo bụng (Left External Oblique)',
+          size: [0.055, 0.38, 0.25],
+          pos: [-0.28, 3.05, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- D. CỘT SỐNG THẮT LƯNG & CƠ DỰNG SỐNG ĐA TẦNG DÀY DẶN ---
+        {
+          id: 'R_erector_spinae_lumbar',
+          category: 'cool_black',
+          name: 'Lưng Dưới Phải - Cơ thăn lưng dưới (Right Lower Lumbar Erector)',
+          size: [0.14, 0.24, 0.085],
+          pos: [0.095, 2.95, -0.245],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_erector_spinae_lumbar',
+          category: 'cool_black',
+          name: 'Lưng Dưới Trái - Cơ thăn lưng dưới (Left Lower Lumbar Erector)',
+          size: [0.14, 0.24, 0.085],
+          pos: [-0.095, 2.95, -0.245],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'R_erector_spinae_mid',
+          category: 'cool_black',
+          name: 'Lưng Giữa Phải - Cơ dựng sống lưng giữa (Right Mid Thoracic Erector)',
+          size: [0.16, 0.32, 0.09],
+          pos: [0.105, 3.24, -0.255],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_erector_spinae_mid',
+          category: 'cool_black',
+          name: 'Lưng Giữa Trái - Cơ dựng sống lưng giữa (Left Mid Thoracic Erector)',
+          size: [0.16, 0.32, 0.09],
+          pos: [-0.105, 3.24, -0.255],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Khối cơ vuông thắt lưng 2 bên (Quadratus Lumborum - dày dặn lấp đầy hông lưng sau)
+        {
+          id: 'R_quadratus_lumborum',
+          category: 'cool_black',
+          name: 'Lưng Hông Phải - Cơ vuông thắt lưng (Right Quadratus Lumborum)',
+          size: [0.13, 0.38, 0.08],
+          pos: [0.215, 3.06, -0.235],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_quadratus_lumborum',
+          category: 'cool_black',
+          name: 'Lưng Hông Trái - Cơ vuông thắt lưng (Left Quadratus Lumborum)',
+          size: [0.13, 0.38, 0.08],
+          pos: [-0.215, 3.06, -0.235],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // ==========================================
+        // 7. LỒNG NGỰC V-SHAPE LEAN, CƠ NGỰC ĐA MÚI & CƠ XÔ LƯNG DÀY DẶN (V-TAPER THORAX & PECS)
+        // ==========================================
+        // --- A. KHUNG SƯỜN DƯỚI & CƠ RĂNG CƯA (LOWER RIBCAGE & SERRATUS) ---
+        {
+          id: 'T_ribcage_lower_core',
+          category: 'cool_black',
+          name: 'Ngực Dưới - Khung lồng ngực dưới mở chữ V (Lower Ribcage Core)',
+          size: [0.64, 0.22, 0.34],
+          pos: [0, 3.40, -0.09],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'R_serratus_ribs',
+          category: 'cool_black',
+          name: 'Sườn Phải - Cơ răng cưa mạn sườn (Right Serratus Anterior)',
+          size: [0.05, 0.19, 0.18],
+          pos: [0.335, 3.39, 0.0],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_serratus_ribs',
+          category: 'cool_black',
+          name: 'Sườn Trái - Cơ răng cưa mạn sườn (Left Serratus Anterior)',
+          size: [0.05, 0.19, 0.18],
+          pos: [-0.335, 3.39, 0.0],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- B. LỒNG NGỰC TRÊN V-SHAPE & CƠ NGỰC ĐA TẦNG (UPPER THORAX & SCULPTED PECS) ---
+        {
+          id: 'T_thorax_upper_core',
+          category: 'cool_black',
+          name: 'Ngực Trên - Khối lồng ngực chính V-Shape (Upper Thorax Core)',
+          size: [0.72, 0.30, 0.36],
+          pos: [0, 3.65, -0.095],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Xương ức giữa ngực (Sternum Center Ridge)
+        {
+          id: 'T_sternum_center',
+          category: 'cool_black',
+          name: 'Ngực - Rãnh xương ức giữa (Sternum Center)',
+          size: [0.05, 0.26, 0.035],
+          pos: [0, 3.63, 0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Bản cơ ngực lớn Phải & Trái
+        {
+          id: 'R_pec_major_main',
+          category: 'cool_black',
+          name: 'Ngực Phải - Cơ ngực chính mở rộng (Right Pectoralis Major)',
+          size: [0.30, 0.22, 0.065],
+          pos: [0.18, 3.63, 0.115],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_pec_major_main',
+          category: 'cool_black',
+          name: 'Ngực Trái - Cơ ngực chính mở rộng (Left Pectoralis Major)',
+          size: [0.30, 0.22, 0.065],
+          pos: [-0.18, 3.63, 0.115],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Gờ cắt cơ ngực dưới (Lower Pec Undercut - kéo dài xuống 1 chút và làm mỏng lại)
+        {
+          id: 'R_pec_lower_cut',
+          category: 'cool_black',
+          name: 'Ngực Phải - Viền cắt cơ ngực dưới (Right Lower Pec Cut)',
+          size: [0.24, 0.08, 0.025],
+          pos: [0.16, 3.475, 0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_pec_lower_cut',
+          category: 'cool_black',
+          name: 'Ngực Trái - Viền cắt cơ ngực dưới (Left Lower Pec Cut)',
+          size: [0.24, 0.08, 0.025],
+          pos: [-0.16, 3.475, 0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Dải cơ ngực trên sát xương đòn (Upper Clavicular Pec)
+        {
+          id: 'R_pec_upper_clavicular',
+          category: 'cool_black',
+          name: 'Ngực Phải - Cơ ngực trên (Right Upper Pec)',
+          size: [0.28, 0.09, 0.05],
+          pos: [0.17, 3.76, 0.105],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_pec_upper_clavicular',
+          category: 'cool_black',
+          name: 'Ngực Trái - Cơ ngực trên (Left Upper Pec)',
+          size: [0.28, 0.09, 0.05],
+          pos: [-0.17, 3.76, 0.105],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- C. CƠ XÔ LƯNG V-TAPER 2 TẦNG & CỤM BẢ VAI PHÍA SAU DÀY DẶN (SCULPTED LATS & SCAPULA) ---
+        // Tầng cơ xô dưới vuốt từ eo lên (Lower Lat Taper)
+        {
+          id: 'R_lat_lower_taper',
+          category: 'cool_black',
+          name: 'Lưng Phải - Cơ xô dưới vuốt chữ V (Right Lower Lat Taper)',
+          size: [0.065, 0.22, 0.24],
+          pos: [0.34, 3.42, -0.105],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_lat_lower_taper',
+          category: 'cool_black',
+          name: 'Lưng Trái - Cơ xô dưới vuốt chữ V (Left Lower Lat Taper)',
+          size: [0.065, 0.22, 0.24],
+          pos: [-0.34, 3.42, -0.105],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cánh cơ xô trên mở rộng chữ V dưới nách (Upper Lat Wing Flare)
+        {
+          id: 'R_lat_wing',
+          category: 'cool_black',
+          name: 'Lưng Phải - Cánh cơ xô trên V-Shape (Right Upper Lat Wing)',
+          size: [0.08, 0.26, 0.26],
+          pos: [0.38, 3.63, -0.11],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_lat_wing',
+          category: 'cool_black',
+          name: 'Lưng Trái - Cánh cơ xô trên V-Shape (Left Upper Lat Wing)',
+          size: [0.08, 0.26, 0.26],
+          pos: [-0.38, 3.63, -0.11],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // Cụm Bả Vai & Lưng Trên dày dặn (Scapula, Teres Major, Mid/Lower Traps)
+        {
+          id: 'T_mid_trapezius_back',
+          category: 'cool_black',
+          name: 'Lưng Trên Giữa - Cơ thang giữa lưng (Mid/Lower Trapezius)',
+          size: [0.18, 0.34, 0.085],
+          pos: [0, 3.60, -0.285],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Khối cơ dưới gai bả vai chính (Infraspinatus / Scapula Blade)
+        {
+          id: 'R_scapula_back',
+          category: 'cool_black',
+          name: 'Lưng Trên Phải - Xương bả vai & Cơ dưới gai (Right Scapula Blade)',
+          size: [0.21, 0.24, 0.09],
+          pos: [0.195, 3.65, -0.29],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_scapula_back',
+          category: 'cool_black',
+          name: 'Lưng Trên Trái - Xương bả vai & Cơ dưới gai (Left Scapula Blade)',
+          size: [0.21, 0.24, 0.09],
+          pos: [-0.195, 3.65, -0.29],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Gờ gai vai ngang phía trên bả vai (Scapular Spine Ridge)
+        {
+          id: 'R_scapular_spine_ridge',
+          category: 'cool_black',
+          name: 'Lưng Trên Phải - Gờ gai bả vai (Right Scapular Spine)',
+          size: [0.23, 0.065, 0.065],
+          pos: [0.20, 3.76, -0.30],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_scapular_spine_ridge',
+          category: 'cool_black',
+          name: 'Lưng Trên Trái - Gờ gai bả vai (Left Scapular Spine)',
+          size: [0.23, 0.065, 0.065],
+          pos: [-0.20, 3.76, -0.30],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cơ tròn lớn mép ngoài bả vai nối ra xô (Teres Major / Outer Back)
+        {
+          id: 'R_teres_major_back',
+          category: 'cool_black',
+          name: 'Lưng Trên Phải - Cơ tròn lớn mép nách sau (Right Teres Major)',
+          size: [0.13, 0.16, 0.085],
+          pos: [0.31, 3.58, -0.275],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_teres_major_back',
+          category: 'cool_black',
+          name: 'Lưng Trên Trái - Cơ tròn lớn mép nách sau (Left Teres Major)',
+          size: [0.13, 0.16, 0.085],
+          pos: [-0.31, 3.58, -0.275],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // ==========================================
+        // 8. XƯƠNG ĐÒN, CƠ CẦU VAI & CỔ (CLAVICLE, TRAPEZIUS & NECK)
+        // ==========================================
+        // --- A. XƯƠNG ĐÒN QUAI XANH (CLAVICLES) ---
+        {
+          id: 'R_clavicle_bone',
+          category: 'cool_black',
+          name: 'Vai Phải - Xương đòn quai xanh (Right Clavicle)',
+          size: [0.27, 0.055, 0.055],
+          pos: [0.16, 3.83, 0.075],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_clavicle_bone',
+          category: 'cool_black',
+          name: 'Vai Trái - Xương đòn quai xanh (Left Clavicle)',
+          size: [0.27, 0.055, 0.055],
+          pos: [-0.16, 3.83, 0.075],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- B. CƠ CẦU VAI (TRAPEZIUS SLOPES) ---
+        // Bậc cầu vai nối mượt từ đỉnh ngực lên gốc cổ (Thu nhỏ và ôm sát cổ theo feedback)
+        {
+          id: 'T_trapezius_base',
+          category: 'cool_black',
+          name: 'Vai - Khối nền cơ cầu vai (Trapezius Base)',
+          size: [0.36, 0.08, 0.20],
+          pos: [0, 3.835, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'R_trap_slope',
+          category: 'cool_black',
+          name: 'Cầu Vai Phải - Dốc cơ cầu vai (Right Upper Trap)',
+          size: [0.105, 0.088, 0.170],
+          pos: [0.125, 3.895, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'L_trap_slope',
+          category: 'cool_black',
+          name: 'Cầu Vai Trái - Dốc cơ cầu vai (Left Upper Trap)',
+          size: [0.105, 0.088, 0.170],
+          pos: [-0.125, 3.895, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- C. TRỤ CỔ, CƠ ỨC ĐÒN CHŨM & YẾT HẦU (NECK COLUMN) ---
+        // Trụ cổ chính săn chắc
+        {
+          id: 'N_neck_core_column',
+          category: 'skin',
+          name: 'Cổ - Trụ cổ trung tâm (Neck Core Column)',
+          size: [0.21, 0.28, 0.20],
+          pos: [0, 4.00, -0.05],
+          color: COLOR_PALETTE.skin
+        },
+        // Hai dải cơ ức đòn chũm 2 bên cổ (Sternocleidomastoid)
+        {
+          id: 'R_neck_scm_muscle',
+          category: 'skin',
+          name: 'Cổ Phải - Cơ ức đòn chũm (Right SCM Muscle)',
+          size: [0.05, 0.22, 0.12],
+          pos: [0.11, 3.97, -0.02],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: 'L_neck_scm_muscle',
+          category: 'skin',
+          name: 'Cổ Trái - Cơ ức đòn chũm (Left SCM Muscle)',
+          size: [0.05, 0.22, 0.12],
+          pos: [-0.11, 3.97, -0.02],
+          color: COLOR_PALETTE.skin
+        },
+        // Yết hầu trước cổ (Adam's Apple / Larynx - lùi vào cổ 20%)
+        {
+          id: 'N_adams_apple',
+          category: 'ankle',
+          name: 'Cổ Trước - Yết hầu (Adams Apple / Larynx)',
+          size: [0.056, 0.068, 0.032],
+          pos: [0, 3.960, 0.045],
+          color: COLOR_PALETTE.ankle
+        },
+        // Cơ gáy sau cổ (Nuchal / Back Neck Muscle)
+        {
+          id: 'N_nuchal_back_neck',
+          category: 'heel',
+          name: 'Cổ Sau - Cơ gáy (Back Neck Muscle)',
+          size: [0.18, 0.26, 0.032],
+          pos: [0, 4.00, -0.140],
+          color: COLOR_PALETTE.heel
+        }
+      ];
+
+      pelvisSpecs.forEach(spec => {
+        const geometry = new THREE.BoxGeometry(spec.size[0], spec.size[1], spec.size[2]);
+        const isMarked = localDB[spec.id] && localDB[spec.id].status !== 'ok';
+        const displayColor = isMarked ? COLOR_PALETTE.marked_flag : spec.color;
+
+        const material = new THREE.MeshStandardMaterial({
+          color: displayColor || 0xffffff,
+          roughness: spec.roughness !== undefined ? spec.roughness : 0.35,
+          metalness: spec.metalness !== undefined ? spec.metalness : 0.05
+        });
+
+        if (spec.texture) {
+          const tex = new THREE.TextureLoader().load(spec.texture);
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.RepeatWrapping;
+          material.map = tex;
+          material.roughness = 0.45;
+          material.metalness = 0.1;
+        }
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+        if (spec.rot) {
+          mesh.rotation.set(spec.rot[0], spec.rot[1], spec.rot[2]);
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+          id: spec.id,
+          category: spec.category,
+          name: spec.name,
+          dimensions: spec.size,
+          defaultColor: spec.color
+        };
+
+        const edges = new THREE.EdgesGeometry(geometry);
+        const line = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.22, transparent: true })
+        );
+        mesh.add(line);
+
+        const selectBoxGeo = new THREE.BoxGeometry(spec.size[0] * 1.05, spec.size[1] * 1.05, spec.size[2] * 1.05);
+        const selectBoxEdges = new THREE.EdgesGeometry(selectBoxGeo);
+        const selectBoxLine = new THREE.LineSegments(
+          selectBoxEdges,
+          new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })
+        );
+        selectBoxLine.name = 'selection_highlight';
+        selectBoxLine.visible = false;
+        mesh.add(selectBoxLine);
+
+        pelvisGroup.add(mesh);
+        clickableMeshes.push(mesh);
+      });
+
+      return pelvisGroup;
+    }
+
+    /**
+     * Dựng VAI, CÁNH TAY, CẲNG TAY, BÀN TAY & 5 NGÓN TAY (ARMS & 5-FINGER HANDS)
+     * side: 1 = Tay Phải (+X), -1 = Tay Trái (-X)
+     * 100% hình hộp vuông góc phong cách Lean Boxer
+     */
+    function createDetailedArm(side = 1) {
+      const armGroup = new THREE.Group();
+      const sideName = side === 1 ? 'Tay Phải' : 'Tay Trái';
+      const sidePrefix = side === 1 ? 'R' : 'L';
+      const armX = side * 0.445; // Thu gọn vai & cánh tay ôm sát vừa vặn với thân hình Lean Boxer
+
+      const armSpecs = [
+        // 1. CẦU VAI / CƠ DELTA 3 ĐẦU GỌN SĂN CHẮC (DELTOID COMPLEX: Y = 3.60 -> 3.80)
+        // Khối tâm khớp vai (Shoulder Joint Core - thu nhỏ vừa vặn)
+        {
+          id: `${sidePrefix}_shoulder_deltoid_core`,
+          category: 'cool_black',
+          name: `${sideName} - Tâm khớp cầu vai (Deltoid Core)`,
+          size: [0.201, 0.23, 0.185],
+          pos: [armX + (side * 0.013), 3.715, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cơ vai trước (Anterior Deltoid) - Đen lạnh
+        {
+          id: `${sidePrefix}_deltoid_front`,
+          category: 'cool_black',
+          name: `${sideName} - Cơ vai trước (Anterior Deltoid)`,
+          size: [0.145, 0.18, 0.045],
+          pos: [armX - (side * 0.01), 3.69, 0.04],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Múi cơ vai ngang (Lateral Deltoid Cap) - Đen lạnh
+        {
+          id: `${sidePrefix}_deltoid_lateral_cap`,
+          category: 'cool_black',
+          name: `${sideName} - Múi cơ vai ngang (Lateral Deltoid Cap)`,
+          size: [0.057, 0.234, 0.196],
+          pos: [armX + (side * 0.113), 3.69, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cơ vai sau (Posterior Deltoid) - Đen lạnh
+        {
+          id: `${sidePrefix}_deltoid_rear`,
+          category: 'cool_black',
+          name: `${sideName} - Cơ vai sau (Posterior Deltoid)`,
+          size: [0.145, 0.18, 0.045],
+          pos: [armX - (side * 0.01), 3.69, -0.18],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // --- CÁNH TAY TRÊN & BẮP TAY (UPPER ARM & BRACHIALIS) ---
+        // Thân cánh tay trên (Upper Arm Bone / Humerus Shaft)
+        {
+          id: `${sidePrefix}_upper_arm_shaft`,
+          category: 'cool_black',
+          name: `${sideName} - Thân cánh tay trên (Humerus Core)`,
+          size: [0.15, 0.32, 0.15],
+          pos: [armX, 3.48, -0.07],
+          color: COLOR_PALETTE.cool_black_dark
+        },
+        // Cơ nhị đầu tay trước (Biceps Brachii)
+        {
+          id: `${sidePrefix}_biceps_front`,
+          category: 'cool_black',
+          name: `${sideName} - Bắp tay trước cuồn cuộn (Biceps Peak)`,
+          size: [0.195, 0.416, 0.090],
+          pos: [armX, 3.48, 0.02],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cơ tam đầu tay sau (Triceps Brachii) - Đen lạnh
+        {
+          id: `${sidePrefix}_triceps_back`,
+          category: 'cool_black',
+          name: `${sideName} - Cơ tam đầu tay sau (Triceps Brachii)`,
+          size: [0.14, 0.30, 0.06],
+          pos: [armX + (side * 0.01), 3.48, -0.17],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Cơ cánh tay ngoài (Brachialis Outer - bám sát vào cơ vai ngang)
+        {
+          id: `${sidePrefix}_brachialis_outer`,
+          category: 'cool_black',
+          name: `${sideName} - Cơ cánh tay ngoài (Brachialis Lateral)`,
+          size: [0.052, 0.405, 0.156],
+          pos: [armX + (side * 0.095), 3.40, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // 3. KHỚP KHUỶU TAY & CÙI CHỎ (ELBOW COMPLEX: Xít lên theo tổng thể cánh tay)
+        {
+          id: `${sidePrefix}_elbow_joint_core`,
+          category: 'cool_black',
+          name: `${sideName} - Khớp khuỷu tay (Elbow Joint Core)`,
+          size: [0.195, 0.182, 0.189],
+          pos: [armX + (side * 0.018), 3.25, -0.07],
+          color: COLOR_PALETTE.cool_black_dark
+        },
+        // Mỏm cùi chỏ nhô phía sau (Olecranon Elbow Tip)
+        {
+          id: `${sidePrefix}_elbow_olecranon_tip`,
+          category: 'cool_black',
+          name: `${sideName} - Mỏm cùi chỏ sau (Olecranon Tip)`,
+          size: [0.143, 0.165, 0.068],
+          pos: [armX + (side * 0.018), 3.25, -0.155],
+          color: COLOR_PALETTE.cool_black_dark
+        },
+
+        // 4. CẲNG TAY TRÊN & DƯỚI (FOREARM COMPLEX)
+        // Bắp cẳng tay trên nở sát khuỷu (Upper Forearm / Brachioradialis)
+        {
+          id: `${sidePrefix}_forearm_upper_bulk`,
+          category: 'cool_black',
+          name: `${sideName} - Bắp cẳng tay trên (Upper Forearm Bulk)`,
+          size: [0.233, 0.24, 0.233],
+          pos: [armX + (side * 0.061), 3.07, -0.065],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Gờ cơ cẳng tay ngoài (Brachioradialis Ridge - kéo dài xuống hướng về phía bàn tay)
+        {
+          id: `${sidePrefix}_brachioradialis_crest`,
+          category: 'cool_black',
+          name: `${sideName} - Gờ cơ cẳng tay ngoài (Brachioradialis)`,
+          size: [0.063, 0.38, 0.294],
+          pos: [armX + (side * 0.116), 2.98, -0.096],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Thân cẳng tay dưới thon dần về cổ tay (Lower Forearm Taper - dài thêm ~10% theo feedback)
+        {
+          id: `${sidePrefix}_forearm_lower_shaft`,
+          category: 'cool_black',
+          name: `${sideName} - Cẳng tay dưới thon (Lower Forearm Shaft)`,
+          size: [0.216, 0.265, 0.216],
+          pos: [armX + (side * 0.0665), 2.8275, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // 5. CỔ TAY & MẮT CÁ CỔ TAY (WRIST & ULNAR STYLOID)
+        {
+          id: `${sidePrefix}_wrist_joint`,
+          category: 'ankle',
+          name: `${sideName} - Khớp cổ tay (Wrist Carpal Joint)`,
+          size: [0.105, 0.10, 0.125],
+          pos: [armX + (side * 0.028), 2.655, -0.06],
+          color: COLOR_PALETTE.ankle
+        },
+
+        // 6. BÀN TAY (PALM, METACARPALS & THENAR)
+        {
+          id: `${sidePrefix}_hand_palm_core`,
+          category: 'cream_socks',
+          name: `${sideName} - Khối bàn tay chính (Metacarpal Palm)`,
+          size: [0.075, 0.17, 0.16],
+          pos: [armX + (side * 0.032), 2.525, -0.055],
+          color: COLOR_PALETTE.cream_socks
+        },
+        // Mô cái lòng bàn tay (Thenar Eminence)
+        {
+          id: `${sidePrefix}_hand_thenar_base`,
+          category: 'robe_inner',
+          name: `${sideName} - Mô ngón tay cái (Thenar Base)`,
+          size: [0.07, 0.11, 0.065],
+          pos: [armX + (side * 0.018), 2.545, 0.035],
+          color: COLOR_PALETTE.robe_inner
+        },
+        // Gờ khớp đốt bàn tay (Knuckles Ridge)
+        {
+          id: `${sidePrefix}_hand_knuckles_ridge`,
+          category: 'ankle',
+          name: `${sideName} - Hàng khớp đấm bàn tay (Knuckles Ridge)`,
+          size: [0.08, 0.045, 0.165],
+          pos: [armX + (side * 0.035), 2.435, -0.055],
+          color: COLOR_PALETTE.ankle
+        },
+
+        // 7. ĐẦY ĐỦ 5 NGÓN TAY CHI TIẾT (5 INDIVIDUAL FINGERS + FINGERNAILS)
+        // --- NGÓN 1: NGÓN TAY CÁI (THUMB - nằm phía trước +Z, gồm 2 đốt) ---
+        {
+          id: `${sidePrefix}_finger_1_thumb_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 1: Ngón cái đốt gốc (Thumb Proximal)`,
+          size: [0.055, 0.085, 0.055],
+          pos: [armX + (side * 0.015), 2.475, 0.055],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_1_thumb_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 1: Ngón cái đốt đầu (Thumb Distal)`,
+          size: [0.048, 0.075, 0.048],
+          pos: [armX + (side * 0.012), 2.400, 0.06],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_1_thumb`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay cái`,
+          size: [0.012, 0.035, 0.035],
+          pos: [armX + (side * 0.038), 2.385, 0.06],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 2: NGÓN TAY TRỎ (INDEX FINGER - 3 ĐỐT + MÓNG, Z = +0.008) ---
+        {
+          id: `${sidePrefix}_finger_2_index_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 2: Ngón trỏ đốt gốc (Index Proximal)`,
+          size: [0.052, 0.058, 0.036],
+          pos: [armX + (side * 0.033), 2.393, 0.008],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_2_index_mid`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 2: Ngón trỏ đốt giữa (Index Middle)`,
+          size: [0.049, 0.058, 0.0345],
+          pos: [armX + (side * 0.0315), 2.335, 0.008],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_2_index_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 2: Ngón trỏ đốt đầu (Index Distal)`,
+          size: [0.046, 0.058, 0.033],
+          pos: [armX + (side * 0.030), 2.277, 0.008],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_2_index`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay trỏ`,
+          size: [0.012, 0.032, 0.025],
+          pos: [armX + (side * 0.054), 2.260, 0.008],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 3: NGÓN TAY GIỮA (MIDDLE FINGER - 3 ĐỐT + MÓNG, Dài nhất, Z = -0.034) ---
+        {
+          id: `${sidePrefix}_finger_3_middle_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 3: Ngón giữa đốt gốc (Middle Proximal)`,
+          size: [0.054, 0.065, 0.038],
+          pos: [armX + (side * 0.034), 2.390, -0.034],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_3_middle_mid`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 3: Ngón giữa đốt giữa (Middle Middle)`,
+          size: [0.051, 0.065, 0.0365],
+          pos: [armX + (side * 0.0325), 2.325, -0.034],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_3_middle_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 3: Ngón giữa đốt đầu (Middle Distal)`,
+          size: [0.048, 0.065, 0.035],
+          pos: [armX + (side * 0.031), 2.260, -0.034],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_3_middle`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay giữa`,
+          size: [0.012, 0.034, 0.026],
+          pos: [armX + (side * 0.056), 2.240, -0.034],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 4: NGÓN TAY ÁP ÚT (RING FINGER - 3 ĐỐT + MÓNG, Z = -0.076) ---
+        {
+          id: `${sidePrefix}_finger_4_ring_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 4: Ngón áp út đốt gốc (Ring Proximal)`,
+          size: [0.050, 0.058, 0.036],
+          pos: [armX + (side * 0.033), 2.393, -0.076],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_4_ring_mid`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 4: Ngón áp út đốt giữa (Ring Middle)`,
+          size: [0.0475, 0.058, 0.034],
+          pos: [armX + (side * 0.0315), 2.335, -0.076],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_4_ring_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 4: Ngón áp út đốt đầu (Ring Distal)`,
+          size: [0.045, 0.058, 0.032],
+          pos: [armX + (side * 0.030), 2.277, -0.076],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_4_ring`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay áp út`,
+          size: [0.012, 0.032, 0.024],
+          pos: [armX + (side * 0.053), 2.260, -0.076],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 5: NGÓN TAY ÚT (PINKY FINGER - 3 ĐỐT + MÓNG, Nhỏ nhất, Z = -0.116) ---
+        {
+          id: `${sidePrefix}_finger_5_pinky_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 5: Ngón út đốt gốc (Pinky Proximal)`,
+          size: [0.046, 0.048, 0.033],
+          pos: [armX + (side * 0.031), 2.395, -0.116],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_5_pinky_mid`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 5: Ngón út đốt giữa (Pinky Middle)`,
+          size: [0.044, 0.048, 0.0315],
+          pos: [armX + (side * 0.0295), 2.347, -0.116],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_5_pinky_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 5: Ngón út đốt đầu (Pinky Distal)`,
+          size: [0.042, 0.048, 0.030],
+          pos: [armX + (side * 0.028), 2.299, -0.116],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_5_pinky`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay út`,
+          size: [0.011, 0.028, 0.022],
+          pos: [armX + (side * 0.050), 2.285, -0.116],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 3: NGÓN TAY GIỮA (MIDDLE FINGER - Dài nhất, Z = -0.034) ---
+        {
+          id: `${sidePrefix}_finger_3_middle_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 3: Ngón giữa đốt trên (Middle Proximal)`,
+          size: [0.054, 0.105, 0.038],
+          pos: [armX + (side * 0.034), 2.370, -0.034],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_3_middle_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 3: Ngón giữa đốt đầu (Middle Distal)`,
+          size: [0.048, 0.09, 0.035],
+          pos: [armX + (side * 0.031), 2.275, -0.034],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_3_middle`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay giữa`,
+          size: [0.012, 0.034, 0.026],
+          pos: [armX + (side * 0.056), 2.250, -0.034],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 4: NGÓN TAY ÁP ÚT (RING FINGER - Z = -0.076) ---
+        {
+          id: `${sidePrefix}_finger_4_ring_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 4: Ngón áp út đốt trên (Ring Proximal)`,
+          size: [0.050, 0.095, 0.036],
+          pos: [armX + (side * 0.033), 2.375, -0.076],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_4_ring_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 4: Ngón áp út đốt đầu (Ring Distal)`,
+          size: [0.045, 0.08, 0.032],
+          pos: [armX + (side * 0.030), 2.290, -0.076],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_4_ring`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay áp út`,
+          size: [0.012, 0.032, 0.024],
+          pos: [armX + (side * 0.053), 2.270, -0.076],
+          color: COLOR_PALETTE.nail
+        },
+
+        // --- NGÓN 5: NGÓN TAY ÚT (PINKY FINGER - Nhỏ nhất, phía sau Z = -0.116) ---
+        {
+          id: `${sidePrefix}_finger_5_pinky_prox`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 5: Ngón út đốt trên (Pinky Proximal)`,
+          size: [0.046, 0.08, 0.033],
+          pos: [armX + (side * 0.031), 2.385, -0.116],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_finger_5_pinky_dist`,
+          category: 'skin',
+          name: `${sideName} - Ngón tay 5: Ngón út đốt đầu (Pinky Distal)`,
+          size: [0.042, 0.065, 0.030],
+          pos: [armX + (side * 0.028), 2.315, -0.116],
+          color: COLOR_PALETTE.skin
+        },
+        {
+          id: `${sidePrefix}_fingernail_5_pinky`,
+          category: 'nail',
+          name: `${sideName} - Móng ngón tay út`,
+          size: [0.011, 0.028, 0.022],
+          pos: [armX + (side * 0.050), 2.300, -0.116],
+          color: COLOR_PALETTE.nail
+        }
+      ];
+
+      armSpecs.forEach(spec => {
+        const geometry = new THREE.BoxGeometry(spec.size[0], spec.size[1], spec.size[2]);
+        const isMarked = localDB[spec.id] && localDB[spec.id].status !== 'ok';
+        const displayColor = isMarked ? COLOR_PALETTE.marked_flag : spec.color;
+
+        const material = new THREE.MeshStandardMaterial({
+          color: displayColor || 0xffffff,
+          roughness: spec.roughness !== undefined ? spec.roughness : 0.35,
+          metalness: spec.metalness !== undefined ? spec.metalness : 0.05
+        });
+
+        if (spec.texture) {
+          const tex = new THREE.TextureLoader().load(spec.texture);
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.RepeatWrapping;
+          material.map = tex;
+          material.roughness = 0.45;
+          material.metalness = 0.1;
+        }
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+        if (spec.rot) {
+          mesh.rotation.set(spec.rot[0], spec.rot[1], spec.rot[2]);
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+          id: spec.id,
+          category: spec.category,
+          name: spec.name,
+          dimensions: spec.size,
+          defaultColor: spec.color,
+          side: sidePrefix
+        };
+
+        const edges = new THREE.EdgesGeometry(geometry);
+        const line = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.22, transparent: true })
+        );
+        mesh.add(line);
+
+        const selectBoxGeo = new THREE.BoxGeometry(spec.size[0] * 1.05, spec.size[1] * 1.05, spec.size[2] * 1.05);
+        const selectBoxEdges = new THREE.EdgesGeometry(selectBoxGeo);
+        const selectBoxLine = new THREE.LineSegments(
+          selectBoxEdges,
+          new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })
+        );
+        selectBoxLine.name = 'selection_highlight';
+        selectBoxLine.visible = false;
+        mesh.add(selectBoxLine);
+
+        armGroup.add(mesh);
+        clickableMeshes.push(mesh);
+      });
+
+      return armGroup;
+    }
+
+    /**
+     * Dựng ĐẦU VÕ SĨ QUYỀN ANH TRỌC (BALD BOXER HEAD COMPLEX)
+     * 100% hình hộp vuông góc phong cách Lean Boxer
+     * Nối tiếp hoàn hảo từ đỉnh trụ cổ (Y = 4.12m) lên đỉnh sọ (Y = 4.54m)
+     */
+    function createDetailedHead() {
+      const headGroup = new THREE.Group();
+
+      /**
+       * MODEL: PN (V3 - TINH CHỈNH TỈ MỈ 9 NHÓM MARK THEO FEEDBACK)
+       * - Tóc sau lưng đè nổi hẳn ra ngoài lớp da/cơ lưng & bả vai (Z = -0.345m -> -0.305m), không bị lún vào thịt
+       * - Tóc trước ngực tách tự nhiên ra khỏi cơ ngực (Z = +0.158m), thanh mảnh gọn gàng
+       * - Môi mỏng đặc trưng, mũi xít vào da tự nhiên, cằm V-line kéo ngang 25% & hạ thấp nhọn sắc
+       * - Khối bo góc sau sọ-gáy kéo cao lên chóp đầu kín khít
+       * 100% pure BoxGeometry + EdgesGeometry
+       */
+      const headSpecs = [
+  // ==========================================
+  // 1. HỘP SỌ & VÒM ĐẦU THANH TÚ (CRANIAL CORE & DOME)
+  // ==========================================
+  {
+    id: 'H_skull_core',
+    category: 'skin',
+    name: 'Đầu - Khối sọ trung tâm (Main Cranial Core)',
+    size: [0.22, 0.24, 0.23],
+    pos: [0, 4.27, -0.04],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_cranium_top_dome',
+    category: 'skin',
+    name: 'Đầu - Vòm đỉnh sọ (Cranial Top Dome)',
+    size: [0.19, 0.09, 0.19],
+    pos: [0, 4.425, -0.04],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_cranium_occiput_back',
+    category: 'heel',
+    name: 'Đầu - Ụ sọ sau gáy (Occipital Protuberance)',
+    size: [0.20, 0.22, 0.028],
+    pos: [0, 4.24, -0.140],
+    color: COLOR_PALETTE.heel
+  },
+  // Lõi hàm trên & đáy sọ: xít ra ngoài 5% theo mark
+  {
+    id: 'H_lower_face_skull_base',
+    category: 'skin',
+    name: 'Đầu - Lõi hàm trên & đáy sọ (Maxilla & Skull Base Core)',
+    size: [0.20, 0.12, 0.242],
+    pos: [0, 4.15, -0.014],
+    color: COLOR_PALETTE.skin
+  },
+
+  // ==========================================
+  // 2. KHUÔN MẶT THANH TÚ, CẰM NHỌN V-LINE (V-LINE JAW & SLENDER CHIN)
+  // ==========================================
+  // Kéo ngang ra ~25% và hạ thấp xuống 1 tý cho cằm nhọn V-line liền mạch
+  {
+    id: 'H_chin_vline_main',
+    category: 'skin',
+    name: 'Cằm - Cằm thon V-line (Slender V-Line Chin)',
+    size: [0.0847, 0.072, 0.04655],
+    pos: [0, 4.095, 0.088],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_chin_tip_taper',
+    category: 'ankle',
+    name: 'Cằm - Đỉnh nhọn cằm V-line (Chin Tip Taper)',
+    size: [0.062, 0.028, 0.046],
+    pos: [0, 4.052, 0.084],
+    color: COLOR_PALETTE.ankle
+  },
+  {
+    id: 'H_jaw_mandible_R',
+    category: 'skin',
+    name: 'Hàm Phải - Xương hàm vát V-line (Right Mandible V-Taper)',
+    size: [0.038, 0.065, 0.115],
+    pos: [0.072, 4.128, 0.018],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_jaw_mandible_L',
+    category: 'skin',
+    name: 'Hàm Trái - Xương hàm vát V-line (Left Mandible V-Taper)',
+    size: [0.038, 0.065, 0.115],
+    pos: [-0.072, 4.128, 0.018],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_jaw_angle_R',
+    category: 'ankle',
+    name: 'Hàm Phải - Góc quai hàm thon (Right Sleek Jaw Angle)',
+    size: [0.036, 0.08, 0.055],
+    pos: [0.095, 4.165, -0.06],
+    color: COLOR_PALETTE.ankle
+  },
+  {
+    id: 'H_jaw_angle_L',
+    category: 'ankle',
+    name: 'Hàm Trái - Góc quai hàm thon (Left Sleek Jaw Angle)',
+    size: [0.036, 0.08, 0.055],
+    pos: [-0.095, 4.165, -0.06],
+    color: COLOR_PALETTE.ankle
+  },
+  {
+    id: 'H_submental_throat_bridge',
+    category: 'skin',
+    name: 'Cằm - Đáy dưới cằm nối đỉnh cổ (Submental Neck Bridge)',
+    size: [0.12, 0.05, 0.10],
+    pos: [0, 4.080, -0.005],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_cheek_mid_R',
+    category: 'skin',
+    name: 'Mặt Phải - Gò má thanh thoát (Right Sleek Cheek)',
+    size: [0.038, 0.08, 0.09],
+    pos: [0.098, 4.23, 0.05],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_cheek_mid_L',
+    category: 'skin',
+    name: 'Mặt Trái - Gò má thanh thoát (Left Sleek Cheek)',
+    size: [0.038, 0.08, 0.09],
+    pos: [-0.098, 4.23, 0.05],
+    color: COLOR_PALETTE.skin
+  },
+  // Khối nối 2 bên gò má xuống đáy hàm (Cheek-to-Maxilla Transition)
+  {
+    id: 'H_cheek_lower_bridge_R',
+    category: 'skin',
+    name: 'Mặt Phải - Khối nối gò má xuống đáy sọ (Right Cheek Bridge)',
+    size: [0.035, 0.06, 0.07],
+    pos: [0.095, 4.18, 0.035],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_cheek_lower_bridge_L',
+    category: 'skin',
+    name: 'Mặt Trái - Khối nối gò má xuống đáy sọ (Left Cheek Bridge)',
+    size: [0.035, 0.06, 0.07],
+    pos: [-0.095, 4.18, 0.035],
+    color: COLOR_PALETTE.skin
+  },
+
+  // ==========================================
+  // 3. TRÁN CAO THANH THOÁT - ĐÃ BỎ LỌN MÁI LÒA XÒA THEO YÊU CẦU
+  // ==========================================
+  {
+    id: 'H_forehead_frontal',
+    category: 'skin',
+    name: 'Mặt - Vầng trán cao thanh tú (Fair Frontal Forehead)',
+    size: [0.13, 0.11, 0.029],
+    pos: [0, 4.385, 0.082],
+    color: COLOR_PALETTE.skin
+  },
+        // 2 LỌN TÓC MỎNG PHỦ TRÁN THANH TÚ (2 THIN FOREHEAD BANG LOCKS)
+        {
+          id: 'HR_forehead_bang_R',
+          category: 'hair',
+          name: 'Tóc Trán Phải - Đoạn trên lọn tóc rủ nối X2 (Right Forehead Bang Upper)',
+          size: [0.0016, 0.22, 0.0014],
+          pos: [0.052, 4.39, 0.108],
+          rot: [-0.22, 0, 0.10],
+          color: COLOR_PALETTE.hair
+        },
+        {
+          id: 'HR_forehead_bang_R_sub',
+          category: 'hair',
+          name: 'Tóc Trán Phải - Đoạn dưới nối tiếp cong mềm (Right Forehead Bang Lower)',
+          size: [0.0008, 0.36, 0.0007],
+          pos: [0.070, 4.10, 0.150],
+          rot: [-0.10, 0, 0.04],
+          color: COLOR_PALETTE.hair
+        },
+        {
+          id: 'HR_forehead_bang_L',
+          category: 'hair',
+          name: 'Tóc Trán Trái - Đoạn trên lọn tóc rủ nối X1 (Left Forehead Bang Upper)',
+          size: [0.0016, 0.22, 0.0014],
+          pos: [-0.052, 4.39, 0.108],
+          rot: [-0.22, 0, -0.10],
+          color: COLOR_PALETTE.hair
+        },
+        {
+          id: 'HR_forehead_bang_L_sub',
+          category: 'hair',
+          name: 'Tóc Trán Trái - Đoạn dưới nối tiếp cong mềm (Left Forehead Bang Lower)',
+          size: [0.0008, 0.36, 0.0007],
+          pos: [-0.070, 4.10, 0.150],
+          rot: [-0.10, 0, -0.04],
+          color: COLOR_PALETTE.hair
+        },
+
+  {
+    id: 'H_forehead_temple_R',
+    category: 'skin',
+    name: 'Mặt Phải - Vách thái dương trán (Right Forehead Temple)',
+    size: [0.039, 0.10, 0.06],
+    pos: [0.089, 4.38, 0.063],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_forehead_temple_L',
+    category: 'skin',
+    name: 'Mặt Trái - Vách thái dương trán (Left Forehead Temple)',
+    size: [0.039, 0.10, 0.06],
+    pos: [-0.089, 4.38, 0.063],
+    color: COLOR_PALETTE.skin
+  },
+
+  // ==========================================
+  // 4. ĐÔI MẮT TO RỘNG, CON NGƯƠI TRÒN LỚN ĐEN TUYỀN VÔ HỒN SÂU THẲM (ABYSSAL JET-BLACK EYES)
+  // - Không xoay chéo dữ tợn hay ti hí: trạng thái bình thản, điềm tĩnh tuyệt đối (rotZ = 0 -> +-0.03 rad)
+  // - Khuôn mắt mở to rộng (width = 0.068m, height = 0.028m)
+  // - Con ngươi TO VÀ TRÒN (Sphere đường kính 0.034m), 1 màu ĐEN TUYỀN VÔ ĐỊNH (0x040406, không có chấm trắng phản quang!)
+  // - Tối giản gọn gàng, không chất đống các khối gạch nhỏ gây rối mắt
+  // ==========================================
+  // Chân mày thanh mảnh điềm tĩnh (Calm Horizontal-Slender Eyebrows)
+  {
+    id: 'H_eyebrow_sword_R',
+    category: 'hair',
+    name: 'Mặt Phải - Chân mày thanh mảnh điềm tĩnh (Right Calm Eyebrow)',
+    size: [0.074, 0.0085, 0.016],
+    pos: [0.058, 4.316, 0.114],
+    rot: [0, -0.06, 0.035],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'H_eyebrow_sword_L',
+    category: 'hair',
+    name: 'Mặt Trái - Chân mày thanh mảnh điềm tĩnh (Left Calm Eyebrow)',
+    size: [0.074, 0.0085, 0.016],
+    pos: [-0.058, 4.316, 0.114],
+    rot: [0, 0.06, -0.035],
+    color: COLOR_PALETTE.hair
+  },
+  // Đường nếp mí đôi mảnh nhẹ tự nhiên trên mắt (Subtle Clean Double Eyelid Line)
+  {
+    id: 'H_eyelid_crease_R',
+    category: 'pale_skin',
+    name: 'Mắt Phải - Nếp mí trên mảnh tự nhiên (Right Clean Eyelid Crease)',
+    size: [0.064, 0.0025, 0.014],
+    pos: [0.058, 4.298, 0.112],
+    rot: [0, -0.05, 0.015],
+    color: COLOR_PALETTE.pale_skin
+  },
+  {
+    id: 'H_eyelid_crease_L',
+    category: 'pale_skin',
+    name: 'Mặt Trái - Nếp mí trên mảnh tự nhiên (Left Clean Eyelid Crease)',
+    size: [0.064, 0.0025, 0.014],
+    pos: [-0.058, 4.298, 0.112],
+    rot: [0, 0.05, -0.015],
+    color: COLOR_PALETTE.pale_skin
+  },
+  // Viền mi trên đen sắc ngang bằng bình thản (Calm Horizontal Upper Lash Line)
+  {
+    id: 'H_eyelid_upper_R',
+    category: 'pupil',
+    name: 'Mắt Phải - Viền mi trên sắc nét (Right Upper Lash Line)',
+    size: [0.070, 0.006, 0.019],
+    pos: [0.058, 4.290, 0.115],
+    rot: [0, -0.05, 0.015],
+    color: 0x050507
+  },
+  {
+    id: 'H_eyelid_upper_L',
+    category: 'pupil',
+    name: 'Mặt Trái - Viền mi trên sắc nét (Left Upper Lash Line)',
+    size: [0.070, 0.006, 0.019],
+    pos: [-0.058, 4.290, 0.115],
+    rot: [0, 0.05, -0.015],
+    color: 0x050507
+  },
+  // Khung lòng trắng mắt TO RỘNG (Large Open Eye Sclera: rộng 0.066m, cao 0.027m)
+  {
+    id: 'H_eye_sclera_R',
+    category: 'eye_white',
+    name: 'Mắt Phải - Lòng trắng mắt mở to (Right Large Eye Sclera)',
+    size: [0.066, 0.027, 0.015],
+    pos: [0.058, 4.275, 0.099],
+    rot: [0, -0.05, 0.0],
+    color: COLOR_PALETTE.eye_white
+  },
+  {
+    id: 'H_eye_sclera_L',
+    category: 'eye_white',
+    name: 'Mắt Trái - Lòng trắng mắt mở to (Left Large Eye Sclera)',
+    size: [0.066, 0.027, 0.015],
+    pos: [-0.058, 4.275, 0.099],
+    rot: [0, 0.05, 0.0],
+    color: COLOR_PALETTE.eye_white
+  },
+  // CON NGƯƠI TO VÀ TRÒN, 1 MÀU ĐEN TUYỀN VÔ HỒN SÂU THẲM (LARGE ROUND JET-BLACK ABYSSAL PUPIL)
+  // Dùng khối cầu tròn lớn (0.035m x 0.030m) đen tuyền tuyệt đối (roughness = 0.95 không bóng lóa, không chấm trắng)
+  {
+    id: 'H_eye_pupil_R',
+    category: 'pupil',
+    shape: 'sphere',
+    name: 'Mắt Phải - Con ngươi to tròn đen tuyền vô hồn (Right Large Abyssal Black Pupil)',
+    size: [0.0385, 0.033, 0.018],
+    pos: [0.056, 4.276, 0.1022],
+    roughness: 0.95,
+    metalness: 0.0,
+    noEdges: true,
+    color: 0x040406
+  },
+  {
+    id: 'H_eye_pupil_L',
+    category: 'pupil',
+    shape: 'sphere',
+    name: 'Mắt Trái - Con ngươi to tròn đen tuyền vô hồn (Left Large Abyssal Black Pupil)',
+    size: [0.0385, 0.033, 0.018],
+    pos: [-0.056, 4.276, 0.1022],
+    roughness: 0.95,
+    metalness: 0.0,
+    noEdges: true,
+    color: 0x040406
+  },
+  // LỚP TEXTURE MẮT PHƯỢNG CÓ HỒN (PHOENIX EYE TEXTURE LAYERS)
+  {
+    id: 'H_eye_layer_R',
+    category: 'pupil',
+    shape: 'plane',
+    name: 'Mắt Phải - Lớp texture mắt phượng có hồn (Right Phoenix Eye Texture Layer)',
+    size: [0.072, 0.028, 0.001],
+    pos: [0.058, 4.275, 0.0936],
+    rot: [0, -0.05, 0.0],
+    texture: typeof EYE_TEXTURE_R !== 'undefined' ? EYE_TEXTURE_R : 'assets/eye_R.png',
+    noEdges: true,
+    color: 0xffffff
+  },
+  {
+    id: 'H_eye_layer_L',
+    category: 'pupil',
+    shape: 'plane',
+    name: 'Mắt Trái - Lớp texture mắt phượng có hồn (Left Phoenix Eye Texture Layer)',
+    size: [0.072, 0.028, 0.001],
+    pos: [-0.058, 4.275, 0.0936],
+    rot: [0, 0.05, 0.0],
+    texture: typeof EYE_TEXTURE_L !== 'undefined' ? EYE_TEXTURE_L : 'assets/eye_L.png',
+    noEdges: true,
+    color: 0xffffff
+  },
+
+  // Viền mí dưới mảnh nhẹ ôm đáy con ngươi tròn (Subtle Lower Eyelid Rim)
+  {
+    id: 'H_eyelid_lower_R',
+    category: 'pale_skin',
+    name: 'Mắt Phải - Viền mí dưới mảnh (Right Lower Eyelid Rim)',
+    size: [0.062, 0.0028, 0.015],
+    pos: [0.058, 4.261, 0.112],
+    rot: [0, -0.05, 0.08],
+    color: COLOR_PALETTE.pale_skin
+  },
+  {
+    id: 'H_eyelid_lower_L',
+    category: 'pale_skin',
+    name: 'Mặt Trái - Viền mí dưới mảnh (Left Lower Eyelid Rim)',
+    size: [0.062, 0.0028, 0.015],
+    pos: [-0.058, 4.261, 0.112],
+    rot: [0, 0.05, -0.08],
+    color: COLOR_PALETTE.pale_skin
+  },
+
+  // ==========================================
+  // 5. SỐNG MŨI THON & ĐẦU MŨI THANH TÚ (XÍT VÔ DA HƠN 1 CHÚT)
+  // ==========================================
+  {
+    id: 'H_nose_bridge',
+    category: 'skin',
+    name: 'Mặt - Sống mũi thon cao (Slender Nasal Bridge)',
+    size: [0.032, 0.075, 0.038],
+    pos: [0, 4.265, 0.110],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_nose_tip',
+    category: 'ankle',
+    name: 'Mặt - Đầu mũi thanh tú (Refined Nose Tip)',
+    size: [0.042, 0.034, 0.042],
+    pos: [0, 4.215, 0.122],
+    color: COLOR_PALETTE.ankle
+  },
+
+  // ==========================================
+  // 6. MÔI MỎNG KHÉP ĐIỀM TĨNH ĐẶC TRƯNG NHÂN VẬT
+  // ==========================================
+  {
+    id: 'H_philtrum',
+    category: 'skin',
+    name: 'Mặt - Nhân trung (Philtrum)',
+    size: [0.050, 0.024, 0.024],
+    pos: [0, 4.186, 0.106],
+    color: COLOR_PALETTE.skin
+  },
+  {
+    id: 'H_upper_lip',
+    category: 'heel',
+    name: 'Mặt - Môi trên mỏng thanh tú (Thin Upper Lip)',
+    size: [0.083, 0.006, 0.0135],
+    pos: [0, 4.164, 0.112],
+    color: COLOR_PALETTE.heel
+  },
+  {
+    id: 'H_mouth_line',
+    category: 'pale_skin',
+    name: 'Mặt - Đường khép môi điềm tĩnh (Calm Closed Mouth Line)',
+    size: [0.072, 0.0025, 0.015],
+    pos: [0.0, 4.157, 0.114],
+    color: COLOR_PALETTE.pale_skin
+  },
+  {
+    id: 'H_lower_lip',
+    category: 'heel',
+    name: 'Mặt - Môi dưới mỏng (Thin Lower Lip)',
+    size: [0.080, 0.006, 0.0135],
+    pos: [0, 4.150, 0.111],
+    color: COLOR_PALETTE.heel
+  },
+  {
+    id: 'H_labiomental_crease',
+    category: 'skin',
+    name: 'Mặt - Rãnh dưới môi chuyển cằm (Labiomental Groove)',
+    size: [0.068, 0.016, 0.017],
+    pos: [0, 4.132, 0.100],
+    color: COLOR_PALETTE.skin
+  },
+
+  // ==========================================
+  // 7. TAI (EARS)
+  // ==========================================
+  {
+    id: 'H_ear_pinna_R',
+    category: 'ankle',
+    name: 'Tai Phải - Vành tai (Right Ear Pinna)',
+    size: [0.024, 0.08, 0.045],
+    pos: [0.125, 4.25, -0.04],
+    color: COLOR_PALETTE.ankle
+  },
+  {
+    id: 'H_ear_pinna_L',
+    category: 'ankle',
+    name: 'Tai Trái - Vành tai (Left Ear Pinna)',
+    size: [0.024, 0.08, 0.045],
+    pos: [-0.125, 4.25, -0.04],
+    color: COLOR_PALETTE.ankle
+  },
+
+  // ==========================================
+  // 8. HỆ THỐNG MÁI TÓC ĐEN DÀI CHUẨN HOÀN TOÀN THEO FEEDBACK:
+  // - PHỦ KÍN ĐỈNH ĐẦU & GÁY (KHÔNG HỞ KHE, KHÔNG HÓI)
+  // - TÓC TRƯỚC NGỰC TÁCH TỰ NHIÊN RA KHỎI NGỰC, MỎNG THANH TÚ
+  // - TÓC SAU LƯNG ĐÈ NỔI RA NGOÀI BẢ VAI & CƠ LƯNG (KHÔNG LÚN VÀO DA)
+  // ==========================================
+
+  // --- A. LỚP PHỦ KÍN VÒM SỌ (CRANIAL HAIR BASE - CHỐNG HỞ KHE HÓI) ---
+  {
+    id: 'HR_crown_base_seal',
+    category: 'hair',
+    name: 'Tóc - Tấm đệm phủ kín vòm sọ (Full Cranial Hair Seal)',
+    size: [0.24, 0.08, 0.26],
+    pos: [0, 4.46, -0.045],
+    color: COLOR_PALETTE.hair
+  },
+  // Khối phồng tóc đỉnh rẽ ngôi giữa khít khao
+  {
+    id: 'HR_crown_volume_R',
+    category: 'hair',
+    name: 'Tóc Phải - Khối phồng tóc đỉnh phải (Right Crown Volume - X2)',
+    size: [0.125, 0.038, 0.27],
+    pos: [0.063, 4.50, -0.035],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_crown_volume_L',
+    category: 'hair',
+    name: 'Tóc Trái - Khối phồng tóc đỉnh trái (Left Crown Volume - X1)',
+    size: [0.125, 0.038, 0.27],
+    pos: [-0.063, 4.50, -0.035],
+    color: COLOR_PALETTE.hair
+  },
+
+  // --- B. VIỀN CHÂN TÓC VÒM TRÁN (FOREHEAD HAIRLINE ARCH) ---
+  {
+    id: 'HR_hairline_arch_R',
+    category: 'hair',
+    name: 'Tóc Phải - Viền chân tóc vòm trán phải (Right Hairline Arch)',
+    size: [0.065, 0.063, 0.04],
+    pos: [0.081, 4.43, 0.095],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_hairline_arch_L',
+    category: 'hair',
+    name: 'Tóc Trái - Viền chân tóc vòm trán trái (Left Hairline Arch)',
+    size: [0.065, 0.063, 0.04],
+    pos: [-0.081, 4.43, 0.095],
+    color: COLOR_PALETTE.hair
+  },
+
+  // --- C. DẢI TÓC MAI TRƯỚC TÁCH TỰ NHIÊN RA NGOÀI CƠ NGỰC & MỎNG THANH MẢNH ---
+  // Tầng 1: Ngang má
+  {
+    id: 'HR_front_lock_cheek_R',
+    category: 'hair',
+    name: 'Tóc Phải - Dải tóc mai trước ngang má (Right Front Lock - Cheek)',
+    size: [0.028, 0.192, 0.045],
+    pos: [0.118, 4.30, 0.092],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_cheek_L',
+    category: 'hair',
+    name: 'Tóc Trái - Dải tóc mai trước ngang má (Left Front Lock - Cheek)',
+    size: [0.028, 0.192, 0.045],
+    pos: [-0.118, 4.30, 0.092],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 2: Ngang cằm và cổ
+  {
+    id: 'HR_front_lock_neck_R',
+    category: 'hair',
+    name: 'Tóc Phải - Dải tóc mai trước ngang cằm-cổ (Right Front Lock - Jaw & Neck)',
+    size: [0.026, 0.18, 0.038],
+    pos: [0.120, 4.12, 0.102],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_neck_L',
+    category: 'hair',
+    name: 'Tóc Trái - Dải tóc mai trước ngang cằm-cổ (Left Front Lock - Jaw & Neck)',
+    size: [0.026, 0.18, 0.038],
+    pos: [-0.120, 4.12, 0.102],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 3: Vắt qua xương quai xanh (Clavicle) tiến nhẹ ra trước ngực
+  {
+    id: 'HR_front_lock_clavicle_R',
+    category: 'hair',
+    name: 'Tóc Phải - Dải tóc phủ qua xương đòn (Right Front Lock - Clavicle)',
+    size: [0.024, 0.20, 0.030],
+    pos: [0.125, 3.93, 0.128],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_clavicle_L',
+    category: 'hair',
+    name: 'Tóc Trái - Dải tóc phủ qua xương đòn (Left Front Lock - Clavicle)',
+    size: [0.024, 0.20, 0.030],
+    pos: [-0.125, 3.93, 0.128],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 4: Tách hẳn ra phía trước mặt cơ ngực (bề mặt cơ ngực ở Z = 0.1475 -> tóc nằm ở Z = 0.159, giảm độ dày còn 0.022)
+  {
+    id: 'HR_front_lock_pec_mid_R',
+    category: 'hair',
+    name: 'Tóc Phải - Dải tóc phủ trước cơ ngực (Right Front Lock - Pec Front)',
+    size: [0.022, 0.24, 0.022],
+    pos: [0.130, 3.72, 0.199],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_pec_mid_L',
+    category: 'hair',
+    name: 'Tóc Trái - Dải tóc phủ trước cơ ngực (Left Front Lock - Pec Front)',
+    size: [0.022, 0.24, 0.022],
+    pos: [-0.130, 3.72, 0.199],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 5: Buông tự nhiên qua đầu ngực (Z = 0.156)
+  {
+    id: 'HR_front_lock_nipple_pass_R',
+    category: 'hair',
+    name: 'Tóc Phải - Đuôi tóc buông qua đầu ngực (Right Front Lock - Past Nipple)',
+    size: [0.020, 0.18, 0.020],
+    pos: [0.132, 3.52, 0.156],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_nipple_pass_L',
+    category: 'hair',
+    name: 'Tóc Trái - Đuôi tóc buông qua đầu ngực (Left Front Lock - Past Nipple)',
+    size: [0.020, 0.18, 0.020],
+    pos: [-0.132, 3.52, 0.156],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 6: Mũi vuốt nhọn dừng ngay dưới viền ngực (Y = 3.42m, Z = 0.148)
+  {
+    id: 'HR_front_lock_tip_R',
+    category: 'hair',
+    name: 'Tóc Phải - Mũi vuốt đuôi tóc trước ngực (Right Front Lock Tip)',
+    size: [0.016, 0.09, 0.018],
+    pos: [0.132, 3.42, 0.148],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_front_lock_tip_L',
+    category: 'hair',
+    name: 'Tóc Trái - Mũi vuốt đuôi tóc trước ngực (Left Front Lock Tip)',
+    size: [0.016, 0.09, 0.018],
+    pos: [-0.132, 3.42, 0.148],
+    color: COLOR_PALETTE.hair
+  },
+
+  // --- D. TÓC HAI BÊN THÁI DƯƠNG VÀ ÔM VAI (LATERAL SHOULDER DRAPES) ---
+  {
+    id: 'HR_side_upper_R',
+    category: 'hair',
+    name: 'Tóc Phải - Thân tóc thái dương trên (Right Upper Temple Sheet)',
+    size: [0.038, 0.18, 0.18],
+    pos: [0.142, 4.35, -0.03],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_upper_L',
+    category: 'hair',
+    name: 'Tóc Trái - Thân tóc thái dương trên (Left Upper Temple Sheet)',
+    size: [0.038, 0.18, 0.18],
+    pos: [-0.142, 4.35, -0.03],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_mid_R',
+    category: 'hair',
+    name: 'Tóc Phải - Thân tóc ngang tai-cổ (Right Mid Lateral Sheet)',
+    size: [0.036, 0.20, 0.16],
+    pos: [0.145, 4.17, -0.04],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_mid_L',
+    category: 'hair',
+    name: 'Tóc Trái - Thân tóc ngang tai-cổ (Left Mid Lateral Sheet)',
+    size: [0.036, 0.20, 0.16],
+    pos: [-0.145, 4.17, -0.04],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_shoulder_drape_R',
+    category: 'hair',
+    name: 'Tóc Phải - Tóc phủ sườn vai ngoài (Right Lateral Shoulder Drape)',
+    size: [0.034, 0.22, 0.14],
+    pos: [0.148, 3.97, -0.05],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_shoulder_drape_L',
+    category: 'hair',
+    name: 'Tóc Trái - Tóc phủ sườn vai ngoài (Left Lateral Shoulder Drape)',
+    size: [0.034, 0.22, 0.14],
+    pos: [-0.148, 3.97, -0.05],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_lower_drape_R',
+    category: 'hair',
+    name: 'Tóc Phải - Tóc phủ sườn nách vai dưới (Right Lower Shoulder Drape)',
+    size: [0.030, 0.22, 0.12],
+    pos: [0.150, 3.75, -0.06],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_side_lower_drape_L',
+    category: 'hair',
+    name: 'Tóc Trái - Tóc phủ sườn nách vai dưới (Left Lower Shoulder Drape)',
+    size: [0.030, 0.22, 0.12],
+    pos: [-0.150, 3.75, -0.06],
+    color: COLOR_PALETTE.hair
+  },
+
+  // --- E. TÓC XÕA DÀI SAU LƯNG ĐÈ HẲN RA NGOÀI CƠ LƯNG & BẢ VAI (Y = 4.35m -> Y = 2.88m) ---
+  // (Bề mặt bả vai/cơ thang sau cùng ở Z = -0.335m -> Tóc lượn mượt từ gáy Z = -0.195m ra ngoài bả vai Z = -0.352m)
+  // Tầng 1: Sau sọ gáy trên
+  {
+    id: 'HR_back_nape_upper',
+    category: 'hair',
+    name: 'Tóc Sau - Lớp tóc ôm sát sọ gáy trên (Upper Nape Hair Sheet - Sealed)',
+    size: [0.24, 0.22, 0.045],
+    pos: [0, 4.35, -0.192],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 2: Sau cổ (Bắt đầu mở dốc ra phía sau để trùm lên cầu vai)
+  {
+    id: 'HR_back_neck_mid',
+    category: 'hair',
+    name: 'Tóc Sau - Lớp tóc buông phủ sau cổ (Mid Neck Back Hair)',
+    size: [0.27, 0.22, 0.065],
+    pos: [0, 4.14, -0.225],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 3: Cầu nối vắt từ gáy trùm hẳn qua đỉnh cơ thang & gai bả vai (Z từ -0.22 đến -0.36)
+  {
+    id: 'HR_back_trapezius',
+    category: 'hair',
+    name: 'Tóc Sau - Lớp tóc vắt trùm qua cơ thang & gai vai (Trapezius Over-Bridge Hair)',
+    size: [0.32, 0.22, 0.12],
+    pos: [0, 3.92, -0.295],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 4: ĐÈ HẲN RA NGOÀI CƠ THANG GIỮA & 2 XƯƠNG BẢ VAI (Scapula kết thúc ở Z = -0.335 -> Tóc nằm ở Z = -0.352)
+  {
+    id: 'HR_back_upper_scapula',
+    category: 'hair',
+    name: 'Tóc Sau - Tóc xõa đè ngoài bả vai & lưng trên (Upper Back Scapula Outer Cape)',
+    size: [0.36, 0.26, 0.042],
+    pos: [0, 3.69, -0.352],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 5: Phủ ngoài lưng giữa (Mid thoracic spine - Z = -0.340)
+  {
+    id: 'HR_back_mid_thoracic',
+    category: 'hair',
+    name: 'Tóc Sau - Tóc xõa ngoài lưng giữa (Mid Thoracic Outer Hair)',
+    size: [0.34, 0.25, 0.040],
+    pos: [0, 3.47, -0.340],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 6: Phủ ngoài cơ dựng sống lưng dưới (Erector spinae kết thúc ở Z = -0.300 -> Tóc nằm ở Z = -0.320)
+  {
+    id: 'HR_back_lower_lat',
+    category: 'hair',
+    name: 'Tóc Sau - Tóc xõa ngoài lưng dưới (Lower Lat Outer Hair)',
+    size: [0.31, 0.25, 0.038],
+    pos: [0, 3.25, -0.365],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 7: Buông ngoài thắt lưng eo trên (Lumbar erector kết thúc ở Z = -0.2875 -> Tóc nằm ở Z = -0.308)
+  {
+    id: 'HR_back_waist_level',
+    category: 'hair',
+    name: 'Tóc Sau - Đuôi tóc buông ngoài ngang eo (Waist Level Hair Mantle)',
+    size: [0.28, 0.23, 0.036],
+    pos: [0, 3.04, -0.355],
+    color: COLOR_PALETTE.hair
+  },
+  // Tầng 8: Đuôi tóc dài chấm thắt lưng eo dưới (Y = 2.88m, Z = -0.302)
+  {
+    id: 'HR_back_waist_tail',
+    category: 'hair',
+    name: 'Tóc Sau - Đuôi tóc dài chấm ngang thắt lưng eo (Waist Tail Finish)',
+    size: [0.24, 0.16, 0.032],
+    pos: [0, 2.88, -0.350],
+    color: COLOR_PALETTE.hair
+  },
+
+  // --- F. CÁC KHỐI ĐỨNG BO GÓC CHÉO 45 ĐỘ (CORNER BEVEL STRANDS) ---
+  {
+    id: 'HR_corner_fwd_R',
+    category: 'hair',
+    name: 'Tóc Phải - Bo góc chéo trán-thái dương (Right Front Corner Bevel)',
+    size: [0.035, 0.18, 0.05],
+    pos: [0.122, 4.36, 0.05],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_corner_fwd_L',
+    category: 'hair',
+    name: 'Tóc Trái - Bo góc chéo trán-thái dương (Left Front Corner Bevel)',
+    size: [0.035, 0.18, 0.05],
+    pos: [-0.122, 4.36, 0.05],
+    color: COLOR_PALETTE.hair
+  },
+  // Kéo cao lên chóp đầu 1 tý (đỉnh đạt Y = 4.49m ngang mặt trên vòm tóc) để kín hoàn toàn không còn hở
+  {
+    id: 'HR_corner_rear_R',
+    category: 'hair',
+    name: 'Tóc Phải - Bo góc chéo sau sọ-gáy (Right Rear Corner Bevel)',
+    size: [0.040, 0.30, 0.065],
+    pos: [0.122, 4.34, -0.14],
+    color: COLOR_PALETTE.hair
+  },
+  {
+    id: 'HR_corner_rear_L',
+    category: 'hair',
+    name: 'Tóc Trái - Bo góc chéo sau sọ-gáy (Left Rear Corner Bevel)',
+    size: [0.040, 0.30, 0.065],
+    pos: [-0.122, 4.34, -0.14],
+    color: COLOR_PALETTE.hair
+  }
+
+      ];
+
+      headSpecs.forEach(spec => {
+        let geometry;
+        if (spec.shape === 'sphere') {
+          geometry = new THREE.SphereGeometry(0.5, 24, 24);
+          geometry.scale(spec.size[0], spec.size[1], spec.size[2]);
+        } else if (spec.shape === 'plane') {
+          geometry = new THREE.PlaneGeometry(spec.size[0], spec.size[1]);
+        } else {
+          geometry = new THREE.BoxGeometry(spec.size[0], spec.size[1], spec.size[2]);
+        }
+        const isMarked = localDB[spec.id] && localDB[spec.id].status !== 'ok';
+        const displayColor = isMarked ? COLOR_PALETTE.marked_flag : spec.color;
+
+        const isHair = spec.category === 'hair' || (spec.id && spec.id.startsWith('HR_'));
+        const defaultRoughness = isHair ? 0.90 : 0.35;
+        const defaultMetalness = isHair ? 0.0 : 0.05;
+
+        const material = new THREE.MeshStandardMaterial({
+          color: displayColor,
+          roughness: spec.roughness !== undefined ? spec.roughness : defaultRoughness,
+          metalness: spec.metalness !== undefined ? spec.metalness : defaultMetalness
+        });
+
+        if (spec.texture) {
+          const tex = new THREE.TextureLoader().load(spec.texture);
+          tex.generateMipmaps = false;
+          tex.minFilter = THREE.LinearFilter;
+          tex.magFilter = THREE.LinearFilter;
+          material.map = tex;
+          material.transparent = true;
+          material.alphaTest = 0.02;
+          material.depthWrite = true;
+          material.side = THREE.DoubleSide;
+        }
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+        if (spec.rot) {
+          mesh.rotation.set(spec.rot[0], spec.rot[1], spec.rot[2]);
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+          id: spec.id,
+          category: spec.category,
+          shape: spec.shape || 'box',
+          rotation: spec.rot || [0, 0, 0],
+          name: spec.name,
+          dimensions: spec.size,
+          defaultColor: spec.color
+        };
+
+        if (!spec.noEdges && spec.shape !== 'sphere') {
+          const edges = new THREE.EdgesGeometry(geometry);
+          const line = new THREE.LineSegments(
+            edges,
+            new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.22, transparent: true })
+          );
+          mesh.add(line);
+        }
+
+        const selectBoxGeo = new THREE.BoxGeometry(spec.size[0] * 1.05, spec.size[1] * 1.05, spec.size[2] * 1.05);
+        const selectBoxEdges = new THREE.EdgesGeometry(selectBoxGeo);
+        const selectBoxLine = new THREE.LineSegments(
+          selectBoxEdges,
+          new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })
+        );
+        selectBoxLine.name = 'selection_highlight';
+        selectBoxLine.visible = false;
+        mesh.add(selectBoxLine);
+
+        headGroup.add(mesh);
+        clickableMeshes.push(mesh);
+      });
+
+      return headGroup;
+    }
+
+    /**
+     * DỰNG HẮC BÀO TIÊN HIỆP PHƯƠNG NGUYÊN (ICONIC DAOIST CULTIVATOR ROBE)
+     * Thiết kế theo phong cách Hybrid:
+     * - Vạt áo chéo chữ Y (Y-Collar crossed lapels) vắt qua ngực lộ mảng áo lót trắng bên trong
+     * - Bản đai thắt lưng to (Wide Waist Sash) vân mây thắt chặt eo
+     * - Tà áo dài thụng buông rủ (Flowing Baggy Skirt) qua hông và đùi xuống tới gối
+     * - Tay áo thụng tiên hiệp (Baggy Drooping Sleeves) và ống bó cổ tay (Vambraces)
+     */
+    function createCultivatorRobe() {
+      const torsoRobeGroup = new THREE.Group();
+      const armRobeGroupR = new THREE.Group();
+      const armRobeGroupL = new THREE.Group();
+
+      const robeSpecs = [
+        // ==========================================
+        // 1. CỔ ÁO VẮT CHÉO CHỮ Y & LỚP ÁO TRẮNG LỘ Ở NGỰC (Y-COLLAR LAPELS & WHITE INNER SHIRT)
+        // ==========================================
+        // Khối áo lót trong màu trắng tinh khôi lộ ra ở cổ áo (V-Shape White Inner Shirt Peek)
+        {
+          id: 'CL_inner_shirt_v_peek',
+          category: 'robe_inner',
+          mount: 'torso',
+          name: 'Áo - Mảng áo lót trong màu trắng lộ ở ngực (White Inner Robe Chest Peek)',
+          size: [0.22, 0.452, 0.05],
+          pos: [0, 3.63, 0.125],
+          color: COLOR_PALETTE.robe_inner
+        },
+        // Nẹp viền trắng của áo lót cổ trong phải
+        {
+          id: 'CL_inner_collar_trim_R',
+          category: 'robe_inner',
+          mount: 'torso',
+          name: 'Áo - Viền cổ trong áo lót trắng phải (Right White Inner Collar Trim)',
+          size: [0.042, 0.32, 0.045],
+          pos: [0.08, 3.69, 0.132],
+          rot: [0, 0, -0.24],
+          color: COLOR_PALETTE.robe_inner
+        },
+        {
+          id: 'CL_inner_collar_trim_L',
+          category: 'robe_inner',
+          mount: 'torso',
+          name: 'Áo - Viền cổ trong áo lót trắng trái (Left White Inner Collar Trim)',
+          size: [0.042, 0.32, 0.045],
+          pos: [-0.10, 3.69, 0.132],
+          rot: [0, 0, 0.26],
+          color: COLOR_PALETTE.robe_inner
+        },
+
+        // Vạt áo ngoài Hắc Bào vắt chéo:
+        // Vạt phải kéo dài xuống 50% nối tới đai lưng
+        {
+          id: 'CL_outer_lapel_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Vạt áo chéo phải (Right Crossed Robe Lapel)',
+          size: [0.28, 0.72, 0.048],
+          pos: [0.145, 3.36, 0.152],
+          rot: [0, 0, -0.27],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_outer_lapel_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Vạt áo chéo trái đè ngoài (Left Crossed Robe Lapel)',
+          size: [0.30, 0.76, 0.052],
+          pos: [-0.135, 3.325, 0.160],
+          rot: [0, 0, 0.31],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Khối nối chuyển tiếp vạt áo trước với mạn sườn phải & trái
+        {
+          id: 'CL_torso_flank_lapel_connector_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối nối vạt áo trước với sườn phải (Right Flank Lapel Connector)',
+          size: [0.10, 0.40, 0.14],
+          pos: [0.26, 3.25, 0.08],
+          rot: [0, -0.20, 0],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_torso_flank_lapel_connector_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối nối vạt áo trước với sườn trái (Left Flank Lapel Connector)',
+          size: [0.10, 0.40, 0.14],
+          pos: [-0.26, 3.25, 0.08],
+          rot: [0, 0.20, 0],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Nẹp viền cổ áo hắc bào kéo dài 50%
+        {
+          id: 'CL_outer_collar_rim_R',
+          category: 'robe_trim',
+          mount: 'torso',
+          name: 'Hắc Bào - Gờ viền nẹp cổ phải (Right Robe Collar Rim)',
+          size: [0.038, 0.81, 0.055],
+          pos: [0.145, 3.365, 0.161],
+          rot: [0, 0, -0.27],
+          color: COLOR_PALETTE.robe_trim
+        },
+        {
+          id: 'CL_outer_collar_rim_L',
+          category: 'robe_trim',
+          mount: 'torso',
+          name: 'Hắc Bào - Gờ viền nẹp cổ trái (Left Robe Collar Rim)',
+          size: [0.038, 0.85, 0.060],
+          pos: [-0.10, 3.31, 0.170],
+          rot: [0, 0, 0.31],
+          color: COLOR_PALETTE.robe_trim
+        },
+
+        // ==========================================
+        // 2. BỜ VAI, LƯNG TRÊN & SƯỜN ÁO (SHOULDER MANTLE & CHEST FLANKS)
+        // ==========================================
+        // Áo trùm bờ vai phải - Kéo dài bề ngang ra 50%
+        {
+          id: 'CL_shoulder_mantle_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Áo trùm bờ vai phải (Right Shoulder Robe Mantle)',
+          size: [0.36, 0.14, 0.28],
+          pos: [0.32, 3.82, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_shoulder_mantle_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Áo trùm bờ vai trái (Left Shoulder Robe Mantle)',
+          size: [0.36, 0.14, 0.28],
+          pos: [-0.32, 3.82, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_chest_flank_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Thân áo ngực sườn phải (Right Robe Chest Flank)',
+          size: [0.18, 0.36, 0.16],
+          pos: [0.26, 3.52, 0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_chest_flank_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Thân áo ngực sườn trái (Left Robe Chest Flank)',
+          size: [0.18, 0.36, 0.16],
+          pos: [-0.26, 3.52, 0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Mỏng lại 25% (0.09 -> 0.068)
+        {
+          id: 'CL_back_upper_mantle',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Lưng áo trên phủ ngoài (Upper Back Robe Cape)',
+          size: [0.58, 0.80, 0.068],
+          pos: [0, 3.38, -0.285],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // ==========================================
+        // 3. ĐAI THẮT LƯNG TO BẢN & DẢI LỤA BUÔNG RỦ (WIDE WAIST SASH & STREAMERS)
+        // Chia thành 2 tầng đai đè lên nhau: tầng dưới to ôm eo mông, tầng trên nhỏ thắt bám sát eo
+        // ==========================================
+        // Tầng đai dưới (Lower Sash Core) - bản đai rộng ôm eo dưới và hông
+        {
+          id: 'CL_sash_core',
+          category: 'sash_belt',
+          mount: 'torso',
+          name: 'Đai Lưng - Bản đai thắt lưng dưới (Lower Waist Sash Base)',
+          size: [0.76, 0.16, 0.48],
+          pos: [0, 2.76, -0.09],
+          color: COLOR_PALETTE.sash_belt
+        },
+        // Tầng đai trên (Upper Sash Core) - to ra 15% bám sát vào eo
+        {
+          id: 'CL_sash_core_upper',
+          category: 'sash_belt',
+          mount: 'torso',
+          name: 'Đai Lưng - Bản đai thắt eo trên bám sát (Upper Waist Sash Cinch)',
+          size: [0.76, 0.17, 0.44],
+          pos: [0, 2.89, -0.07],
+          color: COLOR_PALETTE.sash_belt
+        },
+        // Nếp gân hoa văn trên đai lưng (Upper Accent Ribbon) - to ra 15%
+        {
+          id: 'CL_sash_band_top',
+          category: 'sash_pattern',
+          mount: 'torso',
+          name: 'Đai Lưng - Dải gân hoa văn trên (Sash Top Pattern Ribbon)',
+          size: [0.77, 0.05, 0.45],
+          pos: [0, 2.94, -0.07],
+          color: COLOR_PALETTE.sash_pattern
+        },
+        // Nếp gân hoa văn dưới đai lưng (Lower Accent Ribbon)
+        {
+          id: 'CL_sash_band_bot',
+          category: 'sash_pattern',
+          mount: 'torso',
+          name: 'Đai Lưng - Dải gân hoa văn dưới (Sash Bottom Pattern Ribbon)',
+          size: [0.77, 0.045, 0.49],
+          pos: [0, 2.70, -0.09],
+          color: COLOR_PALETTE.sash_pattern
+        },
+        // Nút thắt đai lưng ở giữa bụng (Center Sash Knot)
+        {
+          id: 'CL_sash_knot_center',
+          category: 'sash_knot',
+          mount: 'torso',
+          name: 'Đai Lưng - Nút thắt đai giữa bụng (Center Sash Knot)',
+          size: [0.13, 0.15, 0.055],
+          pos: [0, 2.82, 0.155],
+          color: COLOR_PALETTE.sash_knot
+        },
+        // Dải lụa thắt lưng buông rủ xuống phía trước, đuôi dải vểnh nhẹ ra trước (Streamers Flaring Forward)
+        {
+          id: 'CL_sash_streamer_R',
+          category: 'sash_pattern',
+          mount: 'torso',
+          name: 'Đai Lưng - Dải lụa rủ trước phải vểnh nhẹ (Right Sash Streamer Drop)',
+          size: [0.065, 0.38, 0.025],
+          pos: [0.055, 2.61, 0.160],
+          rot: [-0.12, 0, 0.16],
+          color: COLOR_PALETTE.sash_pattern
+        },
+        {
+          id: 'CL_sash_streamer_L',
+          category: 'sash_pattern',
+          mount: 'torso',
+          name: 'Đai Lưng - Dải lụa rủ trước trái vểnh nhẹ (Left Sash Streamer Drop)',
+          size: [0.060, 0.46, 0.025],
+          pos: [-0.045, 2.56, 0.165],
+          rot: [-0.14, 0, -0.16],
+          color: COLOR_PALETTE.sash_pattern
+        },
+
+        // ==========================================
+        // 4. TÀ ÁO DÀI THỤNG BUÔNG RỦ QUA GỐI & CÁC LỚP VẢI CHE CƠ ĐÙI/MÔNG
+        // Chia nhỏ tà trước thành 4 mảnh chữ nhật song song mỗi bên (4 parallel vertical pleats)
+        // ==========================================
+        // Vạt trước Phải - 4 mảnh chữ nhật song song (R1 ngắn đi 20% & mỏng 10%, R2..4 bẻ qua phải thêm 10%)
+        {
+          id: 'CL_skirt_front_R_1',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước phải nếp 1 trong (Right Front Pleat 1 Inner)',
+          size: [0.095, 1.58, 0.054],
+          pos: [0.03, 1.93, 0.158],
+          rot: [-0.07, -0.05, 0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_L_1',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước trái nếp 1 trong vắt đè (Left Front Pleat 1 Inner)',
+          size: [0.095, 1.58, 0.058],
+          pos: [-0.02, 1.93, 0.162],
+          rot: [-0.07, 0.05, -0.06],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_R_2',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước phải nếp 2 giữa trong (Right Front Pleat 2 Mid-In)',
+          size: [0.105, 1.98, 0.06],
+          pos: [0.13, 1.73, 0.160],
+          rot: [-0.07, -0.05, 0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_L_2',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước trái nếp 2 giữa trong (Left Front Pleat 2 Mid-In)',
+          size: [0.105, 1.98, 0.065],
+          pos: [-0.13, 1.73, 0.160],
+          rot: [-0.07, 0.05, -0.07],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_R_3',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước phải nếp 3 giữa ngoài (Right Front Pleat 3 Mid-Out)',
+          size: [0.105, 1.98, 0.06],
+          pos: [0.23, 1.73, 0.162],
+          rot: [-0.07, -0.05, 0.09],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_L_3',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước trái nếp 3 giữa ngoài (Left Front Pleat 3 Mid-Out)',
+          size: [0.105, 1.98, 0.065],
+          pos: [-0.23, 1.73, 0.162],
+          rot: [-0.07, 0.05, -0.09],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_R_4',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước phải nếp 4 ngoài cùng (Right Front Pleat 4 Outer)',
+          size: [0.105, 1.98, 0.06],
+          pos: [0.33, 1.73, 0.164],
+          rot: [-0.07, -0.05, 0.11],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_L_4',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà trước trái nếp 4 ngoài cùng (Left Front Pleat 4 Outer)',
+          size: [0.105, 1.98, 0.065],
+          pos: [-0.33, 1.73, 0.164],
+          rot: [-0.07, 0.05, -0.11],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Tà hông Phải (Right Lateral Hip Skirt) - Dài ra 15%, xòe ra chữ V ngược
+        {
+          id: 'CL_skirt_side_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà áo hông phải thụng phồng (Right Lateral Robe Skirt)',
+          size: [0.076, 2.18, 0.48],
+          pos: [0.395, 1.76, -0.09],
+          rot: [0, 0, 0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_side_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà áo hông trái thụng phồng (Left Lateral Robe Skirt)',
+          size: [0.076, 2.18, 0.48],
+          pos: [-0.395, 1.76, -0.09],
+          rot: [0, 0, -0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Lớp vải đè lên khối thịt X (Vastus Lateralis - cơ đùi ngoài)
+        {
+          id: 'CL_fabric_thigh_side_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Lớp vải đè che đùi ngoài phải X (Right Vastus Drape Layer)',
+          size: [0.06, 0.75, 0.32],
+          pos: [0.41, 1.96, -0.075],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_fabric_thigh_side_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Lớp vải đè che đùi ngoài trái X (Left Vastus Drape Layer)',
+          size: [0.06, 0.75, 0.32],
+          pos: [-0.41, 1.96, -0.075],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Tà sau lưng Phải - 2 nếp dọc (Dài ra 15% & 20%, xòe vát chữ V ngược)
+        {
+          id: 'CL_skirt_back_R_1',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà sau phải nếp 1 trong vát chữ V ngược (Right Rear Pleat 1 Inner Inverted-V)',
+          size: [0.21, 2.47, 0.055],
+          pos: [0.11, 1.485, -0.37],
+          rot: [0.08, 0, 0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_back_L_1',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà sau trái nếp 1 trong vát chữ V ngược (Left Rear Pleat 1 Inner Inverted-V)',
+          size: [0.21, 2.47, 0.055],
+          pos: [-0.11, 1.485, -0.37],
+          rot: [0.08, 0, -0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_back_R_2',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà sau phải nếp 2 ngoài xòe dài (Right Rear Pleat 2 Outer Flare)',
+          size: [0.24, 2.18, 0.055],
+          pos: [0.28, 1.63, -0.37],
+          rot: [0.08, 0, 0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_back_L_2',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Tà sau trái nếp 2 ngoài xòe dài (Left Rear Pleat 2 Outer Flare)',
+          size: [0.24, 2.18, 0.055],
+          pos: [-0.28, 1.63, -0.37],
+          rot: [0.08, 0, -0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Lớp vải che thịt Y (Gluteus Peak - cơ mông sau), vải dọc tông đen ấm (warm black)
+        {
+          id: 'CL_fabric_glute_drape_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Vải dọc che mông sau phải Y (Right Glute Drape Layer)',
+          size: [0.28, 0.61, 0.06],
+          pos: [0.22, 2.49, -0.365],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_fabric_glute_drape_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Vải dọc che mông sau trái Y (Left Glute Drape Layer)',
+          size: [0.28, 0.61, 0.06],
+          pos: [-0.22, 2.49, -0.365],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Khối nối góc chéo bịt khe góc sau (Rear Diagonal Corner Seam Wedges)
+        {
+          id: 'CL_skirt_corner_seam_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối vải chéo bịt khe góc sau phải (Right Rear Corner Seam)',
+          size: [0.21, 1.98, 0.040],
+          pos: [0.35, 1.73, -0.30],
+          rot: [0, -0.65, 0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_corner_seam_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối vải chéo bịt khe góc sau trái (Left Rear Corner Seam)',
+          size: [0.21, 1.98, 0.040],
+          pos: [-0.35, 1.73, -0.30],
+          rot: [0, 0.65, -0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_corner_R',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối vải chéo bịt khe góc trước phải (Right Front Corner Seam)',
+          size: [0.15, 1.98, 0.040],
+          pos: [0.34, 1.73, 0.12],
+          rot: [0, -0.65, 0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_skirt_front_corner_L',
+          category: 'cool_black',
+          mount: 'torso',
+          name: 'Hắc Bào - Khối vải chéo bịt khe góc trước trái (Left Front Corner Seam)',
+          size: [0.15, 1.98, 0.040],
+          pos: [-0.34, 1.73, 0.12],
+          rot: [0, 0.65, -0.08],
+          color: COLOR_PALETTE.cool_black
+        },
+
+        // ==========================================
+        // 5. TAY ÁO THỤNG TIÊN HIỆP & ỐNG BÓ CỔ TAY (BAGGY SLEEVES & VAMBRACES)
+        // ==========================================
+        // Tay áo thụng Phải (buông rủ dưới cánh tay & khuỷu tay)
+        {
+          id: 'CL_sleeve_drape_upper_R',
+          category: 'cool_black',
+          mount: 'armR',
+          name: 'Hắc Bào - Tay áo thụng bắp tay phải (Right Upper Baggy Sleeve)',
+          size: [0.173, 0.489, 0.316],
+          pos: [0.49, 3.42, -0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_sleeve_drape_elbow_R',
+          category: 'cool_black',
+          mount: 'armR',
+          name: 'Hắc Bào - Tay áo thụng khuỷu tay phải rủ sâu (Right Elbow Drooping Sleeve)',
+          size: [0.096, 0.22, 0.270],
+          pos: [0.49, 3.08, -0.146],
+          color: COLOR_PALETTE.cool_black
+        },
+        // Tay áo thụng Trái (buông rủ dưới cánh tay & khuỷu tay)
+        {
+          id: 'CL_sleeve_drape_upper_L',
+          category: 'cool_black',
+          mount: 'armL',
+          name: 'Hắc Bào - Tay áo thụng bắp tay trái (Left Upper Baggy Sleeve)',
+          size: [0.173, 0.489, 0.316],
+          pos: [-0.49, 3.42, -0.10],
+          color: COLOR_PALETTE.cool_black
+        },
+        {
+          id: 'CL_sleeve_drape_elbow_L',
+          category: 'robe_black',
+          mount: 'armL',
+          name: 'Hắc Bào - Tay áo thụng khuỷu tay trái rủ sâu (Left Elbow Drooping Sleeve)',
+          size: [0.096, 0.22, 0.270],
+          pos: [-0.49, 3.08, -0.146],
+          color: COLOR_PALETTE.robe_black
+        },
+        // Ống bó cổ tay Phải (Vambrace / Arm Wraps)
+        {
+          id: 'CL_wrist_cuff_R',
+          category: 'robe_inner',
+          mount: 'armR',
+          name: 'Tay Phải - Ống bó cổ tay kiếm khách trắng (Right White Vambrace Cuff)',
+          size: [0.121, 0.168, 0.142],
+          pos: [0.478, 2.65, -0.06],
+          color: COLOR_PALETTE.robe_inner
+        },
+        {
+          id: 'CL_wrist_cuff_L',
+          category: 'robe_inner',
+          mount: 'armL',
+          name: 'Tay Trái - Ống bó cổ tay kiếm khách trắng (Left White Vambrace Cuff)',
+          size: [0.121, 0.168, 0.142],
+          pos: [-0.478, 2.65, -0.06],
+          color: COLOR_PALETTE.robe_inner
+        }
+      ];
+
+      robeSpecs.forEach(spec => {
+        const geometry = new THREE.BoxGeometry(spec.size[0], spec.size[1], spec.size[2]);
+        const material = new THREE.MeshStandardMaterial({
+          color: spec.color,
+          roughness: 0.88,
+          metalness: 0.05
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+        if (spec.rot) {
+          mesh.rotation.set(spec.rot[0], spec.rot[1], spec.rot[2]);
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+          id: spec.id,
+          category: spec.category,
+          shape: 'box',
+          rotation: spec.rot || [0, 0, 0],
+          name: spec.name,
+          dimensions: spec.size,
+          defaultColor: spec.color
+        };
+
+        const edges = new THREE.EdgesGeometry(geometry);
+        const line = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.20, transparent: true })
+        );
+        mesh.add(line);
+
+        const selectBoxGeo = new THREE.BoxGeometry(spec.size[0] * 1.05, spec.size[1] * 1.05, spec.size[2] * 1.05);
+        const selectBoxEdges = new THREE.EdgesGeometry(selectBoxGeo);
+        const selectBoxLine = new THREE.LineSegments(
+          selectBoxEdges,
+          new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })
+        );
+        selectBoxLine.name = 'selection_highlight';
+        selectBoxLine.visible = false;
+        mesh.add(selectBoxLine);
+
+        if (spec.mount === 'armR') {
+          armRobeGroupR.add(mesh);
+        } else if (spec.mount === 'armL') {
+          armRobeGroupL.add(mesh);
+        } else {
+          torsoRobeGroup.add(mesh);
+        }
+        clickableMeshes.push(mesh);
+      });
+
+      return { torsoRobeGroup, armRobeGroupR, armRobeGroupL };
+    }
+
+
+    // Cập nhật độ dài tóc phụ (0 -> 1)
+    function setHairLength(t) {
+      hairExtMeshes.forEach(m => {
+        const h = Math.max(0.0001, m.userData.ext.maxH * t);
+        m.visible = t > 0.01;
+        m.scale.y = h;
+        m.position.y = m.userData.ext.top - h / 2;
+      });
+    }
+
+    // Hierarchy Rig Structure: Tạo khớp háng / chân, khung chậu, đầu & khớp vai / cánh tay
+    const legRigR = new THREE.Group();
+    const legRigL = new THREE.Group();
+    const armRigR = new THREE.Group();
+    const armRigL = new THREE.Group();
+    const pelvisRig = createPelvisAndHips();
+    const headRig = createDetailedHead();
+    pelvisRig.add(headRig); // Ráp đầu liền khối với trục cổ và thân trên
+
+    // Ráp trang phục Hắc Bào Tiên Hiệp cho PN
+    const cultivatorRobe = createCultivatorRobe();
+    pelvisRig.add(cultivatorRobe.torsoRobeGroup);
+    setHairLength(0);
+
+    // Điểm Pivot xoay chân đặt ở khớp háng (Hip Joint Y = 2.42m)
+    const HIP_PIVOT_Y = 2.42;
+    legRigR.position.set(0, HIP_PIVOT_Y, 0);
+    legRigL.position.set(0, HIP_PIVOT_Y, 0);
+
+    const rightFootMeshGroup = createDetailedFoot(1);
+    const leftFootMeshGroup = createDetailedFoot(-1);
+
+    // Dời vị trí group khối con tương đối so với Pivot Khớp háng
+    rightFootMeshGroup.position.set(0, -HIP_PIVOT_Y, 0);
+    leftFootMeshGroup.position.set(0, -HIP_PIVOT_Y, 0);
+
+    legRigR.add(rightFootMeshGroup);
+    legRigL.add(leftFootMeshGroup);
+
+    // Điểm Pivot xoay cánh tay đặt ở khớp cầu vai (Shoulder Joint Y = 3.72m)
+    const SHOULDER_PIVOT_Y = 3.72;
+    armRigR.position.set(0, SHOULDER_PIVOT_Y, 0);
+    armRigL.position.set(0, SHOULDER_PIVOT_Y, 0);
+
+    const rightArmMeshGroup = createDetailedArm(1);
+    const leftArmMeshGroup = createDetailedArm(-1);
+    rightArmMeshGroup.add(cultivatorRobe.armRobeGroupR);
+    leftArmMeshGroup.add(cultivatorRobe.armRobeGroupL);
+
+    rightArmMeshGroup.position.set(0, -SHOULDER_PIVOT_Y, 0);
+    leftArmMeshGroup.position.set(0, -SHOULDER_PIVOT_Y, 0);
+
+    armRigR.add(rightArmMeshGroup);
+    armRigL.add(leftArmMeshGroup);
+
+    modelGroup.add(pelvisRig); // Khung chậu, Hông & Thân trên
+    modelGroup.add(legRigR);   // Chân Phải
+    modelGroup.add(legRigL);   // Chân Trái
+    modelGroup.add(armRigR);   // Tay Phải
+    modelGroup.add(armRigL);   // Tay Trái
+
+    let showOkAsGreen = false;
+    const statOk = document.getElementById('stat-ok');
+    const toggleGreenOk = document.getElementById('toggle-green-ok');
+    if (toggleGreenOk) {
+      toggleGreenOk.addEventListener('change', (e) => {
+        showOkAsGreen = e.target.checked;
+        applyDBToMeshes();
+      });
+    }
+
+    // Áp dụng trạng thái màu sắc từ DB lên các khối
+    function applyDBToMeshes() {
+      clickableMeshes.forEach(mesh => {
+        const id = mesh.userData.id;
+        const record = localDB[id];
+        if (record && record.status && record.status !== 'ok') {
+          if (record.status === 'reposition') {
+            mesh.material.color.setHex(0xf59e0b); // Màu cam vàng: Cần dời vị trí
+          } else {
+            mesh.material.color.setHex(COLOR_PALETTE.marked_flag); // Màu đỏ cảnh báo: Cần sửa
+          }
+        } else if (showOkAsGreen && record && record.status === 'ok') {
+          mesh.material.color.setHex(0x10b981); // Màu xanh lá: Đã nghiệm thu (OK)
+        } else {
+          mesh.material.color.setHex(mesh.userData.defaultColor);
+        }
+      });
+    }
+
+    // Khởi động đồng bộ DB ngay khi nạp trang
+    initDB();
+
+    // ==========================================
+    // 5. CHẾ ĐỘ CHỌN NHÓM VỚI PHÍM 'M' (MULTI-SELECTION)
+    // ==========================================
+    let isMultiSelectMode = false;
+    let selectedSet = new Set(); // Chứa danh sách mesh đang chọn
+
+    const modeBadge = document.getElementById('mode-badge');
+    const modeText = document.getElementById('mode-text');
+    const statSelected = document.getElementById('stat-selected');
+    const statMarked = document.getElementById('stat-marked');
+    const statTotal = document.getElementById('stat-total');
+
+    function updateStats() {
+      statTotal.innerText = clickableMeshes.length;
+      statSelected.innerText = selectedSet.size;
+      const markedCount = Object.keys(localDB).filter(id => localDB[id].status !== 'ok').length;
+      statMarked.innerText = markedCount;
+    }
+    updateStats();
+
+    function setMeshHighlight(mesh, isSelected) {
+      const hl = mesh.getObjectByName('selection_highlight');
+      if (hl) hl.visible = isSelected;
+    }
+
+    function toggleMultiSelectMode() {
+      if (!isMultiSelectMode) {
+        // BẮT ĐẦU CHẾ ĐỘ CHỌN NHÓM
+        isMultiSelectMode = true;
+        modeBadge.classList.add('active-multi');
+        modeText.innerText = '🔴 Đang chọn NHÓM (Ấn M lại để Lưu)';
+        // Ẩn bảng inspect cũ nếu đang mở
+        inspectCard.style.display = 'none';
+      } else {
+        // KẾT THÚC CHỌN NHÓM -> MỞ BẢNG GHI CHÚ ĐỂ LƯU THAY ĐỔI
+        isMultiSelectMode = false;
+        modeBadge.classList.remove('active-multi');
+        modeText.innerText = 'Chế độ: Đơn lẻ (Single)';
+
+        if (selectedSet.size > 0) {
+          openGroupInspector();
+        } else {
+          inspectCard.style.display = 'none';
+        }
+      }
+    }
+
+    // Lắng nghe phím 'M'
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return; // Đang gõ văn bản thì không kích hoạt
+      }
+      if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        toggleMultiSelectMode();
+      }
+    });
+
+    // ==========================================
+    // 6. RAYCASTING: CLICK VÀO KHỐI
+    // ==========================================
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    const inspectCard = document.getElementById('inspect-card');
+    const cardPartName = document.getElementById('card-part-name');
+    const cardBlockId = document.getElementById('card-block-id');
+    const cardDimensions = document.getElementById('card-dimensions');
+    const cardStatus = document.getElementById('card-status');
+    const cardNote = document.getElementById('card-note');
+    const btnSaveMark = document.getElementById('btn-save-mark');
+    const btnCloseCard = document.getElementById('btn-close-card');
+    const groupSelectedContainer = document.getElementById('group-selected-container');
+    const groupChips = document.getElementById('group-chips');
+    const groupCount = document.getElementById('group-count');
+    const dimField = document.getElementById('dim-field');
+
+    window.addEventListener('click', (e) => {
+      // Bỏ qua click trên các panel UI
+      if (e.target.closest('#ui-panel') || e.target.closest('#inspect-card') || e.target.closest('#tip-bar')) {
+        return;
+      }
+
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(clickableMeshes);
+
+      if (intersects.length > 0) {
+        const clickedMesh = intersects[0].object;
+
+        if (isMultiSelectMode) {
+          // Trong chế độ chọn nhóm: Click để thêm hoặc bỏ chọn
+          if (selectedSet.has(clickedMesh)) {
+            selectedSet.delete(clickedMesh);
+            setMeshHighlight(clickedMesh, false);
+          } else {
+            selectedSet.add(clickedMesh);
+            setMeshHighlight(clickedMesh, true);
+          }
+          updateStats();
+        } else {
+          // Chế độ đơn lẻ bình thường: Xóa vùng chọn cũ và mở Inspector cho 1 khối
+          clearAllHighlights();
+          selectedSet.add(clickedMesh);
+          setMeshHighlight(clickedMesh, true);
+          updateStats();
+          openSingleInspector(clickedMesh);
+        }
+      }
+    });
+
+    function clearAllHighlights() {
+      selectedSet.forEach(mesh => setMeshHighlight(mesh, false));
+      selectedSet.clear();
+      updateStats();
+    }
+
+    // Mở Inspector cho 1 khối
+    function openSingleInspector(mesh) {
+      const data = mesh.userData;
+      cardPartName.innerText = data.name;
+      cardBlockId.innerText = '#' + data.id;
+      cardDimensions.innerText = `${data.dimensions[0]}m x ${data.dimensions[1]}m x ${data.dimensions[2]}m`;
+
+      groupSelectedContainer.style.display = 'none';
+      dimField.style.display = 'block';
+
+      const record = localDB[data.id] || { status: 'ok', note: '' };
+      cardStatus.value = record.status;
+      cardNote.value = record.note;
+
+      inspectCard.style.display = 'block';
+    }
+
+    // Mở Inspector cho cả NHÓM khối vừa chọn
+    function openGroupInspector() {
+      cardPartName.innerText = `Đánh dấu nhóm khối`;
+      cardBlockId.innerText = `${selectedSet.size} khối đã chọn`;
+
+      dimField.style.display = 'none';
+      groupSelectedContainer.style.display = 'block';
+      groupCount.innerText = selectedSet.size;
+
+      groupChips.innerHTML = '';
+      selectedSet.forEach(mesh => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.innerText = mesh.userData.id;
+        groupChips.appendChild(chip);
+      });
+
+      cardStatus.value = 'needs_fix';
+      cardNote.value = '';
+      cardNote.placeholder = `Nhập lỗi chung cho ${selectedSet.size} khối này (ví dụ: cần nâng cao 0.05m)...`;
+
+      inspectCard.style.display = 'block';
+    }
+
+    // ==========================================
+    // 7. LƯU THAY ĐỔI VÀO LOCAL DATABASE
+    // ==========================================
+    btnSaveMark.addEventListener('click', () => {
+      if (selectedSet.size === 0) return;
+
+      const status = cardStatus.value;
+      const note = cardNote.value.trim();
+
+      selectedSet.forEach(mesh => {
+        const id = mesh.userData.id;
+
+        localDB[id] = {
+          name: mesh.userData.name,
+          dimensions: mesh.userData.dimensions,
+          status: status,
+          note: note,
+          updatedAt: new Date().toISOString()
+        };
+
+        // Đổi màu khối: Nếu lỗi thì chuyển đỏ cảnh báo, nếu OK thì về màu gốc
+        if (status !== 'ok') {
+          mesh.material.color.setHex(COLOR_PALETTE.marked_flag);
+        } else {
+          mesh.material.color.setHex(mesh.userData.defaultColor);
+        }
+
+        setMeshHighlight(mesh, false);
+      });
+
+      // Lưu đồng bộ trực tiếp ra file database trên ổ đĩa
+      syncToServer(localDB);
+
+      selectedSet.clear();
+      updateStats();
+      inspectCard.style.display = 'none';
+    });
+
+    btnCloseCard.addEventListener('click', () => {
+      inspectCard.style.display = 'none';
+      clearAllHighlights();
+    });
+
+    // ==========================================
+    // 8. TIỆN ÍCH DATABASE: XUẤT FILE JSON & XEM TẤT CẢ MARK
+    // ==========================================
+    // LẮNG NGHE ĐỔI MÀU REAL-TIME TỪ COLOR PICKER PANEL
+    function updatePaletteColor(category, hexColor) {
+      const colorNum = parseInt(hexColor.replace('#', '0x'));
+      COLOR_PALETTE[category] = colorNum;
+
+      clickableMeshes.forEach(mesh => {
+        if (mesh.userData.category === category) {
+          mesh.userData.defaultColor = colorNum;
+          // Nếu không bị mark lỗi thì áp dụng màu mới ngay lập tức
+          const isMarked = localDB[mesh.userData.id] && localDB[mesh.userData.id].status !== 'ok';
+          if (!isMarked) {
+            mesh.material.color.setHex(colorNum);
+          }
+        }
+      });
+    }
+
+    document.getElementById('pick-skin').addEventListener('input', (e) => updatePaletteColor('skin', e.target.value));
+    document.getElementById('pick-sole').addEventListener('input', (e) => updatePaletteColor('sole', e.target.value));
+    document.getElementById('pick-heel').addEventListener('input', (e) => updatePaletteColor('heel', e.target.value));
+    document.getElementById('pick-ankle').addEventListener('input', (e) => updatePaletteColor('ankle', e.target.value));
+    document.getElementById('pick-nail').addEventListener('input', (e) => updatePaletteColor('nail', e.target.value));
+    document.getElementById('pick-hair').addEventListener('input', (e) => updatePaletteColor('hair', e.target.value));
+    document.getElementById('hair-length').addEventListener('input', (e) => {
+      const t = parseFloat(e.target.value);
+      document.getElementById('hair-len-val').innerText = Math.round(t * 100) + '%';
+      setHairLength(t);
+    });
+
+    // Nút Thu gọn / Mở rộng Bảng Màu Da
+    const palettePanel = document.getElementById('palette-panel');
+    const btnTogglePalette = document.getElementById('btn-toggle-palette');
+    btnTogglePalette.addEventListener('click', () => {
+      palettePanel.classList.toggle('collapsed');
+      if (palettePanel.classList.contains('collapsed')) {
+        btnTogglePalette.innerText = 'Mở rộng ▼';
+      } else {
+        btnTogglePalette.innerText = 'Thu gọn ▲';
+      }
+    });
+
+    document.getElementById('btn-sync-file').addEventListener('click', async () => {
+      const keys = Object.keys(localDB).filter(k => localDB[k].status !== 'ok');
+      if (keys.length === 0) {
+        alert("Chưa có khối nào được mark lỗi.");
+        return;
+      }
+      
+      const jsonContent = JSON.stringify(localDB, null, 2);
+
+      // Thử dùng File System Access API để lưu trực tiếp vào thư mục nếu trình duyệt hỗ trợ
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: 'marks_data.json',
+            types: [{ description: 'JSON File', accept: { 'application/json': ['.json'] } }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(jsonContent);
+          await writable.close();
+          const notice = document.getElementById('sync-notice');
+          notice.style.display = 'block';
+          notice.innerHTML = '✅ Đã lưu trực tiếp file <b>marks_data.json</b> vào thư mục project! Hãy bảo AI đọc file này.';
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: Tải file marks_data.json về
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonContent);
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `marks_data.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      
+      const notice = document.getElementById('sync-notice');
+      notice.style.display = 'block';
+      notice.innerHTML = '✅ File <b>marks_data.json</b> đã được tải xuống! Bạn hãy lưu nó vào thư mục <code>Project Boxer</code> để tôi đọc và sửa ngay.';
+    });
+    document.getElementById('btn-export-json').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(localDB, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `project_boxer_marks_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    });
+
+    document.getElementById('btn-view-data').addEventListener('click', () => {
+      const keys = Object.keys(localDB).filter(k => localDB[k].status !== 'ok');
+      if (keys.length === 0) {
+        alert("Hiện tại chưa có khối nào được đánh dấu lỗi trong Database.");
+        return;
+      }
+      let report = `DANH SÁCH KHỐI ĐÃ MARK LỖI (${keys.length} khối):\n\n`;
+      keys.forEach((k, idx) => {
+        const item = localDB[k];
+        report += `${idx + 1}. [${k}] ${item.name || ''}\n   Trạng thái: ${item.status}\n   Ghi chú: ${item.note || '(Không có ghi chú)'}\n\n`;
+      });
+      alert(report);
+    });
+
+    // ==========================================
+    // 9. ANIMATION ENGINE (QUẢN LÝ CÁC CHUYỂN ĐỘNG)
+    // ==========================================
+    let currentAnim = 'none'; // 'none', 'swing', 'march', 'bounce'
+    let animSpeed = 1.0;
+    let animTime = 0;
+
+    const btnAnimNone = document.getElementById('btn-anim-none');
+    const btnAnimSwing = document.getElementById('btn-anim-swing');
+    const btnAnimMarch = document.getElementById('btn-anim-march');
+    const btnAnimBounce = document.getElementById('btn-anim-bounce');
+    const speedSlider = document.getElementById('anim-speed');
+    const speedVal = document.getElementById('speed-val');
+
+    const animButtons = [btnAnimNone, btnAnimSwing, btnAnimMarch, btnAnimBounce];
+
+    function setAnimation(mode, activeBtn) {
+      currentAnim = mode;
+      animButtons.forEach(btn => btn.classList.remove('active'));
+      activeBtn.classList.add('active');
+
+      if (mode === 'none') {
+        // Reset về tư thế đứng chuẩn ban đầu
+        legRigR.rotation.set(0, 0, 0);
+        legRigL.rotation.set(0, 0, 0);
+        legRigR.position.set(0, HIP_PIVOT_Y, 0);
+        legRigL.position.set(0, HIP_PIVOT_Y, 0);
+        armRigR.rotation.set(0, 0, 0);
+        armRigL.rotation.set(0, 0, 0);
+        armRigR.position.set(0, SHOULDER_PIVOT_Y, 0);
+        armRigL.position.set(0, SHOULDER_PIVOT_Y, 0);
+        pelvisRig.position.set(0, 0, 0);
+      }
+    }
+
+    btnAnimNone.addEventListener('click', () => setAnimation('none', btnAnimNone));
+    btnAnimSwing.addEventListener('click', () => setAnimation('swing', btnAnimSwing));
+    btnAnimMarch.addEventListener('click', () => setAnimation('march', btnAnimMarch));
+    btnAnimBounce.addEventListener('click', () => setAnimation('bounce', btnAnimBounce));
+
+    speedSlider.addEventListener('input', (e) => {
+      animSpeed = parseFloat(e.target.value);
+      speedVal.innerText = animSpeed.toFixed(1) + 'x';
+    });
+
+    // ==========================================
+    // 10. ĐIỀU KHIỂN CAMERA WASD & QUICK FOCUS PRESETS
+    // ==========================================
+    const keysPressed = {};
+
+    window.addEventListener('keydown', (e) => {
+      // Bỏ qua nếu đang gõ text trong ô input / textarea
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      keysPressed[e.key.toLowerCase()] = true;
+      keysPressed[e.code] = true;
+    });
+
+    window.addEventListener('keyup', (e) => {
+      keysPressed[e.key.toLowerCase()] = false;
+      keysPressed[e.code] = false;
+    });
+
+    function updateCameraMovement(delta) {
+      const moveSpeed = delta * 4.0; // Tốc độ di chuyển camera (m/s)
+      const forward = new THREE.Vector3();
+      camera.getWorldDirection(forward);
+
+      const right = new THREE.Vector3();
+      right.crossVectors(forward, camera.up).normalize();
+
+      let moved = false;
+
+      // W hoặc Mũi tên lên: Tiến lại gần
+      if (keysPressed['w'] || keysPressed['keyw'] || keysPressed['arrowup']) {
+        camera.position.addScaledVector(forward, moveSpeed);
+        controls.target.addScaledVector(forward, moveSpeed);
+        moved = true;
+      }
+      // S hoặc Mũi tên xuống: Lùi ra xa
+      if (keysPressed['s'] || keysPressed['keys'] || keysPressed['arrowdown']) {
+        camera.position.addScaledVector(forward, -moveSpeed);
+        controls.target.addScaledVector(forward, -moveSpeed);
+        moved = true;
+      }
+      // A hoặc Mũi tên trái: Trượt sang trái
+      if (keysPressed['a'] || keysPressed['keya'] || keysPressed['arrowleft']) {
+        camera.position.addScaledVector(right, -moveSpeed);
+        controls.target.addScaledVector(right, -moveSpeed);
+        moved = true;
+      }
+      // D hoặc Mũi tên phải: Trượt sang phải
+      if (keysPressed['d'] || keysPressed['keyd'] || keysPressed['arrowright']) {
+        camera.position.addScaledVector(right, moveSpeed);
+        controls.target.addScaledVector(right, moveSpeed);
+        moved = true;
+      }
+      // E hoặc Space: Bay lên cao về phía đầu
+      if (keysPressed['e'] || keysPressed['keye'] || keysPressed[' ']) {
+        camera.position.y += moveSpeed;
+        controls.target.y += moveSpeed;
+        moved = true;
+      }
+      // Q hoặc Shift: Hạ thấp độ cao
+      if (keysPressed['q'] || keysPressed['keyq'] || keysPressed['shift']) {
+        camera.position.y -= moveSpeed;
+        controls.target.y -= moveSpeed;
+        moved = true;
+      }
+
+      if (moved) {
+        controls.update();
+      }
+    }
+
+    // Các nút preset Quick Focus tiện lợi
+    const btnFocusHead = document.getElementById('btn-focus-head');
+    const btnFocusTorso = document.getElementById('btn-focus-torso');
+    const btnFocusLegs = document.getElementById('btn-focus-legs');
+    const btnFocusFeet = document.getElementById('btn-focus-feet');
+    const btnFocusAll = document.getElementById('btn-focus-all');
+    const focusBtns = [btnFocusHead, btnFocusTorso, btnFocusLegs, btnFocusFeet, btnFocusAll];
+
+    function setFocusActive(activeBtn) {
+      focusBtns.forEach(b => b.classList.remove('active'));
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    function smoothFocusCamera(targetY, camDist = 1.25, camX = 0.45, camYOffset = 0.05) {
+      controls.target.set(0, targetY, 0);
+      camera.position.set(camX, targetY + camYOffset, camDist);
+      controls.update();
+    }
+
+    btnFocusHead.addEventListener('click', () => {
+      smoothFocusCamera(4.32, 1.20, 0.45, 0.04); // Soi cận cảnh đầu & mặt võ sĩ ở cự ly 1.2m
+      setFocusActive(btnFocusHead);
+    });
+
+    btnFocusTorso.addEventListener('click', () => {
+      smoothFocusCamera(3.40, 2.20, 1.10, 0.10); // Soi ngực, bụng, vai, cánh tay
+      setFocusActive(btnFocusTorso);
+    });
+
+    btnFocusLegs.addEventListener('click', () => {
+      smoothFocusCamera(1.80, 2.40, 1.20, 0.0); // Soi đùi & cẳng chân
+      setFocusActive(btnFocusLegs);
+    });
+
+    btnFocusFeet.addEventListener('click', () => {
+      smoothFocusCamera(0.35, 1.70, 0.90, 0.20); // Soi bàn chân & 5 ngón chân
+      setFocusActive(btnFocusFeet);
+    });
+
+    btnFocusAll.addEventListener('click', () => {
+      controls.target.set(0, 2.30, 0.0);
+      camera.position.set(4.6, 3.8, 6.8); // Toàn thân
+      controls.update();
+      setFocusActive(btnFocusAll);
+    });
+
+    // ==========================================
+    // 11. ANIMATION LOOP & RESIZE
+    // ==========================================
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+
+      // CẬP NHẬT CAMERA WASD
+      updateCameraMovement(delta);
+
+      // CẬP NHẬT ANIMATION CHÂN & CÁNH TAY ĐỒNG BỘ
+      if (currentAnim !== 'none') {
+        animTime += delta * animSpeed * 3.8;
+
+        if (currentAnim === 'swing') {
+          // 1. ĐƯA CHÂN & VUNG TAY SO LE TỰ NHIÊN (WALK SWING)
+          const angle = Math.sin(animTime) * 0.38;
+          legRigR.rotation.x = angle;
+          legRigL.rotation.x = -angle;
+
+          // Tay vung ngược pha với chân cùng bên
+          armRigR.rotation.x = -angle * 0.75;
+          armRigL.rotation.x = angle * 0.75;
+
+          legRigR.position.y = HIP_PIVOT_Y + Math.max(0, Math.sin(animTime)) * 0.05;
+          legRigL.position.y = HIP_PIVOT_Y + Math.max(0, -Math.sin(animTime)) * 0.05;
+          pelvisRig.position.y = Math.abs(Math.sin(animTime)) * 0.03;
+
+        } else if (currentAnim === 'march') {
+          // 2. NHẤC CHÂN LÊN XUỐNG DẬM CHÂN TẠI CHỖ (MARCH)
+          const liftR = Math.max(0, Math.sin(animTime));
+          const liftL = Math.max(0, Math.sin(animTime + Math.PI));
+
+          legRigR.position.y = HIP_PIVOT_Y + liftR * 0.22;
+          legRigL.position.y = HIP_PIVOT_Y + liftL * 0.22;
+
+          legRigR.rotation.x = liftR * 0.25;
+          legRigL.rotation.x = liftL * 0.25;
+
+          armRigR.rotation.x = -liftL * 0.35;
+          armRigL.rotation.x = -liftR * 0.35;
+
+        } else if (currentAnim === 'bounce') {
+          // 3. NHÚN CHÂN BOXER ĐẶC TRƯNG (SHUFFLE)
+          const bounce = Math.abs(Math.sin(animTime * 1.5)) * 0.09;
+          const shift = Math.sin(animTime * 0.75) * 0.07;
+
+          legRigR.position.y = HIP_PIVOT_Y + bounce;
+          legRigL.position.y = HIP_PIVOT_Y + Math.abs(Math.cos(animTime * 1.5)) * 0.09;
+          pelvisRig.position.y = bounce * 0.85;
+          armRigR.position.y = SHOULDER_PIVOT_Y + bounce * 0.9;
+          armRigL.position.y = SHOULDER_PIVOT_Y + bounce * 0.9;
+
+          legRigR.rotation.x = shift * 0.15;
+          legRigL.rotation.x = -shift * 0.15;
+          armRigR.rotation.z = 0.06 + Math.sin(animTime * 1.5) * 0.04;
+          armRigL.rotation.z = -0.06 - Math.sin(animTime * 1.5) * 0.04;
+        }
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

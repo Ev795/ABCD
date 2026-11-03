@@ -1,0 +1,7777 @@
+{
+  "project": "Project Boxer",
+  "character": "PN",
+  "version": "1.0.0-final",
+  "description": "Pure Voxel / BoxGeometry Human Character Model - Complete Anatomical Block Specifications (PN Finalized)",
+  "exportedAt": "2026-11-03T10:08:57.390Z",
+  "totalBlocks": 336,
+  "palette": {
+    "skin": "#e5b894",
+    "sole": "#d49e7b",
+    "heel": "#d99f7d",
+    "ankle": "#dfa886",
+    "nail": "#f8e7df",
+    "hair": "#0c0c10",
+    "cool_black": "#1b2028",
+    "cool_black_light": "#272e38",
+    "cool_black_dark": "#141820",
+    "eye_white": "#c4c7cc",
+    "pupil": "#111827",
+    "marked_flag": "#ef4444",
+    "highlight_select": "#f59e0b",
+    "robe_black": "#121216",
+    "robe_warm_black": "#221a18",
+    "sage_ash_green": "#5a6d63",
+    "robe_inner": "#f3f4f8",
+    "robe_trim": "#22222e",
+    "sash_belt": "#181822",
+    "sash_pattern": "#2c2c3e",
+    "sash_knot": "#1f1f2c",
+    "pants": "#15151a",
+    "boots": "#0c0c10",
+    "boot_sole": "#d2d6de",
+    "cream_socks": "#f2ece4"
+  },
+  "anatomy": {
+    "rightLegAndFoot": [
+      {
+        "id": "R_sole_heel",
+        "name": "Chân Phải - Đế dép gót đen (Black Sandal Heel Sole)",
+        "category": "boots",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.05,
+          "depth": 0.24
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.025,
+          "z": -0.16
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "R"
+      },
+      {
+        "id": "R_sole_arch",
+        "name": "Chân Phải - Đế dép vòm đen (Black Sandal Arch Sole)",
+        "category": "boots",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.05,
+          "depth": 0.26
+        },
+        "position": {
+          "x": 0.29000000000000004,
+          "y": 0.025,
+          "z": 0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "R"
+      },
+      {
+        "id": "R_sole_ball",
+        "name": "Chân Phải - Đế dép mũi đen (Black Sandal Ball Sole)",
+        "category": "boots",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.3,
+          "height": 0.05,
+          "depth": 0.3
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.025,
+          "z": 0.33
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "R"
+      },
+      {
+        "id": "R_sandal_thong",
+        "name": "Chân Phải - Chốt quai kẹp xỏ ngón (Sandal Toe Thong)",
+        "category": "sandal_strap",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.1,
+          "depth": 0.035
+        },
+        "position": {
+          "x": 0.20800000000000002,
+          "y": 0.115,
+          "z": 0.43
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "R"
+      },
+      {
+        "id": "R_sandal_strap_inner",
+        "name": "Chân Phải - Quai dép vắt mu trong (Inner Instep Strap)",
+        "category": "sandal_strap",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.036,
+          "depth": 0.23
+        },
+        "position": {
+          "x": 0.19200000000000003,
+          "y": 0.15,
+          "z": 0.32
+        },
+        "rotation": [
+          -0.25,
+          0,
+          0.4
+        ],
+        "color": "#ffffff",
+        "side": "R"
+      },
+      {
+        "id": "R_sandal_strap_outer",
+        "name": "Chân Phải - Quai dép vắt mu ngoài (Outer Instep Strap)",
+        "category": "sandal_strap",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.036,
+          "depth": 0.25
+        },
+        "position": {
+          "x": 0.338,
+          "y": 0.15,
+          "z": 0.31
+        },
+        "rotation": [
+          -0.25,
+          0,
+          -0.4
+        ],
+        "color": "#ffffff",
+        "side": "R"
+      },
+      {
+        "id": "R_sandal_strap_instep",
+        "name": "Chân Phải - Quai ngang mu bàn chân (Sandal Instep Band)",
+        "category": "sandal_strap",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.032,
+          "depth": 0.11
+        },
+        "position": {
+          "x": 0.27,
+          "y": 0.165,
+          "z": 0.265
+        },
+        "rotation": [
+          -0.2,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "R"
+      },
+      {
+        "id": "R_heel_core_back",
+        "name": "Chân Phải - Xương gót sau (Heel Core Back)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.18,
+          "depth": 0.11
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.14,
+          "z": -0.215
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_heel_core_front",
+        "name": "Chân Phải - Xương gót trước (Heel Core Front)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.18,
+          "depth": 0.11
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.14,
+          "z": -0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_achilles_ridge",
+        "name": "Chân Phải - Gân gót sau (Achilles base)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.22,
+          "depth": 0.07
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.22,
+          "z": -0.21
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_midfoot_lower",
+        "name": "Chân Phải - Mu bàn chân dưới (Midfoot Lower)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.1,
+          "depth": 0.32
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.1,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_midfoot_upper",
+        "name": "Chân Phải - Mu bàn chân trên (Midfoot Upper)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.1,
+          "depth": 0.28
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.2,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_midfoot_slope",
+        "name": "Chân Phải - Khối dốc mu chân gắn quai dép (Instep Slope Strap Texture)",
+        "category": "sandal_strap",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.12,
+          "depth": 0.22
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.11,
+          "z": 0.3
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "R"
+      },
+      {
+        "id": "R_ankle_core",
+        "name": "Chân Phải - Xương sên cổ chân (Talus Core)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.16,
+          "depth": 0.2
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.31,
+          "z": -0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_malleolus_outer",
+        "name": "Chân Phải - Mắt cá ngoài (Lateral Malleolus)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.14,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.405,
+          "y": 0.31,
+          "z": -0.12
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_malleolus_inner",
+        "name": "Chân Phải - Mắt cá trong (Medial Malleolus)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.14,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.15500000000000003,
+          "y": 0.33,
+          "z": -0.11
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_ankle_front_tendon",
+        "name": "Chân Phải - Gân trước cổ chân (Extensor Retinaculum)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.14,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.32,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_achilles_mid",
+        "name": "Chân Phải - Gân gót giữa (Mid Achilles)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.12,
+          "height": 0.2,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.39,
+          "z": -0.2
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_ankle_waist_core",
+        "name": "Chân Phải - Thân eo cổ chân (Ankle Waist Core)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.204,
+          "height": 0.18,
+          "depth": 0.204
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.47,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_tibia_lower_crest",
+        "name": "Chân Phải - Gờ xương chày dưới (Lower Tibial Crest)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.156,
+          "height": 0.18,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.47,
+          "z": 0.015
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_lower_leg_stem",
+        "name": "Chân Phải - Thân cẳng chân dưới (Low Shin Shaft)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.26,
+          "depth": 0.18
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.69,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_shin_crest_lower",
+        "name": "Chân Phải - Ống đồng trước dưới (Lower Shin Ridge)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.26,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.69,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_lower_bridge",
+        "name": "Chân Phải - Khối nối bắp chân xuống cẳng chân (Calf-to-Shin Lower Bridge)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.2,
+          "depth": 0.12
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.83,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_tendon_taper_bridge",
+        "name": "Chân Phải - Khối nêm gân gót bắp chân chuyển tiếp (Calf Tendon Taper Bridge)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.22,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.79,
+          "z": -0.235
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_back_lower_connector",
+        "name": "Chân Phải - Khối nối phía sau bắp chân (Calf Posterior Lower Connector)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.22,
+          "depth": 0.1
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.6,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_mid_shin_core",
+        "name": "Chân Phải - Thân cẳng chân giữa (Mid Shin Core)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.32,
+          "depth": 0.19
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.98,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_shin_blade",
+        "name": "Chân Phải - Gờ sống ống đồng (Shin Blade Front)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.32,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.28,
+          "y": 0.98,
+          "z": 0.025
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_back_inner_layer",
+        "name": "Chân Phải - Cơ bắp chân tầng trong (Soleus/Deep Calf)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.34,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_back_outer_layer",
+        "name": "Chân Phải - Bụng bắp chân sau ngoài (Calf Belly Peak)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.3,
+          "depth": 0.07
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.02,
+          "z": -0.265
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_lateral",
+        "name": "Chân Phải - Bắp chân ngoài (Calf Outer Flare)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.06,
+          "height": 0.3,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.4,
+          "y": 1,
+          "z": -0.15
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_calf_medial",
+        "name": "Chân Phải - Bắp chân trong (Calf Inner Flare)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.06,
+          "height": 0.3,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.16000000000000003,
+          "y": 1,
+          "z": -0.15
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_upper_shin_core",
+        "name": "Chân Phải - Cẳng chân trên (Upper Shin Shaft)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.28,
+          "depth": 0.2
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.28,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_shin_upper_crest",
+        "name": "Chân Phải - Ống đồng trước trên (Upper Shin Ridge)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.28,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.28,
+          "z": 0.025
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_tibial_tuberosity",
+        "name": "Chân Phải - Lồi củ trước gối (Tibial Tuberosity)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.2,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.38,
+          "z": 0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_popliteal_back",
+        "name": "Chân Phải - Vòm cơ khoeo sau gối (Upper Calf Taper)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.26,
+          "depth": 0.13
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.3,
+          "z": -0.23
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_knee_core_joint",
+        "name": "Chân Phải - Tâm khớp gối (Femoral Condyles Base)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.16,
+          "depth": 0.22
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.5,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_patella_kneecap",
+        "name": "Chân Phải - Xương bánh chè gối (Patella Kneecap)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.14,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.5,
+          "z": 0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_knee_back_fossa",
+        "name": "Chân Phải - Hõm khoeo sau gối (Popliteal Fossa)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.16,
+          "height": 0.15,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.5,
+          "z": -0.21
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_thigh_lower_core",
+        "name": "Chân Phải - Thân đùi dưới (Lower Femur Core)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.25,
+          "height": 0.25,
+          "depth": 0.24
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.7,
+          "z": -0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_quad_tendon_front",
+        "name": "Chân Phải - Cơ gân trước đùi dưới (Supra-patellar Ridge)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.24,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.7,
+          "z": 0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_hamstring_lower",
+        "name": "Chân Phải - Cơ đùi sau dưới (Lower Hamstring)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.21,
+          "height": 0.24,
+          "depth": 0.075
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.7,
+          "z": -0.22
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_thigh_mid_core",
+        "name": "Chân Phải - Thân đùi giữa (Mid Femur Core)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.29,
+          "height": 0.32,
+          "depth": 0.27
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.98,
+          "z": -0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_quad_front_belly",
+        "name": "Chân Phải - Cơ đùi trước chính (Rectus Femoris)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.32,
+          "depth": 0.075
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.98,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_vastus_lateralis",
+        "name": "Chân Phải - Múi cơ đùi ngoài (Vastus Lateralis)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.04,
+          "height": 0.46,
+          "depth": 0.23
+        },
+        "position": {
+          "x": 0.42000000000000004,
+          "y": 2.06,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "R"
+      },
+      {
+        "id": "R_vastus_medialis",
+        "name": "Chân Phải - Cơ giọt nước đùi trong (Vastus Medialis)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.32,
+          "depth": 0.22
+        },
+        "position": {
+          "x": 0.13000000000000003,
+          "y": 1.92,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_hamstring_mid_bulk",
+        "name": "Chân Phải - Bụng cơ đùi sau (Hamstring Muscle Bulk)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.32,
+          "depth": 0.095
+        },
+        "position": {
+          "x": 0.28,
+          "y": 1.98,
+          "z": -0.245
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_thigh_upper_root",
+        "name": "Chân Phải - Gốc đùi trên (Upper Thigh Root)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.3,
+          "depth": 0.28
+        },
+        "position": {
+          "x": 0.28,
+          "y": 2.29,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "R"
+      },
+      {
+        "id": "R_upper_hip_flexor",
+        "name": "Chân Phải - Cơ mặt trước đùi trên (Upper Hip Flexor)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.25,
+          "height": 0.3,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0.28500000000000003,
+          "y": 2.29,
+          "z": 0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "R"
+      },
+      {
+        "id": "R_adductor_inner",
+        "name": "Chân Phải - Cơ khép đùi trong (Adductor Groin)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.32,
+          "depth": 0.23
+        },
+        "position": {
+          "x": 0.13000000000000003,
+          "y": 2.25,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "R"
+      },
+      {
+        "id": "R_gluteal_fold_base",
+        "name": "Chân Phải - Đáy cơ mông dưới (Gluteal Under-fold)",
+        "category": "pants",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.26,
+          "depth": 0.105
+        },
+        "position": {
+          "x": 0.29000000000000004,
+          "y": 2.27,
+          "z": -0.25
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "R"
+      },
+      {
+        "id": "R_toe_1_hallux",
+        "name": "Chân Phải - Ngón chân 1: Ngón cái (Hallux)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.068,
+          "height": 0.1,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.17500000000000004,
+          "y": 0.1,
+          "z": 0.46
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_toe_2_index",
+        "name": "Chân Phải - Ngón chân 2: Ngón trỏ (Second Toe)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.095,
+          "depth": 0.155
+        },
+        "position": {
+          "x": 0.23800000000000002,
+          "y": 0.096,
+          "z": 0.455
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_toe_3_middle",
+        "name": "Chân Phải - Ngón chân 3: Ngón giữa (Middle Toe)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.09,
+          "depth": 0.148
+        },
+        "position": {
+          "x": 0.29200000000000004,
+          "y": 0.093,
+          "z": 0.45
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_toe_4_ring",
+        "name": "Chân Phải - Ngón chân 4: Ngón áp út (Fourth Toe)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.085,
+          "depth": 0.138
+        },
+        "position": {
+          "x": 0.34400000000000003,
+          "y": 0.09,
+          "z": 0.44
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_toe_5_pinky",
+        "name": "Chân Phải - Ngón chân 5: Ngón út (Pinky Toe)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.125
+        },
+        "position": {
+          "x": 0.394,
+          "y": 0.085,
+          "z": 0.428
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_nail_1_hallux",
+        "name": "Chân Phải - Móng ngón chân 1 (Móng cái)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.015,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.17500000000000004,
+          "y": 0.152,
+          "z": 0.5
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_nail_2_index",
+        "name": "Chân Phải - Móng ngón chân 2 (Móng trỏ)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.014,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.23800000000000002,
+          "y": 0.145,
+          "z": 0.495
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_nail_3_middle",
+        "name": "Chân Phải - Móng ngón chân 3 (Móng giữa)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.014,
+          "depth": 0.048
+        },
+        "position": {
+          "x": 0.29200000000000004,
+          "y": 0.14,
+          "z": 0.49
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_nail_4_ring",
+        "name": "Chân Phải - Móng ngón chân 4 (Móng áp út)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.034,
+          "height": 0.014,
+          "depth": 0.044
+        },
+        "position": {
+          "x": 0.34400000000000003,
+          "y": 0.135,
+          "z": 0.48
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_nail_5_pinky",
+        "name": "Chân Phải - Móng ngón chân 5 (Móng út)",
+        "category": "socks",
+        "part": "Right Leg & Foot",
+        "dimensions": {
+          "width": 0.032,
+          "height": 0.013,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0.394,
+          "y": 0.128,
+          "z": 0.465
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      }
+    ],
+    "leftLegAndFoot": [
+      {
+        "id": "L_sole_heel",
+        "name": "Chân Trái - Đế dép gót đen (Black Sandal Heel Sole)",
+        "category": "boots",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.05,
+          "depth": 0.24
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.025,
+          "z": -0.16
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "L"
+      },
+      {
+        "id": "L_sole_arch",
+        "name": "Chân Trái - Đế dép vòm đen (Black Sandal Arch Sole)",
+        "category": "boots",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.05,
+          "depth": 0.26
+        },
+        "position": {
+          "x": -0.29000000000000004,
+          "y": 0.025,
+          "z": 0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "L"
+      },
+      {
+        "id": "L_sole_ball",
+        "name": "Chân Trái - Đế dép mũi đen (Black Sandal Ball Sole)",
+        "category": "boots",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.3,
+          "height": 0.05,
+          "depth": 0.3
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.025,
+          "z": 0.33
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "L"
+      },
+      {
+        "id": "L_sandal_thong",
+        "name": "Chân Trái - Chốt quai kẹp xỏ ngón (Sandal Toe Thong)",
+        "category": "sandal_strap",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.1,
+          "depth": 0.035
+        },
+        "position": {
+          "x": -0.20800000000000002,
+          "y": 0.115,
+          "z": 0.43
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "L"
+      },
+      {
+        "id": "L_sandal_strap_inner",
+        "name": "Chân Trái - Quai dép vắt mu trong (Inner Instep Strap)",
+        "category": "sandal_strap",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.036,
+          "depth": 0.23
+        },
+        "position": {
+          "x": -0.19200000000000003,
+          "y": 0.15,
+          "z": 0.32
+        },
+        "rotation": [
+          -0.25,
+          0,
+          -0.4
+        ],
+        "color": "#ffffff",
+        "side": "L"
+      },
+      {
+        "id": "L_sandal_strap_outer",
+        "name": "Chân Trái - Quai dép vắt mu ngoài (Outer Instep Strap)",
+        "category": "sandal_strap",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.036,
+          "depth": 0.25
+        },
+        "position": {
+          "x": -0.338,
+          "y": 0.15,
+          "z": 0.31
+        },
+        "rotation": [
+          -0.25,
+          0,
+          0.4
+        ],
+        "color": "#ffffff",
+        "side": "L"
+      },
+      {
+        "id": "L_sandal_strap_instep",
+        "name": "Chân Trái - Quai ngang mu bàn chân (Sandal Instep Band)",
+        "category": "sandal_strap",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.032,
+          "depth": 0.11
+        },
+        "position": {
+          "x": -0.27,
+          "y": 0.165,
+          "z": 0.265
+        },
+        "rotation": [
+          -0.2,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "L"
+      },
+      {
+        "id": "L_heel_core_back",
+        "name": "Chân Trái - Xương gót sau (Heel Core Back)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.18,
+          "depth": 0.11
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.14,
+          "z": -0.215
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_heel_core_front",
+        "name": "Chân Trái - Xương gót trước (Heel Core Front)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.18,
+          "depth": 0.11
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.14,
+          "z": -0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_achilles_ridge",
+        "name": "Chân Trái - Gân gót sau (Achilles base)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.22,
+          "depth": 0.07
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.22,
+          "z": -0.21
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_midfoot_lower",
+        "name": "Chân Trái - Mu bàn chân dưới (Midfoot Lower)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.1,
+          "depth": 0.32
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.1,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_midfoot_upper",
+        "name": "Chân Trái - Mu bàn chân trên (Midfoot Upper)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.1,
+          "depth": 0.28
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.2,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_midfoot_slope",
+        "name": "Chân Trái - Khối dốc mu chân gắn quai dép (Instep Slope Strap Texture)",
+        "category": "sandal_strap",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.12,
+          "depth": 0.22
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.11,
+          "z": 0.3
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "L"
+      },
+      {
+        "id": "L_ankle_core",
+        "name": "Chân Trái - Xương sên cổ chân (Talus Core)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.16,
+          "depth": 0.2
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.31,
+          "z": -0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_malleolus_outer",
+        "name": "Chân Trái - Mắt cá ngoài (Lateral Malleolus)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.14,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.405,
+          "y": 0.31,
+          "z": -0.12
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_malleolus_inner",
+        "name": "Chân Trái - Mắt cá trong (Medial Malleolus)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.14,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.15500000000000003,
+          "y": 0.33,
+          "z": -0.11
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_ankle_front_tendon",
+        "name": "Chân Trái - Gân trước cổ chân (Extensor Retinaculum)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.14,
+          "depth": 0.08
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.32,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_achilles_mid",
+        "name": "Chân Trái - Gân gót giữa (Mid Achilles)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.12,
+          "height": 0.2,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.39,
+          "z": -0.2
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_ankle_waist_core",
+        "name": "Chân Trái - Thân eo cổ chân (Ankle Waist Core)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.204,
+          "height": 0.18,
+          "depth": 0.204
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.47,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_tibia_lower_crest",
+        "name": "Chân Trái - Gờ xương chày dưới (Lower Tibial Crest)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.156,
+          "height": 0.18,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.47,
+          "z": 0.015
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_lower_leg_stem",
+        "name": "Chân Trái - Thân cẳng chân dưới (Low Shin Shaft)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.26,
+          "depth": 0.18
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.69,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_shin_crest_lower",
+        "name": "Chân Trái - Ống đồng trước dưới (Lower Shin Ridge)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.26,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.69,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_lower_bridge",
+        "name": "Chân Trái - Khối nối bắp chân xuống cẳng chân (Calf-to-Shin Lower Bridge)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.2,
+          "depth": 0.12
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.83,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_tendon_taper_bridge",
+        "name": "Chân Trái - Khối nêm gân gót bắp chân chuyển tiếp (Calf Tendon Taper Bridge)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.22,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.79,
+          "z": -0.235
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_back_lower_connector",
+        "name": "Chân Trái - Khối nối phía sau bắp chân (Calf Posterior Lower Connector)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.17,
+          "height": 0.22,
+          "depth": 0.1
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.6,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_mid_shin_core",
+        "name": "Chân Trái - Thân cẳng chân giữa (Mid Shin Core)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.32,
+          "depth": 0.19
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.98,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_shin_blade",
+        "name": "Chân Trái - Gờ sống ống đồng (Shin Blade Front)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.32,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.28,
+          "y": 0.98,
+          "z": 0.025
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_back_inner_layer",
+        "name": "Chân Trái - Cơ bắp chân tầng trong (Soleus/Deep Calf)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.34,
+          "depth": 0.08
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1,
+          "z": -0.19
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_back_outer_layer",
+        "name": "Chân Trái - Bụng bắp chân sau ngoài (Calf Belly Peak)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.3,
+          "depth": 0.07
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.02,
+          "z": -0.265
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_lateral",
+        "name": "Chân Trái - Bắp chân ngoài (Calf Outer Flare)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.06,
+          "height": 0.3,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.4,
+          "y": 1,
+          "z": -0.15
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_calf_medial",
+        "name": "Chân Trái - Bắp chân trong (Calf Inner Flare)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.06,
+          "height": 0.3,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.16000000000000003,
+          "y": 1,
+          "z": -0.15
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_upper_shin_core",
+        "name": "Chân Trái - Cẳng chân trên (Upper Shin Shaft)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.28,
+          "depth": 0.2
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.28,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_shin_upper_crest",
+        "name": "Chân Trái - Ống đồng trước trên (Upper Shin Ridge)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.28,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.28,
+          "z": 0.025
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_tibial_tuberosity",
+        "name": "Chân Trái - Lồi củ trước gối (Tibial Tuberosity)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.2,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.38,
+          "z": 0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_popliteal_back",
+        "name": "Chân Trái - Vòm cơ khoeo sau gối (Upper Calf Taper)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.26,
+          "depth": 0.13
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.3,
+          "z": -0.23
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_knee_core_joint",
+        "name": "Chân Trái - Tâm khớp gối (Femoral Condyles Base)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.16,
+          "depth": 0.22
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.5,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_patella_kneecap",
+        "name": "Chân Trái - Xương bánh chè gối (Patella Kneecap)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.14,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.5,
+          "z": 0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_knee_back_fossa",
+        "name": "Chân Trái - Hõm khoeo sau gối (Popliteal Fossa)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.16,
+          "height": 0.15,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.5,
+          "z": -0.21
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_thigh_lower_core",
+        "name": "Chân Trái - Thân đùi dưới (Lower Femur Core)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.25,
+          "height": 0.25,
+          "depth": 0.24
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.7,
+          "z": -0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_quad_tendon_front",
+        "name": "Chân Trái - Cơ gân trước đùi dưới (Supra-patellar Ridge)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.24,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.7,
+          "z": 0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_hamstring_lower",
+        "name": "Chân Trái - Cơ đùi sau dưới (Lower Hamstring)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.21,
+          "height": 0.24,
+          "depth": 0.075
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.7,
+          "z": -0.22
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_thigh_mid_core",
+        "name": "Chân Trái - Thân đùi giữa (Mid Femur Core)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.29,
+          "height": 0.32,
+          "depth": 0.27
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.98,
+          "z": -0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_quad_front_belly",
+        "name": "Chân Trái - Cơ đùi trước chính (Rectus Femoris)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.32,
+          "depth": 0.075
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.98,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_vastus_lateralis",
+        "name": "Chân Trái - Múi cơ đùi ngoài (Vastus Lateralis)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.04,
+          "height": 0.46,
+          "depth": 0.23
+        },
+        "position": {
+          "x": -0.42000000000000004,
+          "y": 2.06,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "L"
+      },
+      {
+        "id": "L_vastus_medialis",
+        "name": "Chân Trái - Cơ giọt nước đùi trong (Vastus Medialis)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.32,
+          "depth": 0.22
+        },
+        "position": {
+          "x": -0.13000000000000003,
+          "y": 1.92,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_hamstring_mid_bulk",
+        "name": "Chân Trái - Bụng cơ đùi sau (Hamstring Muscle Bulk)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.32,
+          "depth": 0.095
+        },
+        "position": {
+          "x": -0.28,
+          "y": 1.98,
+          "z": -0.245
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_thigh_upper_root",
+        "name": "Chân Trái - Gốc đùi trên (Upper Thigh Root)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.3,
+          "depth": 0.28
+        },
+        "position": {
+          "x": -0.28,
+          "y": 2.29,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "L"
+      },
+      {
+        "id": "L_upper_hip_flexor",
+        "name": "Chân Trái - Cơ mặt trước đùi trên (Upper Hip Flexor)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.25,
+          "height": 0.3,
+          "depth": 0.08
+        },
+        "position": {
+          "x": -0.28500000000000003,
+          "y": 2.29,
+          "z": 0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "L"
+      },
+      {
+        "id": "L_adductor_inner",
+        "name": "Chân Trái - Cơ khép đùi trong (Adductor Groin)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.32,
+          "depth": 0.23
+        },
+        "position": {
+          "x": -0.13000000000000003,
+          "y": 2.25,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#5a6d63",
+        "side": "L"
+      },
+      {
+        "id": "L_gluteal_fold_base",
+        "name": "Chân Trái - Đáy cơ mông dưới (Gluteal Under-fold)",
+        "category": "pants",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.26,
+          "depth": 0.105
+        },
+        "position": {
+          "x": -0.29000000000000004,
+          "y": 2.27,
+          "z": -0.25
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "L"
+      },
+      {
+        "id": "L_toe_1_hallux",
+        "name": "Chân Trái - Ngón chân 1: Ngón cái (Hallux)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.068,
+          "height": 0.1,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.17500000000000004,
+          "y": 0.1,
+          "z": 0.46
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_toe_2_index",
+        "name": "Chân Trái - Ngón chân 2: Ngón trỏ (Second Toe)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.095,
+          "depth": 0.155
+        },
+        "position": {
+          "x": -0.23800000000000002,
+          "y": 0.096,
+          "z": 0.455
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_toe_3_middle",
+        "name": "Chân Trái - Ngón chân 3: Ngón giữa (Middle Toe)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.09,
+          "depth": 0.148
+        },
+        "position": {
+          "x": -0.29200000000000004,
+          "y": 0.093,
+          "z": 0.45
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_toe_4_ring",
+        "name": "Chân Trái - Ngón chân 4: Ngón áp út (Fourth Toe)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.085,
+          "depth": 0.138
+        },
+        "position": {
+          "x": -0.34400000000000003,
+          "y": 0.09,
+          "z": 0.44
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_toe_5_pinky",
+        "name": "Chân Trái - Ngón chân 5: Ngón út (Pinky Toe)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.125
+        },
+        "position": {
+          "x": -0.394,
+          "y": 0.085,
+          "z": 0.428
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_nail_1_hallux",
+        "name": "Chân Trái - Móng ngón chân 1 (Móng cái)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.015,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.17500000000000004,
+          "y": 0.152,
+          "z": 0.5
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_nail_2_index",
+        "name": "Chân Trái - Móng ngón chân 2 (Móng trỏ)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.014,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.23800000000000002,
+          "y": 0.145,
+          "z": 0.495
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_nail_3_middle",
+        "name": "Chân Trái - Móng ngón chân 3 (Móng giữa)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.014,
+          "depth": 0.048
+        },
+        "position": {
+          "x": -0.29200000000000004,
+          "y": 0.14,
+          "z": 0.49
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_nail_4_ring",
+        "name": "Chân Trái - Móng ngón chân 4 (Móng áp út)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.034,
+          "height": 0.014,
+          "depth": 0.044
+        },
+        "position": {
+          "x": -0.34400000000000003,
+          "y": 0.135,
+          "z": 0.48
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_nail_5_pinky",
+        "name": "Chân Trái - Móng ngón chân 5 (Móng út)",
+        "category": "socks",
+        "part": "Left Leg & Foot",
+        "dimensions": {
+          "width": 0.032,
+          "height": 0.013,
+          "depth": 0.04
+        },
+        "position": {
+          "x": -0.394,
+          "y": 0.128,
+          "z": 0.465
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      }
+    ],
+    "pelvisAndTorso": [
+      {
+        "id": "P_pelvic_floor_bridge",
+        "name": "Hông - Đáy khung chậu giữa (Pelvic Floor Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.34,
+          "height": 0.16,
+          "depth": 0.28
+        },
+        "position": {
+          "x": 0,
+          "y": 2.38,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_pubic_front_shield",
+        "name": "Hông - Vùng xương mu trước (Pubic Front Shield)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.3,
+          "height": 0.22,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0,
+          "y": 2.41,
+          "z": 0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_groin_hip_socket_bridge",
+        "name": "Hông Phải - Khối nếp bẹn nối háng-đùi (Right Inguinal Groin Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.16,
+          "depth": 0.095
+        },
+        "position": {
+          "x": 0.21,
+          "y": 2.44,
+          "z": 0.088
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_groin_hip_socket_bridge",
+        "name": "Hông Trái - Khối nếp bẹn nối háng-đùi (Left Inguinal Groin Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.16,
+          "depth": 0.095
+        },
+        "position": {
+          "x": -0.21,
+          "y": 2.44,
+          "z": 0.088
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_pelvis_core_center",
+        "name": "Hông - Khối trung tâm khung chậu (Pelvis Core)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.64,
+          "height": 0.3,
+          "depth": 0.3
+        },
+        "position": {
+          "x": 0,
+          "y": 2.59,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_lower_abs_plate",
+        "name": "Hông - Cơ bụng dưới phẳng (Lower Abdominals Base)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.42,
+          "height": 0.26,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0,
+          "y": 2.61,
+          "z": 0.099
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_iliac_wing",
+        "name": "Hông Phải - Mào chậu ngoài (Right Iliac Crest)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.075,
+          "height": 0.24,
+          "depth": 0.26
+        },
+        "position": {
+          "x": 0.335,
+          "y": 2.58,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_hip_waist_bridge",
+        "name": "Hông Phải - Khối nối chuyển tiếp eo-hông (Right Hip-Waist Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.14,
+          "depth": 0.24
+        },
+        "position": {
+          "x": 0.305,
+          "y": 2.75,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_hip_oblique_taper",
+        "name": "Hông Phải - Cơ chéo hông chữ V (Right Adonis Belt)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.2,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0.24,
+          "y": 2.59,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_iliac_wing",
+        "name": "Hông Trái - Mào chậu ngoài (Left Iliac Crest)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.075,
+          "height": 0.24,
+          "depth": 0.26
+        },
+        "position": {
+          "x": -0.335,
+          "y": 2.58,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_hip_waist_bridge",
+        "name": "Hông Trái - Khối nối chuyển tiếp eo-hông (Left Hip-Waist Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.14,
+          "depth": 0.24
+        },
+        "position": {
+          "x": -0.305,
+          "y": 2.75,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_hip_oblique_taper",
+        "name": "Hông Trái - Cơ chéo hông chữ V (Left Adonis Belt)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.2,
+          "depth": 0.08
+        },
+        "position": {
+          "x": -0.24,
+          "y": 2.59,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_sacrum_back_center",
+        "name": "Hông - Xương cùng cột sống dưới (Sacrum Center)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.28,
+          "depth": 0.1
+        },
+        "position": {
+          "x": 0,
+          "y": 2.64,
+          "z": -0.22
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_glute_lumbar_bridge_center",
+        "name": "Eo Sau - Khối đệm nối xương cùng lên thắt lưng (Lumbosacral Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.48,
+          "height": 0.18,
+          "depth": 0.11
+        },
+        "position": {
+          "x": 0,
+          "y": 2.77,
+          "z": -0.245
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_glute_upper_shelf_bridge",
+        "name": "Hông Phải - Cơ mông nhỡ nối lên eo sau (Right Gluteus Medius Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.23,
+          "height": 0.16,
+          "depth": 0.11
+        },
+        "position": {
+          "x": 0.19,
+          "y": 2.74,
+          "z": -0.255
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_glute_upper_shelf_bridge",
+        "name": "Hông Trái - Cơ mông nhỡ nối lên eo sau (Left Gluteus Medius Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.23,
+          "height": 0.16,
+          "depth": 0.11
+        },
+        "position": {
+          "x": -0.19,
+          "y": 2.74,
+          "z": -0.255
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_glute_max_base",
+        "name": "Hông Phải - Cơ mông lớn nền (Right Gluteus Base)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.29,
+          "height": 0.32,
+          "depth": 0.12
+        },
+        "position": {
+          "x": 0.22,
+          "y": 2.56,
+          "z": -0.24
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "R_glute_max_peak",
+        "name": "Hông Phải - Đỉnh cơ mông sau (Right Gluteus Peak)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.27,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.22,
+          "y": 2.55,
+          "z": -0.32
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_glute_max_base",
+        "name": "Hông Trái - Cơ mông lớn nền (Left Gluteus Base)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.29,
+          "height": 0.32,
+          "depth": 0.12
+        },
+        "position": {
+          "x": -0.22,
+          "y": 2.56,
+          "z": -0.24
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "L_glute_max_peak",
+        "name": "Hông Trái - Đỉnh cơ mông sau (Left Gluteus Peak)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.26,
+          "height": 0.27,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.22,
+          "y": 2.55,
+          "z": -0.32
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_waist_lower_core",
+        "name": "Eo - Thắt lưng dưới nối bụng (Lower Waist Core)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.56,
+          "height": 0.16,
+          "depth": 0.3
+        },
+        "position": {
+          "x": 0,
+          "y": 2.8,
+          "z": -0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "P_lower_abs_bridge",
+        "name": "Eo Trước - Khối nối cơ bụng dưới (Lower Abs Transition Bridge)",
+        "category": "pants",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.36,
+          "height": 0.12,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0,
+          "y": 2.78,
+          "z": 0.095
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#15151a",
+        "side": "center"
+      },
+      {
+        "id": "T_waist_mid_core",
+        "name": "Bụng - Thân eo giữa thon gọn (Lean Mid Waist Core)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.54,
+          "height": 0.22,
+          "depth": 0.29
+        },
+        "position": {
+          "x": 0,
+          "y": 2.98,
+          "z": -0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "T_abdomen_upper_core",
+        "name": "Bụng - Thân bụng trên mở nhẹ lên sườn (Upper Abdomen Core)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.58,
+          "height": 0.22,
+          "depth": 0.31
+        },
+        "position": {
+          "x": 0,
+          "y": 3.19,
+          "z": -0.085
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_abs_pack_low",
+        "name": "Bụng Phải - Múi bụng dưới (Right Lower Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.11,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0.075,
+          "y": 2.89,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "L_abs_pack_low",
+        "name": "Bụng Trái - Múi bụng dưới (Left Lower Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.11,
+          "depth": 0.04
+        },
+        "position": {
+          "x": -0.075,
+          "y": 2.89,
+          "z": 0.08
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "R_abs_pack_mid",
+        "name": "Bụng Phải - Múi bụng giữa (Right Mid Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.12,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0.08,
+          "y": 3.03,
+          "z": 0.082
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "L_abs_pack_mid",
+        "name": "Bụng Trái - Múi bụng giữa (Left Mid Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.12,
+          "depth": 0.04
+        },
+        "position": {
+          "x": -0.08,
+          "y": 3.03,
+          "z": 0.082
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "R_abs_pack_high",
+        "name": "Bụng Phải - Múi bụng trên (Right Upper Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.12,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0.085,
+          "y": 3.18,
+          "z": 0.085
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "L_abs_pack_high",
+        "name": "Bụng Trái - Múi bụng trên (Left Upper Ab)",
+        "category": "cool_black_light",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.12,
+          "depth": 0.04
+        },
+        "position": {
+          "x": -0.085,
+          "y": 3.18,
+          "z": 0.085
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#272e38",
+        "side": "center"
+      },
+      {
+        "id": "R_flank_oblique",
+        "name": "Eo Phải - Cơ liên sườn / chéo bụng (Right External Oblique)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.38,
+          "depth": 0.25
+        },
+        "position": {
+          "x": 0.28,
+          "y": 3.05,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_flank_oblique",
+        "name": "Eo Trái - Cơ liên sườn / chéo bụng (Left External Oblique)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.38,
+          "depth": 0.25
+        },
+        "position": {
+          "x": -0.28,
+          "y": 3.05,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_erector_spinae_lumbar",
+        "name": "Lưng Dưới Phải - Cơ thăn lưng dưới (Right Lower Lumbar Erector)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.24,
+          "depth": 0.085
+        },
+        "position": {
+          "x": 0.095,
+          "y": 2.95,
+          "z": -0.245
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_erector_spinae_lumbar",
+        "name": "Lưng Dưới Trái - Cơ thăn lưng dưới (Left Lower Lumbar Erector)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.24,
+          "depth": 0.085
+        },
+        "position": {
+          "x": -0.095,
+          "y": 2.95,
+          "z": -0.245
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_erector_spinae_mid",
+        "name": "Lưng Giữa Phải - Cơ dựng sống lưng giữa (Right Mid Thoracic Erector)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.16,
+          "height": 0.32,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.105,
+          "y": 3.24,
+          "z": -0.255
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_erector_spinae_mid",
+        "name": "Lưng Giữa Trái - Cơ dựng sống lưng giữa (Left Mid Thoracic Erector)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.16,
+          "height": 0.32,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.105,
+          "y": 3.24,
+          "z": -0.255
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_quadratus_lumborum",
+        "name": "Lưng Hông Phải - Cơ vuông thắt lưng (Right Quadratus Lumborum)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.38,
+          "depth": 0.08
+        },
+        "position": {
+          "x": 0.215,
+          "y": 3.06,
+          "z": -0.235
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_quadratus_lumborum",
+        "name": "Lưng Hông Trái - Cơ vuông thắt lưng (Left Quadratus Lumborum)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.38,
+          "depth": 0.08
+        },
+        "position": {
+          "x": -0.215,
+          "y": 3.06,
+          "z": -0.235
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "T_ribcage_lower_core",
+        "name": "Ngực Dưới - Khung lồng ngực dưới mở chữ V (Lower Ribcage Core)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.64,
+          "height": 0.22,
+          "depth": 0.34
+        },
+        "position": {
+          "x": 0,
+          "y": 3.4,
+          "z": -0.09
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_serratus_ribs",
+        "name": "Sườn Phải - Cơ răng cưa mạn sườn (Right Serratus Anterior)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.19,
+          "depth": 0.18
+        },
+        "position": {
+          "x": 0.335,
+          "y": 3.39,
+          "z": 0
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_serratus_ribs",
+        "name": "Sườn Trái - Cơ răng cưa mạn sườn (Left Serratus Anterior)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.19,
+          "depth": 0.18
+        },
+        "position": {
+          "x": -0.335,
+          "y": 3.39,
+          "z": 0
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "T_thorax_upper_core",
+        "name": "Ngực Trên - Khối lồng ngực chính V-Shape (Upper Thorax Core)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.72,
+          "height": 0.3,
+          "depth": 0.36
+        },
+        "position": {
+          "x": 0,
+          "y": 3.65,
+          "z": -0.095
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "T_sternum_center",
+        "name": "Ngực - Rãnh xương ức giữa (Sternum Center)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.26,
+          "depth": 0.035
+        },
+        "position": {
+          "x": 0,
+          "y": 3.63,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_pec_major_main",
+        "name": "Ngực Phải - Cơ ngực chính mở rộng (Right Pectoralis Major)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.3,
+          "height": 0.22,
+          "depth": 0.065
+        },
+        "position": {
+          "x": 0.18,
+          "y": 3.63,
+          "z": 0.115
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_pec_major_main",
+        "name": "Ngực Trái - Cơ ngực chính mở rộng (Left Pectoralis Major)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.3,
+          "height": 0.22,
+          "depth": 0.065
+        },
+        "position": {
+          "x": -0.18,
+          "y": 3.63,
+          "z": 0.115
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_pec_lower_cut",
+        "name": "Ngực Phải - Viền cắt cơ ngực dưới (Right Lower Pec Cut)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.08,
+          "depth": 0.025
+        },
+        "position": {
+          "x": 0.16,
+          "y": 3.475,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_pec_lower_cut",
+        "name": "Ngực Trái - Viền cắt cơ ngực dưới (Left Lower Pec Cut)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.08,
+          "depth": 0.025
+        },
+        "position": {
+          "x": -0.16,
+          "y": 3.475,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_pec_upper_clavicular",
+        "name": "Ngực Phải - Cơ ngực trên (Right Upper Pec)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.09,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.17,
+          "y": 3.76,
+          "z": 0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_pec_upper_clavicular",
+        "name": "Ngực Trái - Cơ ngực trên (Left Upper Pec)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.09,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.17,
+          "y": 3.76,
+          "z": 0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_lat_lower_taper",
+        "name": "Lưng Phải - Cơ xô dưới vuốt chữ V (Right Lower Lat Taper)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.22,
+          "depth": 0.24
+        },
+        "position": {
+          "x": 0.34,
+          "y": 3.42,
+          "z": -0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_lat_lower_taper",
+        "name": "Lưng Trái - Cơ xô dưới vuốt chữ V (Left Lower Lat Taper)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.22,
+          "depth": 0.24
+        },
+        "position": {
+          "x": -0.34,
+          "y": 3.42,
+          "z": -0.105
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_lat_wing",
+        "name": "Lưng Phải - Cánh cơ xô trên V-Shape (Right Upper Lat Wing)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.08,
+          "height": 0.26,
+          "depth": 0.26
+        },
+        "position": {
+          "x": 0.38,
+          "y": 3.63,
+          "z": -0.11
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_lat_wing",
+        "name": "Lưng Trái - Cánh cơ xô trên V-Shape (Left Upper Lat Wing)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.08,
+          "height": 0.26,
+          "depth": 0.26
+        },
+        "position": {
+          "x": -0.38,
+          "y": 3.63,
+          "z": -0.11
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "T_mid_trapezius_back",
+        "name": "Lưng Trên Giữa - Cơ thang giữa lưng (Mid/Lower Trapezius)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.34,
+          "depth": 0.085
+        },
+        "position": {
+          "x": 0,
+          "y": 3.6,
+          "z": -0.285
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_scapula_back",
+        "name": "Lưng Trên Phải - Xương bả vai & Cơ dưới gai (Right Scapula Blade)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.21,
+          "height": 0.24,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.195,
+          "y": 3.65,
+          "z": -0.29
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_scapula_back",
+        "name": "Lưng Trên Trái - Xương bả vai & Cơ dưới gai (Left Scapula Blade)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.21,
+          "height": 0.24,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.195,
+          "y": 3.65,
+          "z": -0.29
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_scapular_spine_ridge",
+        "name": "Lưng Trên Phải - Gờ gai bả vai (Right Scapular Spine)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.23,
+          "height": 0.065,
+          "depth": 0.065
+        },
+        "position": {
+          "x": 0.2,
+          "y": 3.76,
+          "z": -0.3
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_scapular_spine_ridge",
+        "name": "Lưng Trên Trái - Gờ gai bả vai (Left Scapular Spine)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.23,
+          "height": 0.065,
+          "depth": 0.065
+        },
+        "position": {
+          "x": -0.2,
+          "y": 3.76,
+          "z": -0.3
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_teres_major_back",
+        "name": "Lưng Trên Phải - Cơ tròn lớn mép nách sau (Right Teres Major)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.16,
+          "depth": 0.085
+        },
+        "position": {
+          "x": 0.31,
+          "y": 3.58,
+          "z": -0.275
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_teres_major_back",
+        "name": "Lưng Trên Trái - Cơ tròn lớn mép nách sau (Left Teres Major)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.16,
+          "depth": 0.085
+        },
+        "position": {
+          "x": -0.31,
+          "y": 3.58,
+          "z": -0.275
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_clavicle_bone",
+        "name": "Vai Phải - Xương đòn quai xanh (Right Clavicle)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.27,
+          "height": 0.055,
+          "depth": 0.055
+        },
+        "position": {
+          "x": 0.16,
+          "y": 3.83,
+          "z": 0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_clavicle_bone",
+        "name": "Vai Trái - Xương đòn quai xanh (Left Clavicle)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.27,
+          "height": 0.055,
+          "depth": 0.055
+        },
+        "position": {
+          "x": -0.16,
+          "y": 3.83,
+          "z": 0.075
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "T_trapezius_base",
+        "name": "Vai - Khối nền cơ cầu vai (Trapezius Base)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.36,
+          "height": 0.08,
+          "depth": 0.2
+        },
+        "position": {
+          "x": 0,
+          "y": 3.835,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "R_trap_slope",
+        "name": "Cầu Vai Phải - Dốc cơ cầu vai (Right Upper Trap)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.105,
+          "height": 0.088,
+          "depth": 0.17
+        },
+        "position": {
+          "x": 0.125,
+          "y": 3.895,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "L_trap_slope",
+        "name": "Cầu Vai Trái - Dốc cơ cầu vai (Left Upper Trap)",
+        "category": "cool_black",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.105,
+          "height": 0.088,
+          "depth": 0.17
+        },
+        "position": {
+          "x": -0.125,
+          "y": 3.895,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "center"
+      },
+      {
+        "id": "N_neck_core_column",
+        "name": "Cổ - Trụ cổ trung tâm (Neck Core Column)",
+        "category": "skin",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.21,
+          "height": 0.28,
+          "depth": 0.2
+        },
+        "position": {
+          "x": 0,
+          "y": 4,
+          "z": -0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "R_neck_scm_muscle",
+        "name": "Cổ Phải - Cơ ức đòn chũm (Right SCM Muscle)",
+        "category": "skin",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.22,
+          "depth": 0.12
+        },
+        "position": {
+          "x": 0.11,
+          "y": 3.97,
+          "z": -0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "L_neck_scm_muscle",
+        "name": "Cổ Trái - Cơ ức đòn chũm (Left SCM Muscle)",
+        "category": "skin",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.22,
+          "depth": 0.12
+        },
+        "position": {
+          "x": -0.11,
+          "y": 3.97,
+          "z": -0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "N_adams_apple",
+        "name": "Cổ Trước - Yết hầu (Adams Apple / Larynx)",
+        "category": "ankle",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.056,
+          "height": 0.068,
+          "depth": 0.032
+        },
+        "position": {
+          "x": 0,
+          "y": 3.96,
+          "z": 0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "N_nuchal_back_neck",
+        "name": "Cổ Sau - Cơ gáy (Back Neck Muscle)",
+        "category": "heel",
+        "part": "Pelvis, Torso & Neck",
+        "dimensions": {
+          "width": 0.18,
+          "height": 0.26,
+          "depth": 0.032
+        },
+        "position": {
+          "x": 0,
+          "y": 4,
+          "z": -0.14
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d99f7d",
+        "side": "center"
+      }
+    ],
+    "rightArmAndHand": [
+      {
+        "id": "R_shoulder_deltoid_core",
+        "name": "Tay Phải - Tâm khớp cầu vai (Deltoid Core)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.201,
+          "height": 0.23,
+          "depth": 0.185
+        },
+        "position": {
+          "x": 0.458,
+          "y": 3.715,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_deltoid_front",
+        "name": "Tay Phải - Cơ vai trước (Anterior Deltoid)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.145,
+          "height": 0.18,
+          "depth": 0.045
+        },
+        "position": {
+          "x": 0.435,
+          "y": 3.69,
+          "z": 0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_deltoid_lateral_cap",
+        "name": "Tay Phải - Múi cơ vai ngang (Lateral Deltoid Cap)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.057,
+          "height": 0.234,
+          "depth": 0.196
+        },
+        "position": {
+          "x": 0.558,
+          "y": 3.69,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_deltoid_rear",
+        "name": "Tay Phải - Cơ vai sau (Posterior Deltoid)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.145,
+          "height": 0.18,
+          "depth": 0.045
+        },
+        "position": {
+          "x": 0.435,
+          "y": 3.69,
+          "z": -0.18
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_upper_arm_shaft",
+        "name": "Tay Phải - Thân cánh tay trên (Humerus Core)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.32,
+          "depth": 0.15
+        },
+        "position": {
+          "x": 0.445,
+          "y": 3.48,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "R"
+      },
+      {
+        "id": "R_biceps_front",
+        "name": "Tay Phải - Bắp tay trước cuồn cuộn (Biceps Peak)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.195,
+          "height": 0.416,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.445,
+          "y": 3.48,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_triceps_back",
+        "name": "Tay Phải - Cơ tam đầu tay sau (Triceps Brachii)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.3,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.455,
+          "y": 3.48,
+          "z": -0.17
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_brachialis_outer",
+        "name": "Tay Phải - Cơ cánh tay ngoài (Brachialis Lateral)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.405,
+          "depth": 0.156
+        },
+        "position": {
+          "x": 0.54,
+          "y": 3.4,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_elbow_joint_core",
+        "name": "Tay Phải - Khớp khuỷu tay (Elbow Joint Core)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.195,
+          "height": 0.182,
+          "depth": 0.189
+        },
+        "position": {
+          "x": 0.463,
+          "y": 3.25,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "R"
+      },
+      {
+        "id": "R_elbow_olecranon_tip",
+        "name": "Tay Phải - Mỏm cùi chỏ sau (Olecranon Tip)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.143,
+          "height": 0.165,
+          "depth": 0.068
+        },
+        "position": {
+          "x": 0.463,
+          "y": 3.25,
+          "z": -0.155
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "R"
+      },
+      {
+        "id": "R_forearm_upper_bulk",
+        "name": "Tay Phải - Bắp cẳng tay trên (Upper Forearm Bulk)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.233,
+          "height": 0.24,
+          "depth": 0.233
+        },
+        "position": {
+          "x": 0.506,
+          "y": 3.07,
+          "z": -0.065
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_brachioradialis_crest",
+        "name": "Tay Phải - Gờ cơ cẳng tay ngoài (Brachioradialis)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.063,
+          "height": 0.38,
+          "depth": 0.294
+        },
+        "position": {
+          "x": 0.561,
+          "y": 2.98,
+          "z": -0.096
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_forearm_lower_shaft",
+        "name": "Tay Phải - Cẳng tay dưới thon (Lower Forearm Shaft)",
+        "category": "cool_black",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.216,
+          "height": 0.265,
+          "depth": 0.216
+        },
+        "position": {
+          "x": 0.5115000000000001,
+          "y": 2.8275,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "R"
+      },
+      {
+        "id": "R_wrist_joint",
+        "name": "Tay Phải - Khớp cổ tay (Wrist Carpal Joint)",
+        "category": "ankle",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.105,
+          "height": 0.1,
+          "depth": 0.125
+        },
+        "position": {
+          "x": 0.47300000000000003,
+          "y": 2.655,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "R"
+      },
+      {
+        "id": "R_hand_palm_core",
+        "name": "Tay Phải - Khối bàn tay chính (Metacarpal Palm)",
+        "category": "cream_socks",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.075,
+          "height": 0.17,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.477,
+          "y": 2.525,
+          "z": -0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "R"
+      },
+      {
+        "id": "R_hand_thenar_base",
+        "name": "Tay Phải - Mô ngón tay cái (Thenar Base)",
+        "category": "sole",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.07,
+          "height": 0.11,
+          "depth": 0.065
+        },
+        "position": {
+          "x": 0.463,
+          "y": 2.545,
+          "z": 0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d49e7b",
+        "side": "R"
+      },
+      {
+        "id": "R_hand_knuckles_ridge",
+        "name": "Tay Phải - Hàng khớp đấm bàn tay (Knuckles Ridge)",
+        "category": "ankle",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.08,
+          "height": 0.045,
+          "depth": 0.165
+        },
+        "position": {
+          "x": 0.48,
+          "y": 2.435,
+          "z": -0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_1_thumb_prox",
+        "name": "Tay Phải - Ngón tay 1: Ngón cái đốt gốc (Thumb Proximal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.085,
+          "depth": 0.055
+        },
+        "position": {
+          "x": 0.46,
+          "y": 2.475,
+          "z": 0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_1_thumb_dist",
+        "name": "Tay Phải - Ngón tay 1: Ngón cái đốt đầu (Thumb Distal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.075,
+          "depth": 0.048
+        },
+        "position": {
+          "x": 0.457,
+          "y": 2.4,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_fingernail_1_thumb",
+        "name": "Tay Phải - Móng ngón tay cái",
+        "category": "nail",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.035,
+          "depth": 0.035
+        },
+        "position": {
+          "x": 0.483,
+          "y": 2.385,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_2_index_prox",
+        "name": "Tay Phải - Ngón tay 2: Ngón trỏ đốt trên (Index Proximal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.095,
+          "depth": 0.036
+        },
+        "position": {
+          "x": 0.478,
+          "y": 2.375,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_2_index_dist",
+        "name": "Tay Phải - Ngón tay 2: Ngón trỏ đốt đầu (Index Distal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.033
+        },
+        "position": {
+          "x": 0.475,
+          "y": 2.29,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_fingernail_2_index",
+        "name": "Tay Phải - Móng ngón tay trỏ",
+        "category": "nail",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.032,
+          "depth": 0.025
+        },
+        "position": {
+          "x": 0.499,
+          "y": 2.27,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_3_middle_prox",
+        "name": "Tay Phải - Ngón tay 3: Ngón giữa đốt trên (Middle Proximal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.054,
+          "height": 0.105,
+          "depth": 0.038
+        },
+        "position": {
+          "x": 0.479,
+          "y": 2.37,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_3_middle_dist",
+        "name": "Tay Phải - Ngón tay 3: Ngón giữa đốt đầu (Middle Distal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.09,
+          "depth": 0.035
+        },
+        "position": {
+          "x": 0.476,
+          "y": 2.275,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_fingernail_3_middle",
+        "name": "Tay Phải - Móng ngón tay giữa",
+        "category": "nail",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.034,
+          "depth": 0.026
+        },
+        "position": {
+          "x": 0.501,
+          "y": 2.25,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_4_ring_prox",
+        "name": "Tay Phải - Ngón tay 4: Ngón áp út đốt trên (Ring Proximal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.095,
+          "depth": 0.036
+        },
+        "position": {
+          "x": 0.478,
+          "y": 2.375,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_4_ring_dist",
+        "name": "Tay Phải - Ngón tay 4: Ngón áp út đốt đầu (Ring Distal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.08,
+          "depth": 0.032
+        },
+        "position": {
+          "x": 0.475,
+          "y": 2.29,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_fingernail_4_ring",
+        "name": "Tay Phải - Móng ngón tay áp út",
+        "category": "nail",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.032,
+          "depth": 0.024
+        },
+        "position": {
+          "x": 0.498,
+          "y": 2.27,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_5_pinky_prox",
+        "name": "Tay Phải - Ngón tay 5: Ngón út đốt trên (Pinky Proximal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.033
+        },
+        "position": {
+          "x": 0.476,
+          "y": 2.385,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_finger_5_pinky_dist",
+        "name": "Tay Phải - Ngón tay 5: Ngón út đốt đầu (Pinky Distal)",
+        "category": "skin",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.042,
+          "height": 0.065,
+          "depth": 0.03
+        },
+        "position": {
+          "x": 0.47300000000000003,
+          "y": 2.315,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "R"
+      },
+      {
+        "id": "R_fingernail_5_pinky",
+        "name": "Tay Phải - Móng ngón tay út",
+        "category": "nail",
+        "part": "Right Arm & Hand",
+        "dimensions": {
+          "width": 0.011,
+          "height": 0.028,
+          "depth": 0.022
+        },
+        "position": {
+          "x": 0.495,
+          "y": 2.3,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "R"
+      }
+    ],
+    "leftArmAndHand": [
+      {
+        "id": "L_shoulder_deltoid_core",
+        "name": "Tay Trái - Tâm khớp cầu vai (Deltoid Core)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.201,
+          "height": 0.23,
+          "depth": 0.185
+        },
+        "position": {
+          "x": -0.458,
+          "y": 3.715,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_deltoid_front",
+        "name": "Tay Trái - Cơ vai trước (Anterior Deltoid)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.145,
+          "height": 0.18,
+          "depth": 0.045
+        },
+        "position": {
+          "x": -0.435,
+          "y": 3.69,
+          "z": 0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_deltoid_lateral_cap",
+        "name": "Tay Trái - Múi cơ vai ngang (Lateral Deltoid Cap)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.057,
+          "height": 0.234,
+          "depth": 0.196
+        },
+        "position": {
+          "x": -0.558,
+          "y": 3.69,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_deltoid_rear",
+        "name": "Tay Trái - Cơ vai sau (Posterior Deltoid)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.145,
+          "height": 0.18,
+          "depth": 0.045
+        },
+        "position": {
+          "x": -0.435,
+          "y": 3.69,
+          "z": -0.18
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_upper_arm_shaft",
+        "name": "Tay Trái - Thân cánh tay trên (Humerus Core)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.15,
+          "height": 0.32,
+          "depth": 0.15
+        },
+        "position": {
+          "x": -0.445,
+          "y": 3.48,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "L"
+      },
+      {
+        "id": "L_biceps_front",
+        "name": "Tay Trái - Bắp tay trước cuồn cuộn (Biceps Peak)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.195,
+          "height": 0.416,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.445,
+          "y": 3.48,
+          "z": 0.02
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_triceps_back",
+        "name": "Tay Trái - Cơ tam đầu tay sau (Triceps Brachii)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.14,
+          "height": 0.3,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.455,
+          "y": 3.48,
+          "z": -0.17
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_brachialis_outer",
+        "name": "Tay Trái - Cơ cánh tay ngoài (Brachialis Lateral)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.405,
+          "depth": 0.156
+        },
+        "position": {
+          "x": -0.54,
+          "y": 3.4,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_elbow_joint_core",
+        "name": "Tay Trái - Khớp khuỷu tay (Elbow Joint Core)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.195,
+          "height": 0.182,
+          "depth": 0.189
+        },
+        "position": {
+          "x": -0.463,
+          "y": 3.25,
+          "z": -0.07
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "L"
+      },
+      {
+        "id": "L_elbow_olecranon_tip",
+        "name": "Tay Trái - Mỏm cùi chỏ sau (Olecranon Tip)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.143,
+          "height": 0.165,
+          "depth": 0.068
+        },
+        "position": {
+          "x": -0.463,
+          "y": 3.25,
+          "z": -0.155
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#141820",
+        "side": "L"
+      },
+      {
+        "id": "L_forearm_upper_bulk",
+        "name": "Tay Trái - Bắp cẳng tay trên (Upper Forearm Bulk)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.233,
+          "height": 0.24,
+          "depth": 0.233
+        },
+        "position": {
+          "x": -0.506,
+          "y": 3.07,
+          "z": -0.065
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_brachioradialis_crest",
+        "name": "Tay Trái - Gờ cơ cẳng tay ngoài (Brachioradialis)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.063,
+          "height": 0.38,
+          "depth": 0.294
+        },
+        "position": {
+          "x": -0.561,
+          "y": 2.98,
+          "z": -0.096
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_forearm_lower_shaft",
+        "name": "Tay Trái - Cẳng tay dưới thon (Lower Forearm Shaft)",
+        "category": "cool_black",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.216,
+          "height": 0.265,
+          "depth": 0.216
+        },
+        "position": {
+          "x": -0.5115000000000001,
+          "y": 2.8275,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#1b2028",
+        "side": "L"
+      },
+      {
+        "id": "L_wrist_joint",
+        "name": "Tay Trái - Khớp cổ tay (Wrist Carpal Joint)",
+        "category": "ankle",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.105,
+          "height": 0.1,
+          "depth": 0.125
+        },
+        "position": {
+          "x": -0.47300000000000003,
+          "y": 2.655,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "L"
+      },
+      {
+        "id": "L_hand_palm_core",
+        "name": "Tay Trái - Khối bàn tay chính (Metacarpal Palm)",
+        "category": "cream_socks",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.075,
+          "height": 0.17,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.477,
+          "y": 2.525,
+          "z": -0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f2ece4",
+        "side": "L"
+      },
+      {
+        "id": "L_hand_thenar_base",
+        "name": "Tay Trái - Mô ngón tay cái (Thenar Base)",
+        "category": "sole",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.07,
+          "height": 0.11,
+          "depth": 0.065
+        },
+        "position": {
+          "x": -0.463,
+          "y": 2.545,
+          "z": 0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d49e7b",
+        "side": "L"
+      },
+      {
+        "id": "L_hand_knuckles_ridge",
+        "name": "Tay Trái - Hàng khớp đấm bàn tay (Knuckles Ridge)",
+        "category": "ankle",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.08,
+          "height": 0.045,
+          "depth": 0.165
+        },
+        "position": {
+          "x": -0.48,
+          "y": 2.435,
+          "z": -0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_1_thumb_prox",
+        "name": "Tay Trái - Ngón tay 1: Ngón cái đốt gốc (Thumb Proximal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.055,
+          "height": 0.085,
+          "depth": 0.055
+        },
+        "position": {
+          "x": -0.46,
+          "y": 2.475,
+          "z": 0.055
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_1_thumb_dist",
+        "name": "Tay Trái - Ngón tay 1: Ngón cái đốt đầu (Thumb Distal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.075,
+          "depth": 0.048
+        },
+        "position": {
+          "x": -0.457,
+          "y": 2.4,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_fingernail_1_thumb",
+        "name": "Tay Trái - Móng ngón tay cái",
+        "category": "nail",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.035,
+          "depth": 0.035
+        },
+        "position": {
+          "x": -0.483,
+          "y": 2.385,
+          "z": 0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_2_index_prox",
+        "name": "Tay Trái - Ngón tay 2: Ngón trỏ đốt trên (Index Proximal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.052,
+          "height": 0.095,
+          "depth": 0.036
+        },
+        "position": {
+          "x": -0.478,
+          "y": 2.375,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_2_index_dist",
+        "name": "Tay Trái - Ngón tay 2: Ngón trỏ đốt đầu (Index Distal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.033
+        },
+        "position": {
+          "x": -0.475,
+          "y": 2.29,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_fingernail_2_index",
+        "name": "Tay Trái - Móng ngón tay trỏ",
+        "category": "nail",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.032,
+          "depth": 0.025
+        },
+        "position": {
+          "x": -0.499,
+          "y": 2.27,
+          "z": 0.008
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_3_middle_prox",
+        "name": "Tay Trái - Ngón tay 3: Ngón giữa đốt trên (Middle Proximal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.054,
+          "height": 0.105,
+          "depth": 0.038
+        },
+        "position": {
+          "x": -0.479,
+          "y": 2.37,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_3_middle_dist",
+        "name": "Tay Trái - Ngón tay 3: Ngón giữa đốt đầu (Middle Distal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.048,
+          "height": 0.09,
+          "depth": 0.035
+        },
+        "position": {
+          "x": -0.476,
+          "y": 2.275,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_fingernail_3_middle",
+        "name": "Tay Trái - Móng ngón tay giữa",
+        "category": "nail",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.034,
+          "depth": 0.026
+        },
+        "position": {
+          "x": -0.501,
+          "y": 2.25,
+          "z": -0.034
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_4_ring_prox",
+        "name": "Tay Trái - Ngón tay 4: Ngón áp út đốt trên (Ring Proximal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.095,
+          "depth": 0.036
+        },
+        "position": {
+          "x": -0.478,
+          "y": 2.375,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_4_ring_dist",
+        "name": "Tay Trái - Ngón tay 4: Ngón áp út đốt đầu (Ring Distal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.045,
+          "height": 0.08,
+          "depth": 0.032
+        },
+        "position": {
+          "x": -0.475,
+          "y": 2.29,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_fingernail_4_ring",
+        "name": "Tay Trái - Móng ngón tay áp út",
+        "category": "nail",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.012,
+          "height": 0.032,
+          "depth": 0.024
+        },
+        "position": {
+          "x": -0.498,
+          "y": 2.27,
+          "z": -0.076
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_5_pinky_prox",
+        "name": "Tay Trái - Ngón tay 5: Ngón út đốt trên (Pinky Proximal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.046,
+          "height": 0.08,
+          "depth": 0.033
+        },
+        "position": {
+          "x": -0.476,
+          "y": 2.385,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_finger_5_pinky_dist",
+        "name": "Tay Trái - Ngón tay 5: Ngón út đốt đầu (Pinky Distal)",
+        "category": "skin",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.042,
+          "height": 0.065,
+          "depth": 0.03
+        },
+        "position": {
+          "x": -0.47300000000000003,
+          "y": 2.315,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "L"
+      },
+      {
+        "id": "L_fingernail_5_pinky",
+        "name": "Tay Trái - Móng ngón tay út",
+        "category": "nail",
+        "part": "Left Arm & Hand",
+        "dimensions": {
+          "width": 0.011,
+          "height": 0.028,
+          "depth": 0.022
+        },
+        "position": {
+          "x": -0.495,
+          "y": 2.3,
+          "z": -0.116
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#f8e7df",
+        "side": "L"
+      }
+    ],
+    "headAndHair": [
+      {
+        "id": "H_skull_core",
+        "name": "Đầu - Khối sọ trung tâm (Main Cranial Core)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.22,
+          "height": 0.24,
+          "depth": 0.23
+        },
+        "position": {
+          "x": 0,
+          "y": 4.27,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cranium_top_dome",
+        "name": "Đầu - Vòm đỉnh sọ (Cranial Top Dome)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.19,
+          "height": 0.09,
+          "depth": 0.19
+        },
+        "position": {
+          "x": 0,
+          "y": 4.425,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cranium_occiput_back",
+        "name": "Đầu - Ụ sọ sau gáy (Occipital Protuberance)",
+        "category": "heel",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.22,
+          "depth": 0.028
+        },
+        "position": {
+          "x": 0,
+          "y": 4.24,
+          "z": -0.14
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d99f7d",
+        "side": "center"
+      },
+      {
+        "id": "H_lower_face_skull_base",
+        "name": "Đầu - Lõi hàm trên & đáy sọ (Maxilla & Skull Base Core)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.2,
+          "height": 0.12,
+          "depth": 0.242
+        },
+        "position": {
+          "x": 0,
+          "y": 4.15,
+          "z": -0.014
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_chin_vline_main",
+        "name": "Cằm - Cằm thon V-line (Slender V-Line Chin)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.077,
+          "height": 0.072,
+          "depth": 0.049
+        },
+        "position": {
+          "x": 0,
+          "y": 4.095,
+          "z": 0.088
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_chin_tip_taper",
+        "name": "Cằm - Đỉnh nhọn cằm V-line (Chin Tip Taper)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.062,
+          "height": 0.028,
+          "depth": 0.046
+        },
+        "position": {
+          "x": 0,
+          "y": 4.052,
+          "z": 0.084
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "H_jaw_mandible_R",
+        "name": "Hàm Phải - Xương hàm vát V-line (Right Mandible V-Taper)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.065,
+          "depth": 0.115
+        },
+        "position": {
+          "x": 0.072,
+          "y": 4.128,
+          "z": 0.018
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_jaw_mandible_L",
+        "name": "Hàm Trái - Xương hàm vát V-line (Left Mandible V-Taper)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.065,
+          "depth": 0.115
+        },
+        "position": {
+          "x": -0.072,
+          "y": 4.128,
+          "z": 0.018
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_jaw_angle_R",
+        "name": "Hàm Phải - Góc quai hàm thon (Right Sleek Jaw Angle)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.08,
+          "depth": 0.055
+        },
+        "position": {
+          "x": 0.095,
+          "y": 4.165,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "H_jaw_angle_L",
+        "name": "Hàm Trái - Góc quai hàm thon (Left Sleek Jaw Angle)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.08,
+          "depth": 0.055
+        },
+        "position": {
+          "x": -0.095,
+          "y": 4.165,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "H_submental_throat_bridge",
+        "name": "Cằm - Đáy dưới cằm nối đỉnh cổ (Submental Neck Bridge)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.12,
+          "height": 0.05,
+          "depth": 0.1
+        },
+        "position": {
+          "x": 0,
+          "y": 4.08,
+          "z": -0.005
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cheek_mid_R",
+        "name": "Mặt Phải - Gò má thanh thoát (Right Sleek Cheek)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.08,
+          "depth": 0.09
+        },
+        "position": {
+          "x": 0.098,
+          "y": 4.23,
+          "z": 0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cheek_mid_L",
+        "name": "Mặt Trái - Gò má thanh thoát (Left Sleek Cheek)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.08,
+          "depth": 0.09
+        },
+        "position": {
+          "x": -0.098,
+          "y": 4.23,
+          "z": 0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cheek_lower_bridge_R",
+        "name": "Mặt Phải - Khối nối gò má xuống đáy sọ (Right Cheek Bridge)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.06,
+          "depth": 0.07
+        },
+        "position": {
+          "x": 0.095,
+          "y": 4.18,
+          "z": 0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_cheek_lower_bridge_L",
+        "name": "Mặt Trái - Khối nối gò má xuống đáy sọ (Left Cheek Bridge)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.06,
+          "depth": 0.07
+        },
+        "position": {
+          "x": -0.095,
+          "y": 4.18,
+          "z": 0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_forehead_frontal",
+        "name": "Mặt - Vầng trán cao thanh tú (Fair Frontal Forehead)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.13,
+          "height": 0.11,
+          "depth": 0.029
+        },
+        "position": {
+          "x": 0,
+          "y": 4.385,
+          "z": 0.082
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "HR_forehead_bang_R",
+        "name": "Tóc Trán Phải - Đoạn trên lọn tóc rủ nối X2 (Right Forehead Bang Upper)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0016,
+          "height": 0.22,
+          "depth": 0.0014
+        },
+        "position": {
+          "x": 0.052,
+          "y": 4.39,
+          "z": 0.108
+        },
+        "rotation": [
+          -0.22,
+          0,
+          0.1
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_forehead_bang_R_sub",
+        "name": "Tóc Trán Phải - Đoạn dưới nối tiếp cong mềm (Right Forehead Bang Lower)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0008,
+          "height": 0.36,
+          "depth": 0.0007
+        },
+        "position": {
+          "x": 0.07,
+          "y": 4.1,
+          "z": 0.15
+        },
+        "rotation": [
+          -0.1,
+          0,
+          0.04
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_forehead_bang_L",
+        "name": "Tóc Trán Trái - Đoạn trên lọn tóc rủ nối X1 (Left Forehead Bang Upper)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0016,
+          "height": 0.22,
+          "depth": 0.0014
+        },
+        "position": {
+          "x": -0.052,
+          "y": 4.39,
+          "z": 0.108
+        },
+        "rotation": [
+          -0.22,
+          0,
+          -0.1
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_forehead_bang_L_sub",
+        "name": "Tóc Trán Trái - Đoạn dưới nối tiếp cong mềm (Left Forehead Bang Lower)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0008,
+          "height": 0.36,
+          "depth": 0.0007
+        },
+        "position": {
+          "x": -0.07,
+          "y": 4.1,
+          "z": 0.15
+        },
+        "rotation": [
+          -0.1,
+          0,
+          -0.04
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "H_forehead_temple_R",
+        "name": "Mặt Phải - Vách thái dương trán (Right Forehead Temple)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.039,
+          "height": 0.1,
+          "depth": 0.06
+        },
+        "position": {
+          "x": 0.089,
+          "y": 4.38,
+          "z": 0.063
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_forehead_temple_L",
+        "name": "Mặt Trái - Vách thái dương trán (Left Forehead Temple)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.039,
+          "height": 0.1,
+          "depth": 0.06
+        },
+        "position": {
+          "x": -0.089,
+          "y": 4.38,
+          "z": 0.063
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_eyebrow_sword_R",
+        "name": "Mặt Phải - Chân mày thanh mảnh điềm tĩnh (Right Calm Eyebrow)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.074,
+          "height": 0.0085,
+          "depth": 0.016
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.316,
+          "z": 0.114
+        },
+        "rotation": [
+          0,
+          -0.06,
+          0.035
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "H_eyebrow_sword_L",
+        "name": "Mặt Trái - Chân mày thanh mảnh điềm tĩnh (Left Calm Eyebrow)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.074,
+          "height": 0.0085,
+          "depth": 0.016
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.316,
+          "z": 0.114
+        },
+        "rotation": [
+          0,
+          0.06,
+          -0.035
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_crease_R",
+        "name": "Mắt Phải - Nếp mí trên mảnh tự nhiên (Right Clean Eyelid Crease)",
+        "category": "sole",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.064,
+          "height": 0.0025,
+          "depth": 0.014
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.298,
+          "z": 0.112
+        },
+        "rotation": [
+          0,
+          -0.05,
+          0.015
+        ],
+        "color": "#d49e7b",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_crease_L",
+        "name": "Mặt Trái - Nếp mí trên mảnh tự nhiên (Left Clean Eyelid Crease)",
+        "category": "sole",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.064,
+          "height": 0.0025,
+          "depth": 0.014
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.298,
+          "z": 0.112
+        },
+        "rotation": [
+          0,
+          0.05,
+          -0.015
+        ],
+        "color": "#d49e7b",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_upper_R",
+        "name": "Mắt Phải - Viền mi trên sắc nét (Right Upper Lash Line)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.07,
+          "height": 0.006,
+          "depth": 0.019
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.29,
+          "z": 0.115
+        },
+        "rotation": [
+          0,
+          -0.05,
+          0.015
+        ],
+        "color": "#050507",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_upper_L",
+        "name": "Mặt Trái - Viền mi trên sắc nét (Left Upper Lash Line)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.07,
+          "height": 0.006,
+          "depth": 0.019
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.29,
+          "z": 0.115
+        },
+        "rotation": [
+          0,
+          0.05,
+          -0.015
+        ],
+        "color": "#050507",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_sclera_R",
+        "name": "Mắt Phải - Lòng trắng mắt mở to (Right Large Eye Sclera)",
+        "category": "eye_white",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.066,
+          "height": 0.027,
+          "depth": 0.015
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.275,
+          "z": 0.11
+        },
+        "rotation": [
+          0,
+          -0.05,
+          0
+        ],
+        "color": "#c4c7cc",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_sclera_L",
+        "name": "Mắt Trái - Lòng trắng mắt mở to (Left Large Eye Sclera)",
+        "category": "eye_white",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.066,
+          "height": 0.027,
+          "depth": 0.015
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.275,
+          "z": 0.11
+        },
+        "rotation": [
+          0,
+          0.05,
+          0
+        ],
+        "color": "#c4c7cc",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_pupil_R",
+        "name": "Mắt Phải - Con ngươi to tròn đen tuyền vô hồn (Right Large Abyssal Black Pupil)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0385,
+          "height": 0.033,
+          "depth": 0.018
+        },
+        "position": {
+          "x": 0.056,
+          "y": 4.276,
+          "z": 0.1135
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#040406",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_pupil_L",
+        "name": "Mắt Trái - Con ngươi to tròn đen tuyền vô hồn (Left Large Abyssal Black Pupil)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.0385,
+          "height": 0.033,
+          "depth": 0.018
+        },
+        "position": {
+          "x": -0.056,
+          "y": 4.276,
+          "z": 0.1135
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#040406",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_layer_R",
+        "name": "Mắt Phải - Lớp texture mắt phượng có hồn (Right Phoenix Eye Texture Layer)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.072,
+          "height": 0.028,
+          "depth": 0.001
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.275,
+          "z": 0.117
+        },
+        "rotation": [
+          0,
+          -0.05,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "center"
+      },
+      {
+        "id": "H_eye_layer_L",
+        "name": "Mắt Trái - Lớp texture mắt phượng có hồn (Left Phoenix Eye Texture Layer)",
+        "category": "pupil",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.072,
+          "height": 0.028,
+          "depth": 0.001
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.275,
+          "z": 0.117
+        },
+        "rotation": [
+          0,
+          0.05,
+          0
+        ],
+        "color": "#ffffff",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_lower_R",
+        "name": "Mắt Phải - Viền mí dưới mảnh (Right Lower Eyelid Rim)",
+        "category": "sole",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.062,
+          "height": 0.0028,
+          "depth": 0.015
+        },
+        "position": {
+          "x": 0.058,
+          "y": 4.261,
+          "z": 0.112
+        },
+        "rotation": [
+          0,
+          -0.05,
+          0.08
+        ],
+        "color": "#d49e7b",
+        "side": "center"
+      },
+      {
+        "id": "H_eyelid_lower_L",
+        "name": "Mặt Trái - Viền mí dưới mảnh (Left Lower Eyelid Rim)",
+        "category": "sole",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.062,
+          "height": 0.0028,
+          "depth": 0.015
+        },
+        "position": {
+          "x": -0.058,
+          "y": 4.261,
+          "z": 0.112
+        },
+        "rotation": [
+          0,
+          0.05,
+          -0.08
+        ],
+        "color": "#d49e7b",
+        "side": "center"
+      },
+      {
+        "id": "H_nose_bridge",
+        "name": "Mặt - Sống mũi thon cao (Slender Nasal Bridge)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.032,
+          "height": 0.075,
+          "depth": 0.038
+        },
+        "position": {
+          "x": 0,
+          "y": 4.265,
+          "z": 0.11
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_nose_tip",
+        "name": "Mặt - Đầu mũi thanh tú (Refined Nose Tip)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.042,
+          "height": 0.034,
+          "depth": 0.042
+        },
+        "position": {
+          "x": 0,
+          "y": 4.215,
+          "z": 0.122
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "H_philtrum",
+        "name": "Mặt - Nhân trung (Philtrum)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.05,
+          "height": 0.024,
+          "depth": 0.024
+        },
+        "position": {
+          "x": 0,
+          "y": 4.186,
+          "z": 0.106
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_upper_lip",
+        "name": "Mặt - Môi trên mỏng thanh tú (Thin Upper Lip)",
+        "category": "heel",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.083,
+          "height": 0.006,
+          "depth": 0.0135
+        },
+        "position": {
+          "x": 0,
+          "y": 4.164,
+          "z": 0.112
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d99f7d",
+        "side": "center"
+      },
+      {
+        "id": "H_mouth_line",
+        "name": "Mặt - Đường khép môi điềm tĩnh (Calm Closed Mouth Line)",
+        "category": "sole",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.072,
+          "height": 0.0025,
+          "depth": 0.015
+        },
+        "position": {
+          "x": 0,
+          "y": 4.157,
+          "z": 0.114
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d49e7b",
+        "side": "center"
+      },
+      {
+        "id": "H_lower_lip",
+        "name": "Mặt - Môi dưới mỏng (Thin Lower Lip)",
+        "category": "heel",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.08,
+          "height": 0.006,
+          "depth": 0.0135
+        },
+        "position": {
+          "x": 0,
+          "y": 4.15,
+          "z": 0.111
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#d99f7d",
+        "side": "center"
+      },
+      {
+        "id": "H_labiomental_crease",
+        "name": "Mặt - Rãnh dưới môi chuyển cằm (Labiomental Groove)",
+        "category": "skin",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.068,
+          "height": 0.016,
+          "depth": 0.017
+        },
+        "position": {
+          "x": 0,
+          "y": 4.132,
+          "z": 0.1
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#e5b894",
+        "side": "center"
+      },
+      {
+        "id": "H_ear_pinna_R",
+        "name": "Tai Phải - Vành tai (Right Ear Pinna)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.08,
+          "depth": 0.045
+        },
+        "position": {
+          "x": 0.125,
+          "y": 4.25,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "H_ear_pinna_L",
+        "name": "Tai Trái - Vành tai (Left Ear Pinna)",
+        "category": "ankle",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.08,
+          "depth": 0.045
+        },
+        "position": {
+          "x": -0.125,
+          "y": 4.25,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#dfa886",
+        "side": "center"
+      },
+      {
+        "id": "HR_crown_base_seal",
+        "name": "Tóc - Tấm đệm phủ kín vòm sọ (Full Cranial Hair Seal)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.08,
+          "depth": 0.26
+        },
+        "position": {
+          "x": 0,
+          "y": 4.46,
+          "z": -0.045
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_crown_volume_R",
+        "name": "Tóc Phải - Khối phồng tóc đỉnh phải (Right Crown Volume - X2)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.125,
+          "height": 0.038,
+          "depth": 0.27
+        },
+        "position": {
+          "x": 0.063,
+          "y": 4.5,
+          "z": -0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_crown_volume_L",
+        "name": "Tóc Trái - Khối phồng tóc đỉnh trái (Left Crown Volume - X1)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.125,
+          "height": 0.038,
+          "depth": 0.27
+        },
+        "position": {
+          "x": -0.063,
+          "y": 4.5,
+          "z": -0.035
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_hairline_arch_R",
+        "name": "Tóc Phải - Viền chân tóc vòm trán phải (Right Hairline Arch)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.063,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0.081,
+          "y": 4.43,
+          "z": 0.095
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_hairline_arch_L",
+        "name": "Tóc Trái - Viền chân tóc vòm trán trái (Left Hairline Arch)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.065,
+          "height": 0.063,
+          "depth": 0.04
+        },
+        "position": {
+          "x": -0.081,
+          "y": 4.43,
+          "z": 0.095
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_cheek_R",
+        "name": "Tóc Phải - Dải tóc mai trước ngang má (Right Front Lock - Cheek)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.028,
+          "height": 0.192,
+          "depth": 0.045
+        },
+        "position": {
+          "x": 0.118,
+          "y": 4.3,
+          "z": 0.092
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_cheek_L",
+        "name": "Tóc Trái - Dải tóc mai trước ngang má (Left Front Lock - Cheek)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.028,
+          "height": 0.192,
+          "depth": 0.045
+        },
+        "position": {
+          "x": -0.118,
+          "y": 4.3,
+          "z": 0.092
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_neck_R",
+        "name": "Tóc Phải - Dải tóc mai trước ngang cằm-cổ (Right Front Lock - Jaw & Neck)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.026,
+          "height": 0.18,
+          "depth": 0.038
+        },
+        "position": {
+          "x": 0.12,
+          "y": 4.12,
+          "z": 0.102
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_neck_L",
+        "name": "Tóc Trái - Dải tóc mai trước ngang cằm-cổ (Left Front Lock - Jaw & Neck)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.026,
+          "height": 0.18,
+          "depth": 0.038
+        },
+        "position": {
+          "x": -0.12,
+          "y": 4.12,
+          "z": 0.102
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_clavicle_R",
+        "name": "Tóc Phải - Dải tóc phủ qua xương đòn (Right Front Lock - Clavicle)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.2,
+          "depth": 0.03
+        },
+        "position": {
+          "x": 0.125,
+          "y": 3.93,
+          "z": 0.128
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_clavicle_L",
+        "name": "Tóc Trái - Dải tóc phủ qua xương đòn (Left Front Lock - Clavicle)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.024,
+          "height": 0.2,
+          "depth": 0.03
+        },
+        "position": {
+          "x": -0.125,
+          "y": 3.93,
+          "z": 0.128
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_pec_mid_R",
+        "name": "Tóc Phải - Dải tóc phủ trước cơ ngực (Right Front Lock - Pec Front)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.022,
+          "height": 0.24,
+          "depth": 0.022
+        },
+        "position": {
+          "x": 0.13,
+          "y": 3.72,
+          "z": 0.159
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_pec_mid_L",
+        "name": "Tóc Trái - Dải tóc phủ trước cơ ngực (Left Front Lock - Pec Front)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.022,
+          "height": 0.24,
+          "depth": 0.022
+        },
+        "position": {
+          "x": -0.13,
+          "y": 3.72,
+          "z": 0.159
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_nipple_pass_R",
+        "name": "Tóc Phải - Đuôi tóc buông qua đầu ngực (Right Front Lock - Past Nipple)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.02,
+          "height": 0.18,
+          "depth": 0.02
+        },
+        "position": {
+          "x": 0.132,
+          "y": 3.52,
+          "z": 0.156
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_nipple_pass_L",
+        "name": "Tóc Trái - Đuôi tóc buông qua đầu ngực (Left Front Lock - Past Nipple)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.02,
+          "height": 0.18,
+          "depth": 0.02
+        },
+        "position": {
+          "x": -0.132,
+          "y": 3.52,
+          "z": 0.156
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_tip_R",
+        "name": "Tóc Phải - Mũi vuốt đuôi tóc trước ngực (Right Front Lock Tip)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.016,
+          "height": 0.09,
+          "depth": 0.018
+        },
+        "position": {
+          "x": 0.132,
+          "y": 3.42,
+          "z": 0.148
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_front_lock_tip_L",
+        "name": "Tóc Trái - Mũi vuốt đuôi tóc trước ngực (Left Front Lock Tip)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.016,
+          "height": 0.09,
+          "depth": 0.018
+        },
+        "position": {
+          "x": -0.132,
+          "y": 3.42,
+          "z": 0.148
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_upper_R",
+        "name": "Tóc Phải - Thân tóc thái dương trên (Right Upper Temple Sheet)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.18,
+          "depth": 0.18
+        },
+        "position": {
+          "x": 0.142,
+          "y": 4.35,
+          "z": -0.03
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_upper_L",
+        "name": "Tóc Trái - Thân tóc thái dương trên (Left Upper Temple Sheet)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.038,
+          "height": 0.18,
+          "depth": 0.18
+        },
+        "position": {
+          "x": -0.142,
+          "y": 4.35,
+          "z": -0.03
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_mid_R",
+        "name": "Tóc Phải - Thân tóc ngang tai-cổ (Right Mid Lateral Sheet)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.2,
+          "depth": 0.16
+        },
+        "position": {
+          "x": 0.145,
+          "y": 4.17,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_mid_L",
+        "name": "Tóc Trái - Thân tóc ngang tai-cổ (Left Mid Lateral Sheet)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.036,
+          "height": 0.2,
+          "depth": 0.16
+        },
+        "position": {
+          "x": -0.145,
+          "y": 4.17,
+          "z": -0.04
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_shoulder_drape_R",
+        "name": "Tóc Phải - Tóc phủ sườn vai ngoài (Right Lateral Shoulder Drape)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.034,
+          "height": 0.22,
+          "depth": 0.14
+        },
+        "position": {
+          "x": 0.148,
+          "y": 3.97,
+          "z": -0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_shoulder_drape_L",
+        "name": "Tóc Trái - Tóc phủ sườn vai ngoài (Left Lateral Shoulder Drape)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.034,
+          "height": 0.22,
+          "depth": 0.14
+        },
+        "position": {
+          "x": -0.148,
+          "y": 3.97,
+          "z": -0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_lower_drape_R",
+        "name": "Tóc Phải - Tóc phủ sườn nách vai dưới (Right Lower Shoulder Drape)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.03,
+          "height": 0.22,
+          "depth": 0.12
+        },
+        "position": {
+          "x": 0.15,
+          "y": 3.75,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_side_lower_drape_L",
+        "name": "Tóc Trái - Tóc phủ sườn nách vai dưới (Left Lower Shoulder Drape)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.03,
+          "height": 0.22,
+          "depth": 0.12
+        },
+        "position": {
+          "x": -0.15,
+          "y": 3.75,
+          "z": -0.06
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_nape_upper",
+        "name": "Tóc Sau - Lớp tóc ôm sát sọ gáy trên (Upper Nape Hair Sheet - Sealed)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.22,
+          "depth": 0.045
+        },
+        "position": {
+          "x": 0,
+          "y": 4.35,
+          "z": -0.192
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_neck_mid",
+        "name": "Tóc Sau - Lớp tóc buông phủ sau cổ (Mid Neck Back Hair)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.27,
+          "height": 0.22,
+          "depth": 0.065
+        },
+        "position": {
+          "x": 0,
+          "y": 4.14,
+          "z": -0.225
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_trapezius",
+        "name": "Tóc Sau - Lớp tóc vắt trùm qua cơ thang & gai vai (Trapezius Over-Bridge Hair)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.32,
+          "height": 0.22,
+          "depth": 0.12
+        },
+        "position": {
+          "x": 0,
+          "y": 3.92,
+          "z": -0.295
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_upper_scapula",
+        "name": "Tóc Sau - Tóc xõa đè ngoài bả vai & lưng trên (Upper Back Scapula Outer Cape)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.36,
+          "height": 0.26,
+          "depth": 0.042
+        },
+        "position": {
+          "x": 0,
+          "y": 3.69,
+          "z": -0.352
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_mid_thoracic",
+        "name": "Tóc Sau - Tóc xõa ngoài lưng giữa (Mid Thoracic Outer Hair)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.34,
+          "height": 0.25,
+          "depth": 0.04
+        },
+        "position": {
+          "x": 0,
+          "y": 3.47,
+          "z": -0.34
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_lower_lat",
+        "name": "Tóc Sau - Tóc xõa ngoài lưng dưới (Lower Lat Outer Hair)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.31,
+          "height": 0.25,
+          "depth": 0.038
+        },
+        "position": {
+          "x": 0,
+          "y": 3.25,
+          "z": -0.365
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_waist_level",
+        "name": "Tóc Sau - Đuôi tóc buông ngoài ngang eo (Waist Level Hair Mantle)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.28,
+          "height": 0.23,
+          "depth": 0.036
+        },
+        "position": {
+          "x": 0,
+          "y": 3.04,
+          "z": -0.355
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_back_waist_tail",
+        "name": "Tóc Sau - Đuôi tóc dài chấm ngang thắt lưng eo (Waist Tail Finish)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.24,
+          "height": 0.16,
+          "depth": 0.032
+        },
+        "position": {
+          "x": 0,
+          "y": 2.88,
+          "z": -0.35
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_corner_fwd_R",
+        "name": "Tóc Phải - Bo góc chéo trán-thái dương (Right Front Corner Bevel)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.18,
+          "depth": 0.05
+        },
+        "position": {
+          "x": 0.122,
+          "y": 4.36,
+          "z": 0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_corner_fwd_L",
+        "name": "Tóc Trái - Bo góc chéo trán-thái dương (Left Front Corner Bevel)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.035,
+          "height": 0.18,
+          "depth": 0.05
+        },
+        "position": {
+          "x": -0.122,
+          "y": 4.36,
+          "z": 0.05
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_corner_rear_R",
+        "name": "Tóc Phải - Bo góc chéo sau sọ-gáy (Right Rear Corner Bevel)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.04,
+          "height": 0.3,
+          "depth": 0.065
+        },
+        "position": {
+          "x": 0.122,
+          "y": 4.34,
+          "z": -0.14
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      },
+      {
+        "id": "HR_corner_rear_L",
+        "name": "Tóc Trái - Bo góc chéo sau sọ-gáy (Left Rear Corner Bevel)",
+        "category": "hair",
+        "part": "Head, Face & Hair",
+        "dimensions": {
+          "width": 0.04,
+          "height": 0.3,
+          "depth": 0.065
+        },
+        "position": {
+          "x": -0.122,
+          "y": 4.34,
+          "z": -0.14
+        },
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "color": "#0c0c10",
+        "side": "center"
+      }
+    ]
+  }
+}
