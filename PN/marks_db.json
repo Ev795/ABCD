@@ -101,14 +101,13 @@
   "CL_skirt_side_R": {
     "name": "Hắc Bào - Tà áo hông phải thụng phồng (Right Lateral Robe Skirt)",
     "dimensions": [
-      0.072,
-      2.08,
+      0.076,
+      2.18,
       0.48
     ],
-    "status": "ok",
+    "status": "wrong_size",
     "note": "bề ngang tăng 5% , cao lên 10%",
-    "updatedAt": "2026-11-02T18:56:38.999Z",
-    "fix_resolution": "Đã tăng bề ngang thêm 5% (0.076m) và nâng cao lên 10% (pos Y 1.76m, chiều dài 2.18m) phủ trọn đai thắt lưng."
+    "updatedAt": "2026-11-03T17:35:21.333Z"
   },
   "CL_skirt_side_L": {
     "name": "Hắc Bào - Tà áo hông trái thụng phồng (Left Lateral Robe Skirt)",
