@@ -632,7 +632,7 @@
       <span>•</span>
       <span><b>A</b>/<b>D</b>: Trái / Phải</span>
       <span>•</span>
-      <span><b>Q</b>/<b>E</b>: Xuống / Lên</span>
+      <span><b>Space</b>/<b>Shift</b>: Lên / Xuống</span>
       <span>•</span>
       <span><b>M</b>: Chọn nhóm</span>
       <span>•</span>
@@ -748,7 +748,8 @@
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
-    controls.maxPolarAngle = Math.PI / 2 - 0.01; // Không lật camera xuống đáy đất
+    controls.maxPolarAngle = Math.PI - 0.05; // Cho phép quay ngước nhìn từ dưới lên
+    controls.minPolarAngle = 0.05;         // Cho phép quay nhìn từ trên đỉnh đầu xuống
     controls.minDistance = 0.6;
     controls.maxDistance = 32;
     controls.target.set(0, 2.30, 0.0);
@@ -4660,14 +4661,14 @@
         controls.target.addScaledVector(right, moveSpeed);
         moved = true;
       }
-      // E hoặc Space: Bay lên cao về phía đầu
-      if (keysPressed['e'] || keysPressed['keye']) {
+      // SPACE hoặc E: Bay lên cao
+      if (keysPressed[' '] || keysPressed['space'] || keysPressed['e'] || keysPressed['keye']) {
         camera.position.y += moveSpeed;
         controls.target.y += moveSpeed;
         moved = true;
       }
-      // Q hoặc Shift: Hạ thấp độ cao
-      if (keysPressed['q'] || keysPressed['keyq']) {
+      // SHIFT hoặc Q: Hạ thấp độ cao xuống chân
+      if (keysPressed['shift'] || keysPressed['shiftleft'] || keysPressed['shiftright'] || keysPressed['q'] || keysPressed['keyq']) {
         camera.position.y -= moveSpeed;
         controls.target.y -= moveSpeed;
         moved = true;
@@ -4794,6 +4795,7 @@
       }
 
       controls.update();
+      updateSkeletonVisuals();
       renderer.render(scene, camera);
     }
     animate();
@@ -4890,6 +4892,136 @@
     if (document.getElementById('count-toes')) document.getElementById('count-toes').innerText = toesCount + ' khối';
 
     // Hàm chuyển đổi màu sắc toàn bộ cơ thể theo Chế độ Rig View
+    
+    // ==============================================================
+    // VISUAL SKELETON: CÁC ĐIỂM NODE TRÒN & ĐƯỜNG XƯƠNG NỐI TRỰC QUAN
+    // ==============================================================
+    const rigVisualGroup = new THREE.Group();
+    rigVisualGroup.name = 'rigVisualSkeleton';
+    scene.add(rigVisualGroup);
+
+    // Tạo điểm cầu Node đánh dấu tâm xoay (Pivot)
+    function createJointMarker(name, radius, colorHex) {
+      const geo = new THREE.SphereGeometry(radius, 16, 16);
+      const mat = new THREE.MeshBasicMaterial({
+        color: colorHex,
+        depthTest: false,
+        transparent: true,
+        opacity: 0.95
+      });
+      const marker = new THREE.Mesh(geo, mat);
+      marker.renderOrder = 999;
+      marker.name = 'marker_' + name;
+      return marker;
+    }
+
+    // Tạo đường xương nối giữa 2 Node cha - con
+    function createBoneLine(colorHex = 0xffffff) {
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(6); // 2 điểm x,y,z
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.LineBasicMaterial({
+        color: colorHex,
+        linewidth: 3,
+        depthTest: false,
+        transparent: true,
+        opacity: 0.9
+      });
+      const line = new THREE.Line(geo, mat);
+      line.renderOrder = 998;
+      return line;
+    }
+
+    // Marker các điểm Node của Chân Phải & Trái
+    const markers = {
+      pelvis: createJointMarker('pelvis', 0.050, 0xffffff),
+      hipR:   createJointMarker('hipR',   0.045, 0x4f46e5),
+      kneeR:  createJointMarker('kneeR',  0.040, 0x0284c7),
+      ankleR: createJointMarker('ankleR', 0.035, 0x0d9488),
+      toesR:  createJointMarker('toesR',  0.030, 0xf59e0b),
+
+      hipL:   createJointMarker('hipL',   0.045, 0x4f46e5),
+      kneeL:  createJointMarker('kneeL',  0.040, 0x0284c7),
+      ankleL: createJointMarker('ankleL', 0.035, 0x0d9488),
+      toesL:  createJointMarker('toesL',  0.030, 0xf59e0b),
+    };
+
+    // Đường xương nối (Skeleton Bones)
+    const bones = {
+      pelvisToHipR: createBoneLine(0x818cf8),
+      hipToKneeR:   createBoneLine(0x38bdf8),
+      kneeToAnkleR: createBoneLine(0x2dd4bf),
+      ankleToToesR: createBoneLine(0xfbbf24),
+
+      pelvisToHipL: createBoneLine(0x818cf8),
+      hipToKneeL:   createBoneLine(0x38bdf8),
+      kneeToAnkleL: createBoneLine(0x2dd4bf),
+      ankleToToesL: createBoneLine(0xfbbf24),
+    };
+
+    Object.values(markers).forEach(m => rigVisualGroup.add(m));
+    Object.values(bones).forEach(b => rigVisualGroup.add(b));
+
+    // Mặc định ẩn Skeleton khi ở chế độ xem bình thường
+    rigVisualGroup.visible = false;
+
+    // Cập nhật vị trí đường xương nối giữa 2 Node
+    function updateBoneSegment(lineMesh, vStart, vEnd) {
+      const arr = lineMesh.geometry.attributes.position.array;
+      arr[0] = vStart.x; arr[1] = vStart.y; arr[2] = vStart.z;
+      arr[3] = vEnd.x;   arr[4] = vEnd.y;   arr[5] = vEnd.z;
+      lineMesh.geometry.attributes.position.needsUpdate = true;
+    }
+
+    const _vPelvis = new THREE.Vector3();
+    const _vHipR = new THREE.Vector3();
+    const _vKneeR = new THREE.Vector3();
+    const _vAnkleR = new THREE.Vector3();
+    const _vToesR = new THREE.Vector3();
+
+    const _vHipL = new THREE.Vector3();
+    const _vKneeL = new THREE.Vector3();
+    const _vAnkleL = new THREE.Vector3();
+    const _vToesL = new THREE.Vector3();
+
+    // Hàm cập nhật vị trí các Node Marker theo khung hình Animation
+    function updateSkeletonVisuals() {
+      if (!rigVisualGroup.visible) return;
+
+      // Lấy tọa độ thế giới (World Position) của từng khớp FK thực tế
+      pelvisRig.getWorldPosition(_vPelvis);
+      hipJointR.getWorldPosition(_vHipR);
+      kneeJointR.getWorldPosition(_vKneeR);
+      ankleJointR.getWorldPosition(_vAnkleR);
+      toesJointR.getWorldPosition(_vToesR);
+
+      hipJointL.getWorldPosition(_vHipL);
+      kneeJointL.getWorldPosition(_vKneeL);
+      ankleJointL.getWorldPosition(_vAnkleL);
+      toesJointL.getWorldPosition(_vToesL);
+
+      markers.pelvis.position.copy(_vPelvis);
+      markers.hipR.position.copy(_vHipR);
+      markers.kneeR.position.copy(_vKneeR);
+      markers.ankleR.position.copy(_vAnkleR);
+      markers.toesR.position.copy(_vToesR);
+
+      markers.hipL.position.copy(_vHipL);
+      markers.kneeL.position.copy(_vKneeL);
+      markers.ankleL.position.copy(_vAnkleL);
+      markers.toesL.position.copy(_vToesL);
+
+      updateBoneSegment(bones.pelvisToHipR, _vPelvis, _vHipR);
+      updateBoneSegment(bones.hipToKneeR,   _vHipR, _vKneeR);
+      updateBoneSegment(bones.kneeToAnkleR, _vKneeR, _vAnkleR);
+      updateBoneSegment(bones.ankleToToesR, _vAnkleR, _vToesR);
+
+      updateBoneSegment(bones.pelvisToHipL, _vPelvis, _vHipL);
+      updateBoneSegment(bones.hipToKneeL,   _vHipL, _vKneeL);
+      updateBoneSegment(bones.kneeToAnkleL, _vKneeL, _vAnkleL);
+      updateBoneSegment(bones.ankleToToesL, _vAnkleL, _vToesL);
+    }
+
     function updateRigViewColors() {
       clickableMeshes.forEach(mesh => {
         if (isRigViewMode) {
@@ -4920,6 +5052,7 @@
 
     btnToggleRigMode.addEventListener('click', () => {
       isRigViewMode = !isRigViewMode;
+      rigVisualGroup.visible = isRigViewMode;
       if (isRigViewMode) {
         btnToggleRigMode.className = 'mode-switch-btn active-rig';
         btnToggleRigMode.innerHTML = '<span>🦴 Đang bật: Chế độ Xem 4 Node Rig</span>';
