@@ -420,6 +420,105 @@
       border: 1px solid #e5e7eb;
       font-family: monospace;
     }
+
+    /* Rig Panel Mini & Sleek (Không che màn hình) */
+    #rig-panel {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.08);
+      width: 260px;
+      padding: 12px 14px;
+      z-index: 50;
+      font-size: 0.8rem;
+      transition: all 0.2s ease;
+    }
+    #rig-panel h2 {
+      margin: 0 0 8px 0;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mode-switch-btn {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      transition: all 0.2s;
+    }
+    .mode-switch-btn.active-rig {
+      background: #4f46e5;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+    }
+    .mode-switch-btn.normal-mode {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    .rig-legend {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 8px;
+    }
+    .rig-legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.73rem;
+    }
+    .color-pill {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 5px;
+      vertical-align: middle;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .rig-slider-group {
+      margin-top: 8px;
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 8px;
+    }
+    .rig-slider-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: 6px;
+    }
+    .rig-slider-item label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.73rem;
+      color: #374151;
+    }
+    .rig-slider-item input[type="range"] {
+      height: 4px;
+      margin: 2px 0;
+    }
+
   </style>
     <script src="assets/eye_data.js"></script>
   <script src="assets/sandal_data.js"></script>
@@ -441,65 +540,62 @@
   </div>
 
   
-  <!-- Bảng Chuyển Đổi Chế Độ & Kiểm Tra Rig 4 Node Đôi Chân -->
+  
+  <!-- Bảng Chuyển Đổi Chế Độ & Kiểm Tra Rig 4 Node Đôi Chân (Gọn Gàng & Phím N) -->
   <div id="rig-panel">
     <h2>
       <span>🦴 FK Rig Inspector</span>
-      <span class="badge" id="rig-status-badge" style="background:#e0e7ff; color:#3730a3;">4 Leg Nodes</span>
+      <span class="badge" id="rig-status-badge" style="background:#e0e7ff; color:#3730a3; font-size:0.68rem; padding:1px 5px;">Phím N</span>
     </h2>
 
     <button id="btn-toggle-rig-mode" class="mode-switch-btn normal-mode">
-      <span>🎨 Chế độ Hiện Tại: Màu Gốc & Mark</span>
+      <span>🎨 Xem 4 Node (Phím N)</span>
     </button>
 
     <div id="rig-legend-container" style="display: none;">
       <div class="rig-legend">
-        <div style="font-size:0.75rem; color:#6b7280; margin-bottom:4px;">Quy ước màu 4 Node Phân Cấp Đôi Chân:</div>
         <div class="rig-legend-item" style="background:#e0e7ff; color:#3730a3;">
-          <span><span class="color-pill" style="background:#4f46e5;"></span>1. Hip (Khớp Háng / Đùi)</span>
-          <span id="count-hip">20 khối</span>
+          <span><span class="color-pill" style="background:#4f46e5;"></span>1. Hip (Đùi)</span>
+          <span id="count-hip">20</span>
         </div>
         <div class="rig-legend-item" style="background:#dbeafe; color:#1d4ed8;">
-          <span><span class="color-pill" style="background:#0284c7;"></span>2. Knee (Khớp Gối / Cẳng chân)</span>
-          <span id="count-knee">30 khối</span>
+          <span><span class="color-pill" style="background:#0284c7;"></span>2. Knee (Gối/Cẳng)</span>
+          <span id="count-knee">30</span>
         </div>
         <div class="rig-legend-item" style="background:#ccfbf1; color:#0f766e;">
-          <span><span class="color-pill" style="background:#0d9488;"></span>3. Ankle (Cổ Chân / Bàn Chân)</span>
-          <span id="count-ankle">38 khối</span>
+          <span><span class="color-pill" style="background:#0d9488;"></span>3. Ankle (Cổ chân)</span>
+          <span id="count-ankle">38</span>
         </div>
         <div class="rig-legend-item" style="background:#fef3c7; color:#b45309;">
-          <span><span class="color-pill" style="background:#f59e0b;"></span>4. Toes (Ngón Chân & Xỏ Ngón)</span>
-          <span id="count-toes">32 khối</span>
-        </div>
-        <div class="rig-legend-item" style="background:#f3f4f6; color:#4b5563;">
-          <span><span class="color-pill" style="background:#9ca3af;"></span>Thân & Tay (Chưa gán Node)</span>
-          <span id="count-other">Khối xám</span>
+          <span><span class="color-pill" style="background:#f59e0b;"></span>4. Toes (Ngón chân)</span>
+          <span id="count-toes">32</span>
         </div>
       </div>
 
-      <!-- Test Góc Xoay 4 Node Thực Tế (Forward Kinematics) -->
+      <!-- Test Góc Xoay 4 Khớp Forward Kinematics (Chân Phải) -->
       <div class="rig-slider-group">
-        <div style="font-size:0.75rem; font-weight:bold; color:#111827; margin-bottom:6px;">🎮 Thử Nghiệm Xoay 4 Khớp (Chân Phải):</div>
+        <div style="font-size:0.72rem; font-weight:bold; color:#111827; margin-bottom:4px;">🎮 Xoay Khớp Chân Phải:</div>
         <div class="rig-slider-item">
           <label><span>Hip (Đùi):</span> <span id="val-hip">0°</span></label>
           <input type="range" id="slider-hip" min="-60" max="60" value="0" step="1">
         </div>
         <div class="rig-slider-item">
-          <label><span>Knee (Gối gập sau):</span> <span id="val-knee">0°</span></label>
-          <input type="range" id="slider-knee" min="0" max="100" value="0" step="1">
+          <label><span>Knee (Gối):</span> <span id="val-knee">0°</span></label>
+          <input type="range" id="slider-knee" min="0" max="110" value="0" step="1">
         </div>
         <div class="rig-slider-item">
           <label><span>Ankle (Cổ chân):</span> <span id="val-ankle">0°</span></label>
-          <input type="range" id="slider-ankle" min="-40" max="40" value="0" step="1">
+          <input type="range" id="slider-ankle" min="-45" max="45" value="0" step="1">
         </div>
         <div class="rig-slider-item">
-          <label><span>Toes (Uốn ngón chân):</span> <span id="val-toes">0°</span></label>
-          <input type="range" id="slider-toes" min="-30" max="30" value="0" step="1">
+          <label><span>Toes (Ngón):</span> <span id="val-toes">0°</span></label>
+          <input type="range" id="slider-toes" min="-35" max="35" value="0" step="1">
         </div>
-        <button id="btn-reset-rig-pose" style="width:100%; margin-top:4px; padding:5px; font-size:0.75rem; background:#f3f4f6; border:1px solid #d1d5db; border-radius:6px; cursor:pointer;">↺ Reset Tư Thế Chân</button>
+        <button id="btn-reset-rig-pose" style="width:100%; margin-top:3px; padding:3px; font-size:0.72rem; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;">↺ Đặt Lại Góc Xoay</button>
       </div>
     </div>
   </div>
+
 
   <!-- Animation Control Panel -->
   <div id="anim-panel">
@@ -4243,9 +4339,19 @@
     const groupCount = document.getElementById('group-count');
     const dimField = document.getElementById('dim-field');
 
+    let pointerDownPos = { x: 0, y: 0 };
+    window.addEventListener('pointerdown', (e) => {
+      pointerDownPos.x = e.clientX;
+      pointerDownPos.y = e.clientY;
+    });
+
     window.addEventListener('click', (e) => {
+      // Bỏ qua nếu là thao tác kéo xoay camera (di chuột quá 5px)
+      const distMoved = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
+      if (distMoved > 5) return;
+
       // Bỏ qua click trên các panel UI
-      if (e.target.closest('#ui-panel') || e.target.closest('#inspect-card') || e.target.closest('#tip-bar')) {
+      if (e.target.closest('#ui-panel') || e.target.closest('#rig-panel') || e.target.closest('#anim-panel') || e.target.closest('#camera-nav-panel') || e.target.closest('#inspect-card') || e.target.closest('#tip-bar')) {
         return;
       }
 
@@ -4555,13 +4661,13 @@
         moved = true;
       }
       // E hoặc Space: Bay lên cao về phía đầu
-      if (keysPressed['e'] || keysPressed['keye'] || keysPressed[' ']) {
+      if (keysPressed['e'] || keysPressed['keye']) {
         camera.position.y += moveSpeed;
         controls.target.y += moveSpeed;
         moved = true;
       }
       // Q hoặc Shift: Hạ thấp độ cao
-      if (keysPressed['q'] || keysPressed['keyq'] || keysPressed['shift']) {
+      if (keysPressed['q'] || keysPressed['keyq']) {
         camera.position.y -= moveSpeed;
         controls.target.y -= moveSpeed;
         moved = true;
@@ -4858,9 +4964,25 @@
       valAnkle.innerText = sliderAnkle.value + '°';
       valToes.innerText = sliderToes.value + '°';
 
-      // Xoay chân phải (legRigR)
-      legRigR.rotation.x = hipRad;
+      // Xoay chuẩn phân cấp 4 khớp Chân Phải:
+      // 1. Hip: xoay toàn bộ chân
+      hipJointR.rotation.x = hipRad;
+      // 2. Knee: gập cẳng chân về sau
+      kneeJointR.rotation.x = kneeRad;
+      // 3. Ankle: gập/duỗi bàn chân
+      ankleJointR.rotation.x = ankleRad;
+      // 4. Toes: uốn ngón chân
+      toesJointR.rotation.x = toesRad;
     }
+
+    // Phím tắt 'N' bật/tắt nhanh chế độ xem Node Rig
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        btnToggleRigMode.click();
+      }
+    });
 
     sliderHip.addEventListener('input', updateLegJointRotations);
     sliderKnee.addEventListener('input', updateLegJointRotations);
