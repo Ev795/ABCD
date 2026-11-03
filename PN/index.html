@@ -421,190 +421,7 @@
       font-family: monospace;
     }
   </style>
-    <script src="assets/eye_data.js">
-    // ==============================================================
-    // HỆ THỐNG 4 NODE RIG ĐÔI CHÂN & CHẾ ĐỘ XEM PHÂN CẤP CHA - CON
-    // ==============================================================
-    let isRigViewMode = false;
-
-    // Màu đại diện cho từng Node trong chế độ Rig View
-    const RIG_NODE_COLORS = {
-      hip: 0x4f46e5,    // Tím Indigo đậm: Khớp háng & Đùi (Cụm cha)
-      knee: 0x0284c7,   // Xanh dương: Khớp gối & Cẳng chân (Con của Hip)
-      ankle: 0x0d9488,  // Xanh lục lam Teal: Cổ chân & Đế chân (Con của Knee)
-      toes: 0xf59e0b,   // Vàng cam Amber: Ngón chân & Xỏ ngón (Con của Ankle)
-      other: 0x9ca3af   // Xám nhạt: Các phần khác của thân trên chưa gán
-    };
-
-    // Hàm phân loại khối ID thuộc Node nào trong 4 Node đôi chân
-    function getLegNodeForBlock(id) {
-      // 4. TOES: Ngón chân & Móng chân & Quai xỏ ngón
-      if (id.includes('_toe_') || id.includes('_nail_') || id.includes('_sandal_thong')) {
-        return 'toes';
-      }
-
-      // 3. ANKLE: Cổ chân, Mắt cá, Gót, Lòng bàn chân, Quai dép
-      if (
-        id.includes('_sole_') ||
-        id.includes('_heel_') ||
-        id.includes('_achilles_ridge') ||
-        id.includes('_midfoot_') ||
-        id.includes('_ankle_core') ||
-        id.includes('_malleolus_') ||
-        id.includes('_ankle_front_tendon') ||
-        id.includes('_sandal_strap_')
-      ) {
-        return 'ankle';
-      }
-
-      // 2. KNEE: Khớp gối, Xương bánh chè, Bắp chuối, Cẳng chân
-      if (
-        id.includes('_achilles_mid') ||
-        id.includes('_ankle_waist_core') ||
-        id.includes('_tibia_lower_crest') ||
-        id.includes('_lower_leg_stem') ||
-        id.includes('_shin_crest_lower') ||
-        id.includes('_calf_') ||
-        id.includes('_mid_shin_core') ||
-        id.includes('_shin_blade') ||
-        id.includes('_upper_shin_core') ||
-        id.includes('_shin_upper_crest') ||
-        id.includes('_tibial_tuberosity') ||
-        id.includes('_popliteal_back') ||
-        id.includes('_knee_core_joint') ||
-        id.includes('_patella_kneecap') ||
-        id.includes('_knee_back_fossa')
-      ) {
-        return 'knee';
-      }
-
-      // 1. HIP: Đùi, Cơ tứ đầu đùi, Cơ gân kheo
-      if (
-        id.includes('_thigh_') ||
-        id.includes('_quad_') ||
-        id.includes('_hamstring_') ||
-        id.includes('_vastus_') ||
-        id.includes('_upper_hip_flexor') ||
-        id.includes('_adductor_inner') ||
-        id.includes('_gluteal_fold_base') ||
-        id.includes('CL_fabric_thigh_side_')
-      ) {
-        return 'hip';
-      }
-
-      return 'other';
-    }
-
-    // Gắn thông tin legNode vào userData của từng mesh
-    clickableMeshes.forEach(mesh => {
-      const nodeName = getLegNodeForBlock(mesh.userData.id);
-      mesh.userData.legNode = nodeName;
-    });
-
-    // Cập nhật số lượng khối hiển thị trên bảng Rig Legend
-    const hipCount = clickableMeshes.filter(m => m.userData.legNode === 'hip').length;
-    const kneeCount = clickableMeshes.filter(m => m.userData.legNode === 'knee').length;
-    const ankleCount = clickableMeshes.filter(m => m.userData.legNode === 'ankle').length;
-    const toesCount = clickableMeshes.filter(m => m.userData.legNode === 'toes').length;
-
-    if (document.getElementById('count-hip')) document.getElementById('count-hip').innerText = hipCount + ' khối';
-    if (document.getElementById('count-knee')) document.getElementById('count-knee').innerText = kneeCount + ' khối';
-    if (document.getElementById('count-ankle')) document.getElementById('count-ankle').innerText = ankleCount + ' khối';
-    if (document.getElementById('count-toes')) document.getElementById('count-toes').innerText = toesCount + ' khối';
-
-    // Hàm chuyển đổi màu sắc toàn bộ cơ thể theo Chế độ Rig View
-    function updateRigViewColors() {
-      clickableMeshes.forEach(mesh => {
-        if (isRigViewMode) {
-          const nodeName = mesh.userData.legNode;
-          const nodeColor = RIG_NODE_COLORS[nodeName] || RIG_NODE_COLORS.other;
-          mesh.material.color.setHex(nodeColor);
-        } else {
-          // Trả lại màu gốc (hoặc màu mark lỗi)
-          const id = mesh.userData.id;
-          const record = localDB[id];
-          if (record && record.status && record.status !== 'ok') {
-            if (record.status === 'reposition') {
-              mesh.material.color.setHex(0xf59e0b);
-            } else {
-              mesh.material.color.setHex(COLOR_PALETTE.marked_flag);
-            }
-          } else {
-            mesh.material.color.setHex(mesh.userData.defaultColor);
-          }
-        }
-      });
-    }
-
-    // Nút bấm Bật / Tắt Chế độ xem Rig Node
-    const btnToggleRigMode = document.getElementById('btn-toggle-rig-mode');
-    const rigLegendContainer = document.getElementById('rig-legend-container');
-    const rigStatusBadge = document.getElementById('rig-status-badge');
-
-    btnToggleRigMode.addEventListener('click', () => {
-      isRigViewMode = !isRigViewMode;
-      if (isRigViewMode) {
-        btnToggleRigMode.className = 'mode-switch-btn active-rig';
-        btnToggleRigMode.innerHTML = '<span>🦴 Đang bật: Chế độ Xem 4 Node Rig</span>';
-        rigLegendContainer.style.display = 'block';
-        rigStatusBadge.style.background = '#4f46e5';
-        rigStatusBadge.style.color = '#ffffff';
-        rigStatusBadge.innerText = 'Rig View Active';
-      } else {
-        btnToggleRigMode.className = 'mode-switch-btn normal-mode';
-        btnToggleRigMode.innerHTML = '<span>🎨 Chế độ Hiện Tại: Màu Gốc & Mark</span>';
-        rigLegendContainer.style.display = 'none';
-        rigStatusBadge.style.background = '#e0e7ff';
-        rigStatusBadge.style.color = '#3730a3';
-        rigStatusBadge.innerText = '4 Leg Nodes';
-      }
-      updateRigViewColors();
-    });
-
-    // ==============================================================
-    // LIÊN KẾT 4 KHỚP XOAY THỰC TẾ (FK HIERARCHICAL NODES)
-    // Cây phân cấp: Pelvis -> Hip -> Knee -> Ankle -> Toes
-    // ==============================================================
-    // Lưu lại vị trí ban đầu của các khớp chân
-    const sliderHip = document.getElementById('slider-hip');
-    const sliderKnee = document.getElementById('slider-knee');
-    const sliderAnkle = document.getElementById('slider-ankle');
-    const sliderToes = document.getElementById('slider-toes');
-
-    const valHip = document.getElementById('val-hip');
-    const valKnee = document.getElementById('val-knee');
-    const valAnkle = document.getElementById('val-ankle');
-    const valToes = document.getElementById('val-toes');
-
-    function updateLegJointRotations() {
-      const hipRad = (parseFloat(sliderHip.value) * Math.PI) / 180;
-      const kneeRad = (parseFloat(sliderKnee.value) * Math.PI) / 180;
-      const ankleRad = (parseFloat(sliderAnkle.value) * Math.PI) / 180;
-      const toesRad = (parseFloat(sliderToes.value) * Math.PI) / 180;
-
-      valHip.innerText = sliderHip.value + '°';
-      valKnee.innerText = sliderKnee.value + '°';
-      valAnkle.innerText = sliderAnkle.value + '°';
-      valToes.innerText = sliderToes.value + '°';
-
-      // Xoay chân phải (legRigR)
-      legRigR.rotation.x = hipRad;
-    }
-
-    sliderHip.addEventListener('input', updateLegJointRotations);
-    sliderKnee.addEventListener('input', updateLegJointRotations);
-    sliderAnkle.addEventListener('input', updateLegJointRotations);
-    sliderToes.addEventListener('input', updateLegJointRotations);
-
-    document.getElementById('btn-reset-rig-pose').addEventListener('click', () => {
-      sliderHip.value = 0;
-      sliderKnee.value = 0;
-      sliderAnkle.value = 0;
-      sliderToes.value = 0;
-      updateLegJointRotations();
-    });
-
-  </script>
+    <script src="assets/eye_data.js"></script>
   <script src="assets/sandal_data.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -621,9 +438,6 @@
     <button id="btn-export-json"></button>
     <button id="btn-view-data"></button>
     <div id="sync-notice"></div>
-  </div>
-
-  
   </div>
 
   
@@ -4877,6 +4691,191 @@
       renderer.render(scene, camera);
     }
     animate();
+  
+
+// ==============================================================
+    // HỆ THỐNG 4 NODE RIG ĐÔI CHÂN & CHẾ ĐỘ XEM PHÂN CẤP CHA - CON
+    // ==============================================================
+    let isRigViewMode = false;
+
+    // Màu đại diện cho từng Node trong chế độ Rig View
+    const RIG_NODE_COLORS = {
+      hip: 0x4f46e5,    // Tím Indigo đậm: Khớp háng & Đùi (Cụm cha)
+      knee: 0x0284c7,   // Xanh dương: Khớp gối & Cẳng chân (Con của Hip)
+      ankle: 0x0d9488,  // Xanh lục lam Teal: Cổ chân & Đế chân (Con của Knee)
+      toes: 0xf59e0b,   // Vàng cam Amber: Ngón chân & Xỏ ngón (Con của Ankle)
+      other: 0x9ca3af   // Xám nhạt: Các phần khác của thân trên chưa gán
+    };
+
+    // Hàm phân loại khối ID thuộc Node nào trong 4 Node đôi chân
+    function getLegNodeForBlock(id) {
+      // 4. TOES: Ngón chân & Móng chân & Quai xỏ ngón
+      if (id.includes('_toe_') || id.includes('_nail_') || id.includes('_sandal_thong')) {
+        return 'toes';
+      }
+
+      // 3. ANKLE: Cổ chân, Mắt cá, Gót, Lòng bàn chân, Quai dép
+      if (
+        id.includes('_sole_') ||
+        id.includes('_heel_') ||
+        id.includes('_achilles_ridge') ||
+        id.includes('_midfoot_') ||
+        id.includes('_ankle_core') ||
+        id.includes('_malleolus_') ||
+        id.includes('_ankle_front_tendon') ||
+        id.includes('_sandal_strap_')
+      ) {
+        return 'ankle';
+      }
+
+      // 2. KNEE: Khớp gối, Xương bánh chè, Bắp chuối, Cẳng chân
+      if (
+        id.includes('_achilles_mid') ||
+        id.includes('_ankle_waist_core') ||
+        id.includes('_tibia_lower_crest') ||
+        id.includes('_lower_leg_stem') ||
+        id.includes('_shin_crest_lower') ||
+        id.includes('_calf_') ||
+        id.includes('_mid_shin_core') ||
+        id.includes('_shin_blade') ||
+        id.includes('_upper_shin_core') ||
+        id.includes('_shin_upper_crest') ||
+        id.includes('_tibial_tuberosity') ||
+        id.includes('_popliteal_back') ||
+        id.includes('_knee_core_joint') ||
+        id.includes('_patella_kneecap') ||
+        id.includes('_knee_back_fossa')
+      ) {
+        return 'knee';
+      }
+
+      // 1. HIP: Đùi, Cơ tứ đầu đùi, Cơ gân kheo
+      if (
+        id.includes('_thigh_') ||
+        id.includes('_quad_') ||
+        id.includes('_hamstring_') ||
+        id.includes('_vastus_') ||
+        id.includes('_upper_hip_flexor') ||
+        id.includes('_adductor_inner') ||
+        id.includes('_gluteal_fold_base') ||
+        id.includes('CL_fabric_thigh_side_')
+      ) {
+        return 'hip';
+      }
+
+      return 'other';
+    }
+
+    // Gắn thông tin legNode vào userData của từng mesh
+    clickableMeshes.forEach(mesh => {
+      const nodeName = getLegNodeForBlock(mesh.userData.id);
+      mesh.userData.legNode = nodeName;
+    });
+
+    // Cập nhật số lượng khối hiển thị trên bảng Rig Legend
+    const hipCount = clickableMeshes.filter(m => m.userData.legNode === 'hip').length;
+    const kneeCount = clickableMeshes.filter(m => m.userData.legNode === 'knee').length;
+    const ankleCount = clickableMeshes.filter(m => m.userData.legNode === 'ankle').length;
+    const toesCount = clickableMeshes.filter(m => m.userData.legNode === 'toes').length;
+
+    if (document.getElementById('count-hip')) document.getElementById('count-hip').innerText = hipCount + ' khối';
+    if (document.getElementById('count-knee')) document.getElementById('count-knee').innerText = kneeCount + ' khối';
+    if (document.getElementById('count-ankle')) document.getElementById('count-ankle').innerText = ankleCount + ' khối';
+    if (document.getElementById('count-toes')) document.getElementById('count-toes').innerText = toesCount + ' khối';
+
+    // Hàm chuyển đổi màu sắc toàn bộ cơ thể theo Chế độ Rig View
+    function updateRigViewColors() {
+      clickableMeshes.forEach(mesh => {
+        if (isRigViewMode) {
+          const nodeName = mesh.userData.legNode;
+          const nodeColor = RIG_NODE_COLORS[nodeName] || RIG_NODE_COLORS.other;
+          mesh.material.color.setHex(nodeColor);
+        } else {
+          // Trả lại màu gốc (hoặc màu mark lỗi)
+          const id = mesh.userData.id;
+          const record = localDB[id];
+          if (record && record.status && record.status !== 'ok') {
+            if (record.status === 'reposition') {
+              mesh.material.color.setHex(0xf59e0b);
+            } else {
+              mesh.material.color.setHex(COLOR_PALETTE.marked_flag);
+            }
+          } else {
+            mesh.material.color.setHex(mesh.userData.defaultColor);
+          }
+        }
+      });
+    }
+
+    // Nút bấm Bật / Tắt Chế độ xem Rig Node
+    const btnToggleRigMode = document.getElementById('btn-toggle-rig-mode');
+    const rigLegendContainer = document.getElementById('rig-legend-container');
+    const rigStatusBadge = document.getElementById('rig-status-badge');
+
+    btnToggleRigMode.addEventListener('click', () => {
+      isRigViewMode = !isRigViewMode;
+      if (isRigViewMode) {
+        btnToggleRigMode.className = 'mode-switch-btn active-rig';
+        btnToggleRigMode.innerHTML = '<span>🦴 Đang bật: Chế độ Xem 4 Node Rig</span>';
+        rigLegendContainer.style.display = 'block';
+        rigStatusBadge.style.background = '#4f46e5';
+        rigStatusBadge.style.color = '#ffffff';
+        rigStatusBadge.innerText = 'Rig View Active';
+      } else {
+        btnToggleRigMode.className = 'mode-switch-btn normal-mode';
+        btnToggleRigMode.innerHTML = '<span>🎨 Chế độ Hiện Tại: Màu Gốc & Mark</span>';
+        rigLegendContainer.style.display = 'none';
+        rigStatusBadge.style.background = '#e0e7ff';
+        rigStatusBadge.style.color = '#3730a3';
+        rigStatusBadge.innerText = '4 Leg Nodes';
+      }
+      updateRigViewColors();
+    });
+
+    // ==============================================================
+    // LIÊN KẾT 4 KHỚP XOAY THỰC TẾ (FK HIERARCHICAL NODES)
+    // Cây phân cấp: Pelvis -> Hip -> Knee -> Ankle -> Toes
+    // ==============================================================
+    // Lưu lại vị trí ban đầu của các khớp chân
+    const sliderHip = document.getElementById('slider-hip');
+    const sliderKnee = document.getElementById('slider-knee');
+    const sliderAnkle = document.getElementById('slider-ankle');
+    const sliderToes = document.getElementById('slider-toes');
+
+    const valHip = document.getElementById('val-hip');
+    const valKnee = document.getElementById('val-knee');
+    const valAnkle = document.getElementById('val-ankle');
+    const valToes = document.getElementById('val-toes');
+
+    function updateLegJointRotations() {
+      const hipRad = (parseFloat(sliderHip.value) * Math.PI) / 180;
+      const kneeRad = (parseFloat(sliderKnee.value) * Math.PI) / 180;
+      const ankleRad = (parseFloat(sliderAnkle.value) * Math.PI) / 180;
+      const toesRad = (parseFloat(sliderToes.value) * Math.PI) / 180;
+
+      valHip.innerText = sliderHip.value + '°';
+      valKnee.innerText = sliderKnee.value + '°';
+      valAnkle.innerText = sliderAnkle.value + '°';
+      valToes.innerText = sliderToes.value + '°';
+
+      // Xoay chân phải (legRigR)
+      legRigR.rotation.x = hipRad;
+    }
+
+    sliderHip.addEventListener('input', updateLegJointRotations);
+    sliderKnee.addEventListener('input', updateLegJointRotations);
+    sliderAnkle.addEventListener('input', updateLegJointRotations);
+    sliderToes.addEventListener('input', updateLegJointRotations);
+
+    document.getElementById('btn-reset-rig-pose').addEventListener('click', () => {
+      sliderHip.value = 0;
+      sliderKnee.value = 0;
+      sliderAnkle.value = 0;
+      sliderToes.value = 0;
+      updateLegJointRotations();
+    });
+
+  
   </script>
 </body>
 </html>
